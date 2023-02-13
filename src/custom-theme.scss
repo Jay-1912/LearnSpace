@@ -1,0 +1,86 @@
+
+/*Custom Theming for Angular Material 
+For more information: https://material.angular.io/guide/theming */
+@use '@angular/material' as mat;
+/*Plus imports for other components in your app.
+
+/*Include the common styles for Angular Material. We include this here so that you only
+/*have to load a single css file for Angular Material in your app.
+/*Be sure that you only ever include this mixin once!*/
+@include mat.core();
+
+$primary-palette:(
+  50: #6ffcb1,
+  100: #4fdf97,
+  200: #28c37d,
+  300: #008954,
+  400: #006d42,
+  500: #005f39,
+  600: #005230,
+  700: #004528,
+  800: #003920,
+  900: #002111,
+  contrast:(
+    50: #6ffcb1,
+    100: #4fdf97,
+    200: #28c37d,
+    300: #008954,
+    400: #006d42,
+    500: #005f39,
+    600: #005230,
+    700: #004528,
+    800: #003920,
+    900: #002111,
+  )
+);
+
+$secondary-palette:(
+  50: #d2e4ff,
+  100: #a0c9ff,
+  200: #71aff7,
+  300: #5494db,
+  400: #367abf,
+  500: #0d61a4,
+  600: #005493,
+  700: #00497f,
+  800: #003d6c,
+  900: #00325a,
+  contrast:(
+    50: #d2e4ff,
+  100: #a0c9ff,
+  200: #71aff7,
+  300: #5494db,
+  400: #367abf,
+  500: #0d61a4,
+  600: #005493,
+  700: #00497f,
+  800: #003d6c,
+  900: #00325a
+  )
+);
+
+
+
+/*Define the palettes for your theme using the Material Design palettes available in palette.scss
+/*(imported above). For each palette, you can optionally specify a default, lighter, and darker
+/*hue. Available color palettes: https://material.io/design/color/ */
+$LearnSpace-primary: mat.define-palette($primary-palette, 400);
+$LearnSpace-accent: mat.define-palette($secondary-palette, 50);
+
+/*The warn palette is optional (defaults to red). */
+$LearnSpace-warn: mat.define-palette(mat.$red-palette);
+
+/*Create the theme object. A theme consists of configurations for individual
+/*theming systems such as "color" or "typography".*/
+$LearnSpace-theme: mat.define-light-theme((
+  color: (
+    primary: $LearnSpace-primary,
+    accent: $LearnSpace-accent,
+    warn: $LearnSpace-warn,
+  ),
+));
+
+/*Include theme styles for core and each component used in your app.
+/*Alternatively, you can import and @include the theme mixins for each component
+/*that you are using. */
+@include mat.all-component-themes($LearnSpace-theme);

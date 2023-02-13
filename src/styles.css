@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Quicksand';
+    src: url('assets/Quicksand/Quicksand-VariableFont_wght.ttf');
+}
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: 'Quicksand', "Helvetica Neue", sans-serif; 
+    background-color: #EBF6F5;
+}
+
+
