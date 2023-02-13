@@ -1,0 +1,79 @@
+.mobile-navbar{
+    display: none;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.brand-name{
+    color: #FFFFFF;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.icon{
+    background-color: none;
+    color: #FFFFFF;
+}
+
+.overlay {
+    height: 100%;
+    width: 75%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(42, 50, 44, 0.5);
+    overflow-x: hidden;
+    transition: 0.5s ease-in-out;
+}
+  
+.overlay-content {
+    position: relative;
+    top: 10%;
+    width: 100%;
+}
+
+.overlay-content .nav-item{
+    display: block;
+    margin-bottom: 32px;
+}
+
+.hamburger-icon{
+    transition: 0.5s ease-in-out;
+}
+
+.nav li{
+    display: inline;
+    margin-right: 32px;
+}
+
+.nav-item{
+    position: relative;
+}
+
+.nav-item .nav-link{
+    color: #FFFFFF;
+}
+
+.active::before{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 2px;
+    bottom: -20px;
+    background-color: #FFFFFF;
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-navbar {
+        display: block;
+        transition: 0.3s ease-in;
+    }
+
+    .web-navbar{
+        display: none;
+        transition: 0.3s ease-in;
+    }
+}

@@ -1,0 +1,16 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
+})
+
+export class HeaderComponent {
+  navBarOpen: Boolean = false;
+  
+  handleNavBar(){
+    this.navBarOpen = !this.navBarOpen;
+    console.log(this.navBarOpen);
+  }
+}
