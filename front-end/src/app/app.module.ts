@@ -10,15 +10,13 @@ import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { OrgHomeComponent } from './org-home/org-home.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    OrgHomeComponent
-  ],
+  declarations: [AppComponent, HeaderComponent, OrgHomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,9 +24,10 @@ import { OrgHomeComponent } from './org-home/org-home.component';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
