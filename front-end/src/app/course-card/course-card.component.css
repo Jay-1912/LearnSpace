@@ -1,0 +1,20 @@
+.instructor-name{
+    font-weight: 600;
+    font-style: italic;
+}
+
+.progress-text{
+    font-size: 12px;
+    font-weight: 600;
+}
+
+@media screen and (min-width: 480px) {
+    .course-content{
+        display: flex;
+        gap: 16px;
+    }
+
+    .img-container .img{
+        width: 250px;
+    }
+}

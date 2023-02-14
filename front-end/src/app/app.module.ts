@@ -4,20 +4,30 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
-import { HeaderComponent } from './header/header.component';
+import { CoreModule } from './core/core.module';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule} from '@angular/material/list';
-import { OrgHomeComponent } from './org-home/org-home.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
+import { HeaderComponent } from './header/header.component';
+import { DashboardComponent } from './student/dashboard/dashboard.component';
+import { CourseCarouselComponent } from './student/course-carousel/course-carousel.component';
+import { CourseCardComponent } from './course-card/course-card.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    OrgHomeComponent
+    DashboardComponent,
+    CourseCarouselComponent,
+    CourseCardComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +36,11 @@ import { OrgHomeComponent } from './org-home/org-home.component';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatCardModule,
+    MatProgressBarModule,
+    CoreModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

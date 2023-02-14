@@ -8,8 +8,9 @@ html, body { height: 100%; }
 body { 
     margin: 0; 
     font-family: 'Quicksand', "Helvetica Neue", sans-serif; 
-    background-color: #EBF6F5;
+    background-color: #FBFDF8;
     font-size: 1rem;
+    color: #1C1B1F;
 }
 
 a{
@@ -18,4 +19,54 @@ a{
 
 .main-container{
     padding: 16px;
+}
+
+.heading-1{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.heading-2{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.img{
+    width: 100%;
+    object-fit: cover;
+}
+
+p{
+    margin: 0;
+}
+
+.margin-top-10{
+    margin-top: 10px;
+}
+
+.margin-top-16{
+    margin-top: 16px;
+}
+
+button{
+    outline: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.accent-button{
+    font-weight: 600;
+    background-color: #FBFDF8;
+    border: 1px solid #006d42;
+    border-radius: 30px;
+    padding: 10px 14px;
+    transition: 0.3s ease-in;
+    color: #006d42
+}
+
+.accent-button:hover{
+    background-color: #006d42;
+    border: none;
+    color: #FFFFFF
 }

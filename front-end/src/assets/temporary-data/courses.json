@@ -1,0 +1,26 @@
+[
+    {
+        "id":1,
+        "title": "Learn Bootstrap for free",
+        "instructor": "John Adam",
+        "progress": 40
+    },
+    {
+        "id":2,
+        "title": "Learn CSS Grid for free",
+        "instructor": "Mark Buschgen",
+        "progress": 90
+    },
+    {
+        "id":3,
+        "title": "Build your first app in Angular",
+        "instructor": "Bil Smith",
+        "progress": 50
+    },
+    {
+        "id":4,
+        "title": "Introduction to ES6",
+        "instructor": "David Wade",
+        "progress": 10
+    }
+]

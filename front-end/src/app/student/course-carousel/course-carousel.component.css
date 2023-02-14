@@ -1,0 +1,32 @@
+.course-carousel{
+    position: relative;
+}
+
+.course-item{
+   display: none;
+}
+
+.course-item:nth-child(1){
+    display: block;
+}
+
+.carousel-buttons{
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-buttons button{
+    margin-left: 8px;
+    margin-right: 8px;
+    user-select: none;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+  
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
