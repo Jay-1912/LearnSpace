@@ -43,6 +43,6 @@ import { CourseCardComponent } from './course-card/course-card.component';
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
