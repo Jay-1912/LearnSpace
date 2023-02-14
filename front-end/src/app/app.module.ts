@@ -11,11 +11,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule} from '@angular/material/list';
+import { OrgHomeComponent } from './org-home/org-home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    OrgHomeComponent
   ],
   imports: [
     BrowserModule,
