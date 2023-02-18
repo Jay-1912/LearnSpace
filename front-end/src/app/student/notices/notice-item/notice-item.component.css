@@ -1,0 +1,30 @@
+.notice-item{
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.notice-date{
+    padding: 4px 10px;
+    background-color: #0c1f14;
+    color: #FFFFFF;
+    text-align: right;
+}
+
+.notice{
+    padding: 2px 10px;
+}
+
+@media screen and (min-width: 480px) {
+    .notice-date{
+        border: none;
+        text-align: left;
+    }    
+
+    .notice-item{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+}

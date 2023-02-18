@@ -19,6 +19,8 @@ import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './student/dashboard/dashboard.component';
 import { CourseCarouselComponent } from './student/course-carousel/course-carousel.component';
 import { CourseCardComponent } from './course-card/course-card.component';
+import { NoticesComponent } from './student/notices/notices.component';
+import { NoticeItemComponent } from './student/notices/notice-item/notice-item.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { CourseCardComponent } from './course-card/course-card.component';
     HeaderComponent,
     DashboardComponent,
     CourseCarouselComponent,
-    CourseCardComponent
+    CourseCardComponent,
+    NoticesComponent,
+    NoticeItemComponent
   ],
   imports: [
     BrowserModule,

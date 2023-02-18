@@ -4,3 +4,9 @@ export interface ICourse{
     instructor: string,
     progress: number
 }
+
+export interface INotice{
+    id: number,
+    title: string,
+    date: string
+}
