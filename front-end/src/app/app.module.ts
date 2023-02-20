@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule} from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatBadgeModule} from '@angular/material/badge';
 
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './student/dashboard/dashboard.component';
@@ -44,7 +45,8 @@ import { NoticeItemComponent } from './student/notices/notice-item/notice-item.c
     MatCardModule,
     MatProgressBarModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

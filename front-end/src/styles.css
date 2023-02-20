@@ -9,7 +9,7 @@ body {
     margin: 0; 
     font-family: 'Quicksand', "Helvetica Neue", sans-serif; 
     background-color: #FBFDF8;
-    font-size: 1rem;
+    /* font-size: 1rem; */
     color: #1C1B1F;
 }
 
@@ -69,4 +69,8 @@ button{
     background-color: #006d42;
     border: none;
     color: #FFFFFF
+}
+
+.mat-badge-content{
+    color: #FFFFFF !important;
 }
