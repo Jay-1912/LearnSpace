@@ -1,0 +1,13 @@
+.notification-item{
+    background-color: #0c1f14;
+    color: #FFFFFF;
+    padding: 12px;
+    margin-top: 12px;
+    font-weight: 600;
+    border-radius:  4px;
+}
+
+.notification-item .notification-time{
+    text-align: right;
+    font-size: 12px;
+}

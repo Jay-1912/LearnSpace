@@ -1,0 +1,29 @@
+.notification-overlay{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    right: 0;
+    background-color: #d1e8d6;
+    overflow-x: hidden;
+    overflow-y: scroll ;
+    transition: 0.5s ease-in-out;
+}
+
+.notification-item-wrapper{
+    padding: 0 12px;
+}
+
+@media screen and (min-width: 425px) {
+    .notification-overlay{
+        top: 56px;
+        width: 75%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .notification-overlay{
+        top: 65px;
+        width: 25%;
+    }
+}

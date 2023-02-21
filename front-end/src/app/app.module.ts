@@ -22,6 +22,8 @@ import { CourseCarouselComponent } from './student/course-carousel/course-carous
 import { CourseCardComponent } from './course-card/course-card.component';
 import { NoticesComponent } from './student/notices/notices.component';
 import { NoticeItemComponent } from './student/notices/notice-item/notice-item.component';
+import { NotificationComponent } from './notification/notification.component';
+import { NotificationItemComponent } from './notification/notification-item/notification-item.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { NoticeItemComponent } from './student/notices/notice-item/notice-item.c
     CourseCarouselComponent,
     CourseCardComponent,
     NoticesComponent,
-    NoticeItemComponent
+    NoticeItemComponent,
+    NotificationComponent,
+    NotificationItemComponent
   ],
   imports: [
     BrowserModule,

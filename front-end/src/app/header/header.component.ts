@@ -7,9 +7,13 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   navBarOpen: Boolean = false;
+  notificationOverlayOpen: Boolean = false;
 
   handleNavBar() {
     this.navBarOpen = !this.navBarOpen;
-    console.log(this.navBarOpen);
+  }
+
+  handleNotificationOverlay(){
+    this.notificationOverlayOpen = !this.notificationOverlayOpen;
   }
 }

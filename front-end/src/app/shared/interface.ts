@@ -10,3 +10,9 @@ export interface INotice{
     title: string,
     date: string
 }
+
+export interface INotification{
+    id: number, 
+    title: string,
+    time: string
+}
