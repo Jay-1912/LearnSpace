@@ -1,3 +1,4 @@
+
 .instructor-name{
     font-weight: 600;
     font-style: italic;
@@ -8,13 +9,14 @@
     font-weight: 600;
 }
 
+.card-content{
+    width: 100% ;
+    position: relative;
+}
+
 button{
     display: block;
     margin: 12px auto 0 auto;
-}
-
-.card-content{
-    width: 100% ;
 }
 
 .img-container .img{
@@ -29,5 +31,12 @@ button{
 
     .img-container .img{
         width: 250px;
+    }
+
+    button{
+        position: absolute;
+        bottom: 15px;
+        width:100%;
+        left:0;
     }
 }

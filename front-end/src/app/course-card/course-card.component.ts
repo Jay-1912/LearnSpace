@@ -8,6 +8,7 @@ import { ICourse } from '../shared/interface';
 })
 export class CourseCardComponent implements OnInit {
   @Input() course!:object;
+  @Input() enroll!:Boolean;
   
   title:string = "";
   instructor:string = "";
