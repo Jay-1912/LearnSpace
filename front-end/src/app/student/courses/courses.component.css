@@ -1,0 +1,12 @@
+.offered-courses{
+    background-color: #EEF6EE;
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid #005230;
+}
+
+@media screen and (max-width:480px){
+    .courses-component-wrapper{
+        display: block;
+    }
+}

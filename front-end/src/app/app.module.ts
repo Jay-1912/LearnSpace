@@ -24,6 +24,8 @@ import { NoticesComponent } from './notices/notices.component';
 import { NoticeItemComponent } from './notices/notice-item/notice-item.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationItemComponent } from './notification/notification-item/notification-item.component';
+import { CoursesComponent } from './student/courses/courses.component';
+import { CourseGridComponent } from './course-grid/course-grid.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { NotificationItemComponent } from './notification/notification-item/noti
     NoticesComponent,
     NoticeItemComponent,
     NotificationComponent,
-    NotificationItemComponent
+    NotificationItemComponent,
+    CoursesComponent,
+    CourseGridComponent
   ],
   imports: [
     BrowserModule,
