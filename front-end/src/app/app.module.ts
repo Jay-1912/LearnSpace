@@ -18,10 +18,10 @@ import {MatBadgeModule} from '@angular/material/badge';
 
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './student/dashboard/dashboard.component';
-import { CourseCarouselComponent } from './student/course-carousel/course-carousel.component';
+import { CourseCarouselComponent } from './course-carousel/course-carousel.component';
 import { CourseCardComponent } from './course-card/course-card.component';
-import { NoticesComponent } from './student/notices/notices.component';
-import { NoticeItemComponent } from './student/notices/notice-item/notice-item.component';
+import { NoticesComponent } from './notices/notices.component';
+import { NoticeItemComponent } from './notices/notice-item/notice-item.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationItemComponent } from './notification/notification-item/notification-item.component';
 
