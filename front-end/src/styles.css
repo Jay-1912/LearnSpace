@@ -55,20 +55,37 @@ button{
     cursor: pointer;
 }
 
+.primary-button{
+    font-family: 'Quicksand';
+    font-weight: 600;
+    background-color: #006d42;
+    border-radius: 30px;
+    padding: 10px 14px;
+    transition: 0.3s ease-in;
+    color: #FFFFFF;
+}
+
+.primary-button:hover{
+    background-color: #FBFDF8;
+    border: 1px solid #006d42;
+    color: #006d42;
+}
+
 .accent-button{
+    font-family: 'Quicksand';
     font-weight: 600;
     background-color: #FBFDF8;
     border: 1px solid #006d42;
     border-radius: 30px;
     padding: 10px 14px;
     transition: 0.3s ease-in;
-    color: #006d42
+    color: #006d42;
 }
 
 .accent-button:hover{
     background-color: #006d42;
     border: none;
-    color: #FFFFFF
+    color: #FFFFFF;
 }
 
 .mat-badge-content{
