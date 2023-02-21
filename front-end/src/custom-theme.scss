@@ -59,6 +59,17 @@ $secondary-palette:(
   )
 );
 
+$my-custom-level: mat.define-typography-level(
+  $font-family: 'Quicksand',
+  $font-weight: 400,
+  $font-size: 1rem,
+  $line-height: 1,
+  $letter-spacing: normal,
+);
+
+$LearnSpace-custom-typography: mat.define-typography-config(
+  $font-family: 'Quicksand',
+);
 
 
 /*Define the palettes for your theme using the Material Design palettes available in palette.scss
@@ -78,6 +89,7 @@ $LearnSpace-theme: mat.define-light-theme((
     accent: $LearnSpace-accent,
     warn: $LearnSpace-warn,
   ),
+  typography: $LearnSpace-custom-typography
 ));
 
 /*Include theme styles for core and each component used in your app.
