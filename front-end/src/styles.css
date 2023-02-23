@@ -9,12 +9,14 @@ body {
     margin: 0; 
     font-family: 'Quicksand', "Helvetica Neue", sans-serif; 
     background-color: #FBFDF8;
-    /* font-size: 1rem; */
+    font-size: 1rem;
+    font-weight: 500;
     color: #1C1B1F;
 }
 
 a{
     text-decoration: none;
+    color: #006d42;
 }
 
 .main-container{
@@ -39,6 +41,8 @@ a{
 p{
     margin: 0;
 }
+
+ul { padding-left: 0; }
 
 .margin-top-10{
     margin-top: 10px;
@@ -90,4 +94,12 @@ button{
 
 .mat-badge-content{
     color: #006d42 !important;
+}
+
+.mdc-tab__text-label{
+    font-weight: 700;
+}
+
+.mdc-list-item{
+    padding: 0 !important;
 }

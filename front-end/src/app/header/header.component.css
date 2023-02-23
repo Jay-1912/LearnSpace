@@ -74,6 +74,26 @@
     border: 3px solid #FFFFFF;
 }
 
+.profile-overlay{
+    position: absolute;
+    background-color: #d1e8d6;
+    padding: 10px 16px;
+    border-radius: 6px;
+    right: 10px;
+    top: 30px;
+    visibility: hidden;
+}
+
+.profile-overlay li{
+    list-style-type: none;
+    padding: 10px 0;
+}
+
+.profile-wrapper:hover .profile-overlay{
+    visibility: visible;
+    border: 1px black;
+}
+
 @media screen and (max-width: 768px) {
     .mobile-navbar {
         display: block;
