@@ -1,0 +1,47 @@
+.course-description-card, .course-description-detail{
+    background-color: #d1e8d6;
+    border: 1px solid #0c1f14;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.course-content{
+    color: #0c1f14;
+}
+
+.icon{
+    padding: 0 8px 0 0;
+}
+
+button{
+    width: 100%; 
+}
+
+.course-enrolled-student{
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.img-container img{
+    border-radius: 4px;
+}
+
+@media screen and (min-width:480px) {
+    .course-description-wrapper{
+        display: grid;
+        grid-gap: 16px;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    .course-description-card{
+        grid-column-start: 1;
+        grid-column-end: 5;
+    }
+
+    .course-description-detail{
+        grid-column-start: 5;
+        grid-column-end: -1;
+    }
+
+}

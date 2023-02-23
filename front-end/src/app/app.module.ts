@@ -14,7 +14,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule} from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './student/dashboard/dashboard.component';
@@ -26,6 +28,10 @@ import { NotificationComponent } from './notification/notification.component';
 import { NotificationItemComponent } from './notification/notification-item/notification-item.component';
 import { CoursesComponent } from './student/courses/courses.component';
 import { CourseGridComponent } from './course-grid/course-grid.component';
+import { CourseDescriptionComponent } from './course-description/course-description.component';
+import { CourseOverviewComponent } from './course-overview/course-overview.component';
+import { CourseCurriculumComponent } from './course-curriculum/course-curriculum.component';
+import { CourseInstructorComponent } from './course-instructor/course-instructor.component';
 
 
 @NgModule({
@@ -40,7 +46,11 @@ import { CourseGridComponent } from './course-grid/course-grid.component';
     NotificationComponent,
     NotificationItemComponent,
     CoursesComponent,
-    CourseGridComponent
+    CourseGridComponent,
+    CourseDescriptionComponent,
+    CourseOverviewComponent,
+    CourseCurriculumComponent,
+    CourseInstructorComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +64,9 @@ import { CourseGridComponent } from './course-grid/course-grid.component';
     MatProgressBarModule,
     CoreModule,
     HttpClientModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatTabsModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent],

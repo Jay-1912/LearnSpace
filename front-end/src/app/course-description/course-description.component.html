@@ -1,0 +1,26 @@
+<div class="course-description-wrapper">
+    <div class="course-description-card">
+        <div class="img-container">
+        <img src="https://media.istockphoto.com/id/1366428092/photo/webinar-e-learning-skills-business-internet-technology-concepts-training-webinar-e-learning.jpg?b=1&s=170667a&w=0&k=20&c=qjK4h0qt4W_NNG8TmboGw8RDRv8TNzEoFM_JEDZ1Ah0=" class="img" alt="">
+        </div>
+        <div class="course-content">
+            <div class="course-title heading-1">{{title}}</div>
+            <div class="course-enrolled-student margin-top-10"><mat-icon class="icon">people</mat-icon> 2296</div>
+            <button class="primary-button margin-top-10">Enroll Now</button>
+        </div>
+    </div>
+    
+    <div class="course-description-detail">
+        <mat-tab-group>
+            <mat-tab label="Overview"> 
+                <app-course-overview></app-course-overview>
+            </mat-tab>
+            <mat-tab label="Curriculum">
+                <app-course-curriculum></app-course-curriculum>
+            </mat-tab>
+            <mat-tab label="instructor"> 
+                <app-course-instructor></app-course-instructor>
+            </mat-tab>
+        </mat-tab-group>      
+    </div>
+</div>

@@ -1,7 +1,3 @@
-.course-item{
-    /* margin-top: 12px; */
-}
-
 .course-grid-wrapper{
     display: grid;
     grid-gap: 16px;

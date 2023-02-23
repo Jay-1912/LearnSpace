@@ -1,0 +1,14 @@
+.img-container{
+    height: 100px;
+    width: 100px;
+}
+.img-container img{
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 100%;
+    border-radius: 50%;
+}
+
+.instructor-description{
+    text-align: justify;
+}
