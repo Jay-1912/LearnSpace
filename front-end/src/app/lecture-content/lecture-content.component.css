@@ -1,0 +1,10 @@
+.lecture-content-wrapper{
+    padding: 12px;
+}
+
+.video-player{
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+}
+

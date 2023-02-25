@@ -17,6 +17,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './student/dashboard/dashboard.component';
@@ -32,6 +33,9 @@ import { CourseDescriptionComponent } from './course-description/course-descript
 import { CourseOverviewComponent } from './course-overview/course-overview.component';
 import { CourseCurriculumComponent } from './course-curriculum/course-curriculum.component';
 import { CourseInstructorComponent } from './course-instructor/course-instructor.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CourseContentComponent } from './course-content/course-content.component';
+import { LectureContentComponent } from './lecture-content/lecture-content.component';
 
 
 @NgModule({
@@ -50,7 +54,10 @@ import { CourseInstructorComponent } from './course-instructor/course-instructor
     CourseDescriptionComponent,
     CourseOverviewComponent,
     CourseCurriculumComponent,
-    CourseInstructorComponent
+    CourseInstructorComponent,
+    ProfileComponent,
+    CourseContentComponent,
+    LectureContentComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +73,8 @@ import { CourseInstructorComponent } from './course-instructor/course-instructor
     HttpClientModule,
     MatBadgeModule,
     MatTabsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent],

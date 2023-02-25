@@ -82,6 +82,7 @@
     right: 10px;
     top: 30px;
     visibility: hidden;
+    z-index:9;
 }
 
 .profile-overlay li{

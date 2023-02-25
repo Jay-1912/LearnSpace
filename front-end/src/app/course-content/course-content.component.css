@@ -1,0 +1,24 @@
+.example-container {
+    width: 100%;
+    height: 100vh;
+    border: 1px solid #0c1f14;
+    border-radius: 4px;
+  }
+  
+  .example-sidenav-content{
+    padding: 16px;
+}
+  
+  .example-sidenav {
+    background: #d1e8d6;
+  }
+
+  mat-drawer {
+    width: 400px;
+  }
+
+  .button-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
