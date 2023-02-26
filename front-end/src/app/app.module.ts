@@ -11,13 +11,17 @@ import { CoreModule } from './core/core.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './student/dashboard/dashboard.component';
@@ -37,7 +41,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CourseContentComponent } from './course-content/course-content.component';
 import { LectureContentComponent } from './lecture-content/lecture-content.component';
 import { LoginComponent } from './login/login.component';
-
+import { OrgAdminDashboardComponent } from './org_admin/org-admin-dashboard/org-admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,8 @@ import { LoginComponent } from './login/login.component';
     ProfileComponent,
     CourseContentComponent,
     LectureContentComponent,
-    LoginComponent
+    LoginComponent,
+    OrgAdminDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +81,11 @@ import { LoginComponent } from './login/login.component';
     MatBadgeModule,
     MatTabsModule,
     MatExpansionModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatGridListModule,
+    MatDividerModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
