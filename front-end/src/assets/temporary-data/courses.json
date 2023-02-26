@@ -1,26 +1,178 @@
 [
     {
-        "id":1,
-        "title": "Learn Bootstrap for free",
-        "instructor": "John Adam",
-        "progress": 40
+        "id": 1,
+        "title":"MBA in Business Analytics",
+        "instructor": 1,
+        "enrolled": 2,
+        "overview":"The curriculum of the online MBA in Business Analytics features two parallel tracks - Business Management and Analytics. The curriculum includes thirteen courses on business management, eight courses on statistics and analytics techniques, five electives, and one capstone project. Each course (other than the capstone project) will require approximately 30 hours of learner effort, across a span of 6 weeks. At most, two courses will run in parallel at a time, allowing you to appreciate different subject matters while maintaining a work/life balance. The capstone will require around 50 hours of student effort over 10 weeks. Each course will include some pre-recorded instructor videos, reading material, and practice questions. This will be accompanied with weekly assessments, hands-on assignments, and project work (often in groups) to ensure you will achieve all course-learning objectives. You will have the opportunity to interact with faculty in at least three live sessions per course, where you may seek feedback and clarification.",
+        "curriculum":[
+            {
+                "title":"Business Management Vertical",
+                "lectures":[
+                    {
+                        "title":"Finance Management",
+                        "type":"video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Managing Operation & Supply Chain",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Managing Organizations & People ",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Strategic Management & Entrepreneurship",
+                        "type": "video",
+                        "contentLink":""
+                    }
+                ]
+            },
+            {
+                "title":"Analytics Vertical",
+                "lectures":[
+                    {
+                        "title":"Statistice for Business",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Analytics Tools and Techniques",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Fundamental and Advanced Business Analytics",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Analyzing Data and Communicating Insights",
+                        "type": "video",
+                        "contentLink":""
+                    }
+                ]
+            }
+        ]
     },
     {
-        "id":2,
-        "title": "Learn CSS Grid for free",
-        "instructor": "Mark Buschgen",
-        "progress": 90
+        "id": 2,
+        "title":"MBA in Business Analytics",
+        "instructor": 3,
+        "enrolled": 2296,
+        "Overview":"The curriculum of the online MBA in Business Analytics features two parallel tracks - Business Management and Analytics. The curriculum includes thirteen courses on business management, eight courses on statistics and analytics techniques, five electives, and one capstone project. Each course (other than the capstone project) will require approximately 30 hours of learner effort, across a span of 6 weeks. At most, two courses will run in parallel at a time, allowing you to appreciate different subject matters while maintaining a work/life balance. The capstone will require around 50 hours of student effort over 10 weeks. Each course will include some pre-recorded instructor videos, reading material, and practice questions. This will be accompanied with weekly assessments, hands-on assignments, and project work (often in groups) to ensure you will achieve all course-learning objectives. You will have the opportunity to interact with faculty in at least three live sessions per course, where you may seek feedback and clarification.",
+        "curriculum":[
+            {
+                "title":"Business Management Vertical",
+                "lectures":[
+                    {
+                        "title":"Finance Management",
+                        "type":"video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Managing Operation & Supply Chain",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Managing Organizations & People ",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Strategic Management & Entrepreneurship",
+                        "type": "video",
+                        "contentLink":""
+                    }
+                ]
+            },
+            {
+                "title":"Analytics Vertical",
+                "lectures":[
+                    {
+                        "title":"Statistice for Business",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Analytics Tools and Techniques",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Fundamental and Advanced Business Analytics",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Analyzing Data and Communicating Insights",
+                        "type": "video",
+                        "contentLink":""
+                    }
+                ]
+            }
+        ]
     },
     {
-        "id":3,
-        "title": "Build your first app in Angular",
-        "instructor": "Bil Smith",
-        "progress": 50
-    },
-    {
-        "id":4,
-        "title": "Introduction to ES6",
-        "instructor": "David Wade",
-        "progress": 10
+        "id": 3,
+        "title":"MBA in Business Analytics",
+        "instructor": 4,
+        "enrolled": 2296,
+        "curriculum":[
+            {
+                "title":"Business Management Vertical",
+                "lectures":[
+                    {
+                        "title":"Finance Management",
+                        "type":"video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Managing Operation & Supply Chain",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Managing Organizations & People ",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Strategic Management & Entrepreneurship",
+                        "type": "video",
+                        "contentLink":""
+                    }
+                ]
+            },
+            {
+                "title":"Analytics Vertical",
+                "lectures":[
+                    {
+                        "title":"Statistice for Business",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Analytics Tools and Techniques",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Fundamental and Advanced Business Analytics",
+                        "type": "video",
+                        "contentLink":""
+                    },
+                    {
+                        "title":"Analyzing Data and Communicating Insights",
+                        "type": "video",
+                        "contentLink":""
+                    }
+                ]
+            }
+        ]
     }
 ]

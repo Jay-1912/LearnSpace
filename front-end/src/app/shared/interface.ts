@@ -1,8 +1,21 @@
 export interface ICourse{
     id: number,
     title: string,
-    instructor: string,
-    progress: number
+    instructor: number,
+    enrolled: number,
+    overview: string,
+    curriculum:[
+        {
+            title:string,
+            lectures:[
+                {
+                    title: string,
+                    type: string,
+                    contentLink: string,
+                }
+            ]
+        }
+    ]
 }
 
 export interface INotice{
@@ -15,4 +28,10 @@ export interface INotification{
     id: number, 
     title: string,
     time: string
+}
+
+export interface IInstructor{
+    id: number,
+    name: string,
+    about: string
 }

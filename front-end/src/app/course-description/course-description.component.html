@@ -5,21 +5,22 @@
         </div>
         <div class="course-content">
             <div class="course-title heading-1">{{title}}</div>
-            <div class="course-enrolled-student margin-top-10"><mat-icon class="icon">people</mat-icon> 2296</div>
+            <div class="course-enrolled-student margin-top-10"><mat-icon class="icon">people</mat-icon> {{enrolled}}</div>
             <button class="primary-button margin-top-10">Enroll Now</button>
         </div>
     </div>
     
     <div class="course-description-detail">
         <mat-tab-group>
-            <mat-tab label="Overview"> 
-                <app-course-overview></app-course-overview>
+            <mat-tab label="Overview" > 
+                <app-course-overview [overview]="overview">
+                </app-course-overview>
             </mat-tab>
             <mat-tab label="Curriculum">
-                <app-course-curriculum></app-course-curriculum>
+                <app-course-curriculum [curriculum]="curriculum"></app-course-curriculum>
             </mat-tab>
             <mat-tab label="instructor"> 
-                <app-course-instructor></app-course-instructor>
+                <app-course-instructor [instructor]="instructor"></app-course-instructor>
             </mat-tab>
         </mat-tab-group>      
     </div>

@@ -1,5 +1,23 @@
 <mat-accordion>
     <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false" *ngFor="let curr of curriculum">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{curr.title}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+        <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let item of curr.lectures">
+                <div class="list-item">
+                    <div><a routerLink="">{{item.title}}</a></div> 
+                    <div>01:30</div>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<!-- <mat-expansion-panel (opened)="panelOpenState = true"
                          (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -70,29 +88,4 @@
                 </div>
             </mat-list-item>
         </mat-list>
-    </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Course Orientation
-        </mat-panel-title>
-        <mat-panel-description>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-        <mat-list role="list">
-            <mat-list-item role="listitem">
-                <div class="list-item">
-                    <div>Frontend and Backend</div> 
-                    <div>01:30</div>
-                </div>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-                <div class="list-item">
-                    <p>What Matters In this Section</p>
-                    <p>01:30</p>
-                </div>
-            </mat-list-item>
-        </mat-list>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </mat-expansion-panel> -->

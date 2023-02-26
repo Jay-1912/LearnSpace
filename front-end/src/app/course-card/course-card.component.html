@@ -5,13 +5,13 @@
         </div>
         <div class="card-content">
             <p class="course-title heading-2">{{title}}</p>
-            <p class="course-instructor">by <span class="instructor-name">{{instructor}}</span></p>
+            <p class="course-instructor">by <span class="instructor-name">{{instructorName}}</span></p>
             <div class="progress-bar margin-top-16" *ngIf="enroll==true">
-                <mat-progress-bar mode="determinate" value='40'></mat-progress-bar>
+                <mat-progress-bar mode="determinate" value='{{progress}}'></mat-progress-bar>
                 <span class="progress-text">{{progress}}% of course completed</span>
             </div>
             <a routerLink="/course-content"><button class="primary-button btn" *ngIf="enroll==true"> Complete Remaining Course </button></a>
-            <a routerLink="/course-description"><button class="primary-button btn" *ngIf="enroll==false"> Enroll Now </button></a>
+            <a routerLink="/course/{{id}}/{{title}}"><button class="primary-button btn" *ngIf="enroll==false"> Enroll Now </button></a>
         </div>
     </mat-card-content>
 </mat-card>

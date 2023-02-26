@@ -4,21 +4,20 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {map, catchError } from 'rxjs/operators';
 
-import { ICourse } from '../shared/interface';
+import { IInstructor } from '../shared/interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CourseService {
-
-  baseUrl: string = 'assets/temporary-data/'
+export class InstructorService {
+  baseUrl:string = 'assets/temporary-data/'
 
   constructor(private http:HttpClient) { }
 
-  getCourses() : Observable<ICourse[]>{
-    return this.http.get<ICourse[]>(this.baseUrl+'courses.json')
+  getInstructors() : Observable<IInstructor[]>{
+    return this.http.get<IInstructor[]>(this.baseUrl+'instructor.json')
     .pipe(
-        catchError(this.handleError)
+      catchError(this.handleError)
     );
   }
 
@@ -31,5 +30,5 @@ export class CourseService {
         // return Observable.throw(err.text() || 'backend server error');
     }
     return throwError(() => new Error(error || 'Node.js server error'));
-  } 
+  }
 }
