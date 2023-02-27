@@ -1,0 +1,21 @@
+[
+    {
+        "id":1,
+        "profile_img":"",
+        "email":"jayavadhavana@gmail.com",
+        "firstname":"Jay",
+        "lastname":"vadhavana",
+        "gender":"male",
+        "phone":"1234567890",
+        "enrolled-courses":[
+            {
+                "id":1,
+                "progress":40
+            },
+            {
+                "id":2,
+                "progress":30
+            }
+        ]
+    }
+]
