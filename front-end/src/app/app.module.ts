@@ -22,6 +22,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import {MatTableModule} from '@angular/material/table';
 
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './student/dashboard/dashboard.component';
@@ -41,7 +42,14 @@ import { ProfileComponent } from './profile/profile.component';
 import { CourseContentComponent } from './course-content/course-content.component';
 import { LectureContentComponent } from './lecture-content/lecture-content.component';
 import { LoginComponent } from './login/login.component';
-import { OrgAdminDashboardComponent } from './org_admin/org-admin-dashboard/org-admin-dashboard.component';
+import { OrganizationComponent } from './organization/organization.component';
+import { OrgDashboardComponent } from './organization/org-dashboard/org-dashboard.component';
+import { ManageCourseComponent } from './organization/manage-course/manage-course.component';
+import { ManageTeacherComponent } from './organization/manage-teacher/manage-teacher.component';
+import { ManageStudentComponent } from './organization/manage-student/manage-student.component';
+import { CourseFormComponent } from './organization/manage-course/course-form/course-form.component';
+import { CourseTableComponent } from './organization/manage-course/course-table/course-table.component';
+import { UploadLessonComponent } from './organization/manage-course/upload-lesson/upload-lesson.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +72,14 @@ import { OrgAdminDashboardComponent } from './org_admin/org-admin-dashboard/org-
     CourseContentComponent,
     LectureContentComponent,
     LoginComponent,
-    OrgAdminDashboardComponent,
+    OrganizationComponent,
+    OrgDashboardComponent,
+    ManageCourseComponent,
+    ManageTeacherComponent,
+    ManageStudentComponent,
+    CourseFormComponent,
+    CourseTableComponent,
+    UploadLessonComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,6 +101,7 @@ import { OrgAdminDashboardComponent } from './org_admin/org-admin-dashboard/org-
     MatDividerModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],

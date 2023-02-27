@@ -1,0 +1,32 @@
+<div class="title heading-1">
+    Add Lesson
+</div>
+<form action="" class="margin-top-16">
+    <div class="form-fields-wrapper">
+        <div class="input-field">
+            <label for="section">Choose Sections*</label>
+            <select name="section" id="">
+                <option value="0">Select Section</option>
+                <option value="section1">Section1</option>
+                <option value="section2">Section2</option>
+                <option value="section3">Section3</option>
+            </select> 
+        </div>
+        <div class="input-field">
+            <label for="lesson-title">Lesson Title*</label>
+            <input type="text" name="lesson-title" id="lesson-title">
+        </div>
+        <div class="input-field">
+            <label for="lesson-type">Type*</label>
+            <div class="radio-field">
+                <input type="radio" name="lesson-type" id="lesson-type" value="video"> <span class="radio-text">Video</span> 
+                <input type="radio" name="lesson-type" id="lesson-type" value="document"> <span class="radio-text">Document</span>
+            </div>
+        </div>
+        <div class="input-field">
+            <label for="upload-file">Upload File*</label>
+            <input type="file" name="upload-file" id="upload-file">
+        </div>
+    </div>
+    <button type="submit" class="primary-button margin-top-16">Save Lesson</button>
+</form>

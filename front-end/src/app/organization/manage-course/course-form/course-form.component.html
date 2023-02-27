@@ -1,0 +1,31 @@
+<div class="title heading-1">Add Course</div>
+<form class="course-form margin-top-16">
+    <div class="form-fields-wrapper">
+        <div class="input-field">
+            <label for="title">Course Title*</label>
+            <input type="text" name="title" id="title">
+        </div>
+        <div class="input-field">
+            <label for="overview">Course Overview*</label>
+            <textarea id="overview" name="overview"></textarea>
+        </div>
+        <div class="input-field">
+            <label for="thumbnail">Course Thumbnail*</label>
+            <input type="file" name="thumbnail" id="thumbnail">
+        </div>
+        <div class="input-field">
+            <label for="section">Section*</label>
+            <div class="section-field">
+                <input type="text" name="section" id="section">
+                <button class="accent-button">Add Section</button>
+            </div>
+        </div>
+        <div class="upload-lesson margin-top-16">
+            <a routerLink="upload-lesson">Upload Lessons</a>
+        </div>
+    </div>
+    <button type="submit" class="primary-button margin-top-16">Save Course</button>
+    <button type="submit" class="primary-button margin-top-16">Save Course as Draft</button>
+</form>
+
+

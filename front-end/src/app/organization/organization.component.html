@@ -1,0 +1,21 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened class="sidebar">
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <a routerLink="dashboard">Dashboard</a>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <a routerLink="manage-course/courses">Manage Course</a>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <a routerLink="manage-teacher">Manage Teacher</a>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <a routerLink="manage-student">Manage Student</a>
+        </mat-list-item>
+      </mat-list>
+    </mat-drawer>
+    <mat-drawer-content class="drawer-content">
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
