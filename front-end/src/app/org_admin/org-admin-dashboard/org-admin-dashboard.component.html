@@ -1,0 +1,179 @@
+<div class="admin-actions-container"></div>
+
+<mat-grid-list class="admin-action-grid" cols="3" rowHeight="200px">
+  <mat-grid-tile class="admin-action" (click)="toggleAddCourseForm()">
+    <div class="action-content">
+      <mat-icon
+        class="action-icon"
+        aria-hidden="false"
+        aria-label="Example add icon"
+        fontIcon="add"
+        >add</mat-icon
+      >
+      <p class="fc-green fw-bold fs-18 mt-18">Create Course</p>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile class="admin-action" (click)="toggleAddStudentForm()">
+    <div class="action-content">
+      <mat-icon
+        class="action-icon"
+        aria-hidden="false"
+        aria-label="Example student icon"
+        fontIcon="add"
+        >add</mat-icon
+      >
+      <p class="fc-green fw-bold fs-18 mt-18">
+        Add Student to {{ organization }}
+      </p>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile class="admin-action" (click)="toggleAddTeacherForm()">
+    <div class="action-content">
+      <mat-icon
+        class="action-icon"
+        aria-hidden="false"
+        aria-label="Example teacher icon"
+        fontIcon="add"
+        >add</mat-icon
+      >
+      <p class="fc-green fw-bold fs-18 mt-18">
+        Add Teacher to {{ organization }}
+      </p>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div class="add-course-from action-form" *ngIf="addCourseForm">
+  <div class="course-fields-wrapper margin-top-16">
+    <form action="" id="course-form">
+      <div class="form-grid">
+        <div class="input-field margin-top-10 mt-18">
+          <label for="courseTitle">Course Title*</label>
+          <input
+            type="text"
+            name="courseTitle"
+            id="courseTitle"
+            placeholder="Insert Course Title"
+          />
+        </div>
+        <div class="input-field margin-top-10 mt-18">
+          <label for="courseOverview">Course Overview*</label>
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="4"
+            resize="none"
+            placeholder="Enter Course Overview/Description"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="upload-image img-container mt-18">
+        <label for="course-img">
+          <img
+            src="https://www.himalmag.com/wp-content/uploads/2019/07/sample-profile-picture.png"
+            alt=""
+            class="img course-img"
+          />
+          <p class="upload-text">Upload Course Banner</p>
+        </label>
+        <input type="file" name="course-img" id="course-img" />
+      </div>
+
+      <mat-divider class="mt-18"></mat-divider>
+
+      <div class="select-students mt-18">
+        <p class="fs-16 fc-black fw-bold">Add Students</p>
+
+        <mat-form-field class="mt-12">
+          <mat-label>students</mat-label>
+          <mat-select multiple>
+            <mat-option *ngFor="let student of studentId" [value]="student">
+              {{ student }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="select-teacher mt-18">
+        <p class="fs-16 fc-black fw-bold">Add Teachers</p>
+
+        <mat-form-field class="mt-12">
+          <mat-label>teachers</mat-label>
+          <mat-select multiple>
+            <mat-option *ngFor="let teacher of teacherId" [value]="teacher">
+              {{ teacher }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button type="submit" class="primary-button margin-top-10">
+        Create Course
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="student-form action-form" *ngIf="addStudentForm">
+  <div class="student-fields-wrapper margin-top-16">
+    <form action="" id="student-form">
+      <div class="form-grid">
+        <div class="input-field margin-top-10 mt-18">
+          <label for="studentId">Student Id*</label>
+          <input
+            type="text"
+            name="studentId"
+            id="studentId"
+            placeholder="Insert Student Id"
+          />
+        </div>
+        <div class="input-field margin-top-10 mt-18">
+          <label for="studentEmail">Student Email*</label>
+          <input
+            type="email"
+            name="studentEmail"
+            id="studentEmail"
+            placeholder="Insert Student Email"
+          />
+        </div>
+      </div>
+
+      <button type="submit" class="primary-button margin-top-10">
+        Add Student To {{ organization }}
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="teacher-form action-form" *ngIf="addTeacherForm">
+  <div class="teacher-fields-wrapper margin-top-16">
+    <form action="" id="teacher-form">
+      <div class="form-grid">
+        <div class="input-field margin-top-10 mt-18">
+          <label for="teacherId">Teacher Id*</label>
+          <input
+            type="text"
+            name="teacherId"
+            id="teacherId"
+            placeholder="Insert Teacher Id"
+          />
+        </div>
+        <div class="input-field margin-top-10 mt-18">
+          <label for="teacherEmail">Teacher Email*</label>
+          <input
+            type="email"
+            name="teacherEmail"
+            id="teacherEmail"
+            placeholder="Insert Teacher Email"
+          />
+        </div>
+      </div>
+
+      <button type="submit" class="primary-button margin-top-10">
+        Add Teacher To {{ organization }}
+      </button>
+    </form>
+  </div>
+</div>
