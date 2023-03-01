@@ -43,10 +43,3 @@
 .radio-field .radio-text{
     margin-right: 6px;
 }
-
-.section-field{
-    display: flex;
-}
-.section-field input{
-    width: 100%;
-}

@@ -7,9 +7,7 @@
             <label for="section">Choose Sections*</label>
             <select name="section" id="">
                 <option value="0">Select Section</option>
-                <option value="section1">Section1</option>
-                <option value="section2">Section2</option>
-                <option value="section3">Section3</option>
+                <option value="{{section.title}}" *ngFor="let section of sections">{{section.title}}</option>
             </select> 
         </div>
         <div class="input-field">

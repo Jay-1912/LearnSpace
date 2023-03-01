@@ -22,6 +22,16 @@ export class CourseService {
     );
   }
 
+  getCourseByID(id: string):Observable<any>{
+    const url = "http://localhost:3000/course/"+id;
+    return this.http.get<any>(url);
+  }
+
+  postCourse(course: any): Observable<any>{
+    const url = "http://localhost:3000/add_course";
+    return this.http.post<any>(url, course);
+  }
+
   private handleError(error: any) {
     console.error('server error:', error);
     if (error.error instanceof Error) {

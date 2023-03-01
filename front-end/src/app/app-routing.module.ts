@@ -27,7 +27,7 @@ const routes: Routes = [
     { path: 'manage-course', component: ManageCourseComponent, children:[
       {path: 'courses', component: CourseTableComponent},
       {path: 'add-course', component: CourseFormComponent},
-      {path: 'upload-lesson', component: UploadLessonComponent}
+      {path: ':id/upload-lesson', component: UploadLessonComponent}
     ] },
     { path: 'manage-teacher', component: ManageTeacherComponent },
     { path: 'manage-student', component: ManageStudentComponent }

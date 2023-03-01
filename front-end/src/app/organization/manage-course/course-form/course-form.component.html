@@ -1,30 +1,24 @@
 <div class="title heading-1">Add Course</div>
-<form class="course-form margin-top-16">
+<form class="course-form margin-top-16" [formGroup]="courseForm" (submit)="saveCourse($event)">
     <div class="form-fields-wrapper">
         <div class="input-field">
             <label for="title">Course Title*</label>
-            <input type="text" name="title" id="title">
+            <input type="text" name="title" id="title" formControlName="title">
         </div>
         <div class="input-field">
             <label for="overview">Course Overview*</label>
-            <textarea id="overview" name="overview"></textarea>
+            <textarea id="overview" name="overview" formControlName="overview"></textarea>
         </div>
         <div class="input-field">
             <label for="thumbnail">Course Thumbnail*</label>
-            <input type="file" name="thumbnail" id="thumbnail">
+            <input type="file" #thumbnail name="thumbnail" id="thumbnail">
         </div>
         <div class="input-field">
             <label for="section">Section*</label>
-            <div class="section-field">
-                <input type="text" name="section" id="section">
-                <button class="accent-button">Add Section</button>
-            </div>
-        </div>
-        <div class="upload-lesson margin-top-16">
-            <a routerLink="upload-lesson">Upload Lessons</a>
+            <input type="text" name="section" id="section" placeholder="Insert Section by Comma" formControlName="sections">
         </div>
     </div>
-    <button type="submit" class="primary-button margin-top-16">Save Course</button>
+    <button type="submit" class="primary-button margin-top-16">Upload Lessons</button>
     <button type="submit" class="primary-button margin-top-16">Save Course as Draft</button>
 </form>
 
