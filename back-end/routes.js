@@ -56,19 +56,46 @@ app.get("/course/:id", async(req, res) =>{
 })
 
 app.post("/add_course", upload.single('thumbnail'), async(req, res) => {
-  console.log(req.file);
   const filename = req.file.filename;
   const course = new courseModel({
     "title":req.body.title,
     "overview": req.body.overview,
     "thumbnail": filename,
-    "sections": JSON.parse(req.body.sections)
+    "sections": JSON.parse(req.body.sections),
   });
   try {
     await course.save();
     res.send(course);
   } catch (error) {
     res.status(500).send(error);
+  }
+})
+
+app.post("/add_lesson", upload.single('file'), async(req, res) => {
+  const filename = req.file.filename;
+  const courseID = req.body.courseID;
+  if(courseID){
+    let course = await courseModel.find({_id: courseID});
+    let tempSections = course[0].sections;
+    function findSection(section){
+      return section.title == req.body.section;
+    }
+    let lesson = {
+      "title": req.body.title,
+      "type": req.body.type,
+      "file": filename
+    }
+    for(let section of tempSections){
+      if(section.title == req.body.section){
+        section.lesson.push(lesson);
+      }
+    }
+    try {
+      const updateResult = await courseModel.findByIdAndUpdate({_id: courseID}, {sections:tempSections})
+      res.send(updateResult);
+    } catch(error){
+      res.send(error);
+    }
   }
 })
 

@@ -32,6 +32,11 @@ export class CourseService {
     return this.http.post<any>(url, course);
   }
 
+  postLesson(lesson: any): Observable<any>{
+    const url = "http://localhost:3000/add_lesson";
+    return this.http.post<any>(url, lesson);
+  }
+
   private handleError(error: any) {
     console.error('server error:', error);
     if (error.error instanceof Error) {

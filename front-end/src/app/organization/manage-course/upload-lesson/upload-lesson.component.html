@@ -1,29 +1,29 @@
 <div class="title heading-1">
     Add Lesson
 </div>
-<form action="" class="margin-top-16">
+<form action="" class="margin-top-16" [formGroup]="lessonForm" (submit)="saveLesson($event)">
     <div class="form-fields-wrapper">
         <div class="input-field">
             <label for="section">Choose Sections*</label>
-            <select name="section" id="">
-                <option value="0">Select Section</option>
-                <option value="{{section.title}}" *ngFor="let section of sections">{{section.title}}</option>
+            <select name="section" id="" formControlName="section">
+                <option [ngValue]="null" disabled>Select Section</option>
+                <option  [ngValue]="section.title" *ngFor="let section of sections">{{section.title}}</option>
             </select> 
         </div>
         <div class="input-field">
-            <label for="lesson-title">Lesson Title*</label>
-            <input type="text" name="lesson-title" id="lesson-title">
+            <label for="title">Lesson Title*</label>
+            <input type="text" id="lesson-title" formControlName="title">
         </div>
         <div class="input-field">
-            <label for="lesson-type">Type*</label>
+            <label for="type">Type*</label>
             <div class="radio-field">
-                <input type="radio" name="lesson-type" id="lesson-type" value="video"> <span class="radio-text">Video</span> 
-                <input type="radio" name="lesson-type" id="lesson-type" value="document"> <span class="radio-text">Document</span>
+                <input type="radio" formControlName="type" id="lesson-type" value="video"> <span class="radio-text">Video</span> 
+                <input type="radio" formControlName="type" id="lesson-type" value="document"> <span class="radio-text">Document</span>
             </div>
         </div>
         <div class="input-field">
-            <label for="upload-file">Upload File*</label>
-            <input type="file" name="upload-file" id="upload-file">
+            <label for="file">Upload File*</label>
+            <input type="file" id="upload-file" #file formControlName="file">
         </div>
     </div>
     <button type="submit" class="primary-button margin-top-16">Save Lesson</button>

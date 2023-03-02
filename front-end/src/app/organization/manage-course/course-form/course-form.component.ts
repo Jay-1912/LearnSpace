@@ -27,9 +27,8 @@ export class CourseFormComponent {
     this.tempSections = course.sections.split(',');
     let sections = [];
     for(let section of this.tempSections){
-      sections.push({"title":section.trim()});
+      sections.push({"title":section.trim(), "lesson":[]});
     }
-    console.log(this.tempSections);
     const formData = new FormData();
     formData.append("title", course.title || "");
     formData.append("overview", course.overview || "");
