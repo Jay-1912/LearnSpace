@@ -1,0 +1,22 @@
+<div class="main-container">
+  <div class="title heading-1">Delete Student</div>
+  <form
+    action=""
+    class="margin-top-16"
+    method="post"
+    (submit)="deleteStudent($event)"
+  >
+    <div class="input-field">
+      <label for="id">Id*</label>
+      <input
+        type="text"
+        name="id"
+        id="id"
+        placeholder="Insert Student Id"
+        [(ngModel)]="studentId"
+      />
+    </div>
+
+    <button type="submit" class="primary-button margin-top-16">Delete</button>
+  </form>
+</div>

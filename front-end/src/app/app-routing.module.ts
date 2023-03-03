@@ -14,6 +14,14 @@ import { OrganizationComponent } from './organization/organization.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CoursesComponent } from './student/courses/courses.component';
 import { DashboardComponent } from './student/dashboard/dashboard.component';
+import { StudentsTableComponent } from './organization/manage-student/students-table/students-table.component';
+import { CreateStudentComponent } from './organization/manage-student/create-student/create-student.component';
+import { DeleteStudentComponent } from './organization/manage-student/delete-student/delete-student.component';
+import { UpdateStudentComponent } from './organization/manage-student/update-student/update-student.component';
+import { TeacherTableComponent } from './organization/manage-teacher/teacher-table/teacher-table.component';
+import { CreateTeacherComponent } from './organization/manage-teacher/create-teacher/create-teacher.component';
+import { DeleteTeacherComponent } from './organization/manage-teacher/delete-teacher/delete-teacher.component';
+import { UpdateTeacherComponent } from './organization/manage-teacher/update-teacher/update-teacher.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -22,16 +30,43 @@ const routes: Routes = [
   { path: 'course/:id/:title', component: CourseDescriptionComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'course-content', component: CourseContentComponent },
-  { path: 'organization', component: OrganizationComponent, children:[
-    { path: 'dashboard', component: OrgDashboardComponent},
-    { path: 'manage-course', component: ManageCourseComponent, children:[
-      {path: 'courses', component: CourseTableComponent},
-      {path: 'add-course', component: CourseFormComponent},
-      {path: ':id/upload-lesson', component: UploadLessonComponent}
-    ] },
-    { path: 'manage-teacher', component: ManageTeacherComponent },
-    { path: 'manage-student', component: ManageStudentComponent }
-  ] },
+  {
+    path: 'organization',
+    component: OrganizationComponent,
+    children: [
+      { path: 'dashboard', component: OrgDashboardComponent },
+      {
+        path: 'manage-course',
+        component: ManageCourseComponent,
+        children: [
+          { path: 'courses', component: CourseTableComponent },
+          { path: 'add-course', component: CourseFormComponent },
+          { path: ':id/upload-lesson', component: UploadLessonComponent },
+        ],
+      },
+      {
+        path: 'manage-teacher',
+        component: ManageTeacherComponent,
+
+        children: [
+          { path: 'teachers', component: TeacherTableComponent },
+          { path: 'create-teacher', component: CreateTeacherComponent },
+          { path: 'delete-teacher', component: DeleteTeacherComponent },
+          { path: 'update-teacher', component: UpdateTeacherComponent },
+        ],
+      },
+      {
+        path: 'manage-student',
+        component: ManageStudentComponent,
+        children: [
+          { path: 'students', component: StudentsTableComponent },
+          { path: 'create-student', component: CreateStudentComponent },
+          { path: 'delete-student', component: DeleteStudentComponent },
+          { path: 'update-student', component: UpdateStudentComponent },
+        ],
+      },
+    ],
+  },
 ];
 
 @NgModule({

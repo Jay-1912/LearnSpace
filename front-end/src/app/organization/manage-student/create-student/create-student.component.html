@@ -1,0 +1,68 @@
+<div class="main-container">
+  <div class="title heading-1">Create Student</div>
+  <form
+    action=""
+    class="margin-top-16"
+    (ngSubmit)="handleSubmitData($event)"
+    [formGroup]="createStudentForm"
+    method="post"
+  >
+    <div class="input-field">
+      <label for="id">Id*</label>
+      <input
+        type="text"
+        name="id"
+        id="id"
+        placeholder="Insert Student Id"
+        formControlName="id"
+      />
+    </div>
+
+    <div class="input-field margin-top-16">
+      <label for="firstname">Firstname*</label>
+      <input
+        type="text"
+        name="firstname"
+        id="firstname"
+        placeholder="Insert Firstname"
+        formControlName="firstName"
+      />
+    </div>
+
+    <div class="input-field margin-top-16">
+      <label for="lastname">Lastname*</label>
+      <input
+        type="text"
+        name="lastname"
+        id="lastname"
+        placeholder="Insert Lastname"
+        formControlName="lastName"
+        required
+      />
+    </div>
+
+    <div class="input-field margin-top-16">
+      <label for="email">Email*</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Insert Email"
+        formControlName="email"
+      />
+    </div>
+
+    <div class="input-field margin-top-16">
+      <label for="password">Password*</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Insert Password"
+        formControlName="password"
+        required
+      />
+    </div>
+    <button type="submit" class="primary-button margin-top-16">Add</button>
+  </form>
+</div>

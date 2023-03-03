@@ -52,6 +52,14 @@ import { ManageStudentComponent } from './organization/manage-student/manage-stu
 import { CourseFormComponent } from './organization/manage-course/course-form/course-form.component';
 import { CourseTableComponent } from './organization/manage-course/course-table/course-table.component';
 import { UploadLessonComponent } from './organization/manage-course/upload-lesson/upload-lesson.component';
+import { StudentsTableComponent } from './organization/manage-student/students-table/students-table.component';
+import { CreateStudentComponent } from './organization/manage-student/create-student/create-student.component';
+import { UpdateStudentComponent } from './organization/manage-student/update-student/update-student.component';
+import { DeleteStudentComponent } from './organization/manage-student/delete-student/delete-student.component';
+import { CreateTeacherComponent } from './organization/manage-teacher/create-teacher/create-teacher.component';
+import { TeacherTableComponent } from './organization/manage-teacher/teacher-table/teacher-table.component';
+import { UpdateTeacherComponent } from './organization/manage-teacher/update-teacher/update-teacher.component';
+import { DeleteTeacherComponent } from './organization/manage-teacher/delete-teacher/delete-teacher.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +90,14 @@ import { UploadLessonComponent } from './organization/manage-course/upload-lesso
     CourseFormComponent,
     CourseTableComponent,
     UploadLessonComponent,
+    StudentsTableComponent,
+    CreateStudentComponent,
+    UpdateStudentComponent,
+    DeleteStudentComponent,
+    CreateTeacherComponent,
+    TeacherTableComponent,
+    UpdateTeacherComponent,
+    DeleteTeacherComponent,
   ],
   imports: [
     BrowserModule,

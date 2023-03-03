@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Router = require("./routes")
+const Router = require("./routes");
 
 const app = express();
 
@@ -18,12 +18,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-mongoose.connect('mongodb+srv://jayvadhavana23:SaiKWADtyfKL7p0j@cluster0.ffgkkwd.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect(
+  "mongodb+srv://jayvadhavana23:SaiKWADtyfKL7p0j@cluster0.ffgkkwd.mongodb.net/?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   }
 );
 
