@@ -1,6 +1,6 @@
 <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="side">
-      <app-course-curriculum></app-course-curriculum>
+      <app-course-curriculum [curriculum]="sections" [id]="id"></app-course-curriculum>
     </mat-drawer>
   
     <div class="example-sidenav-content">
@@ -11,10 +11,11 @@
         aria-label="Example icon-button with menu icon">
         <mat-icon class="hamburger-icon">menu</mat-icon>
         </button>
-        <app-lecture-content></app-lecture-content>
+        <div class="title heading-1">{{lessonName}}</div>
+        <app-lecture-content [src]="src"></app-lecture-content>
         <div class="button-wrapper">
-          <button class="primary-button">Prev</button>
-          <button class="primary-button">Next</button>
+          <button class="primary-button" *ngIf="prevSection!=-1 && prevLesson!=-1" (click)="navigate(prevSection, prevLesson)">Prev</button>
+          <button class="primary-button" *ngIf="nextSection!=-1 && nextLesson!=-1" (click)="navigate(nextSection, nextLesson)">Next</button>
         </div>
     </div>
   

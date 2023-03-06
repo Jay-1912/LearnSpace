@@ -3,6 +3,7 @@ import { ICourse } from 'src/app/shared/interface';
 import { ElementRef } from '@angular/core';
 
 import { CourseService } from 'src/app/services/course.service';
+import { InstructorService } from '../services/instructor.service';
 
 @Component({
   selector: 'app-course-carousel',
@@ -16,7 +17,7 @@ export class CourseCarouselComponent implements OnInit, OnChanges {
 
   @ViewChild('courseItem') el!: ElementRef;
 
-  constructor(private courseService:CourseService) {}
+  constructor(private courseService:CourseService, private instructorService: InstructorService) {}
 
   plusSlides(n:number) {
     this.showSlides(this.slideIndex += n);
@@ -32,10 +33,11 @@ export class CourseCarouselComponent implements OnInit, OnChanges {
     this.slides[this.slideIndex-1]?.setAttribute("style","display:block");
   }
 
+ 
   ngOnInit(){
     this.courseService.getCourses().subscribe(
       ((courses:ICourse[]) => {
-        this.courses=courses
+        this.courses=courses;
       })
     );
     this.slides = document.getElementsByClassName("course-item");

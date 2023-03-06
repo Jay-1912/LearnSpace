@@ -23,8 +23,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import {MatTableModule} from '@angular/material/table';
+
+import { DataTablesModule } from 'angular-datatables';
 
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './student/dashboard/dashboard.component';
@@ -121,7 +124,8 @@ import { DeleteTeacherComponent } from './organization/manage-teacher/delete-tea
     NgxMatSelectSearchModule,
     MatTableModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent],

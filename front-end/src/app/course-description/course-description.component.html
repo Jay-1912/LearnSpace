@@ -6,15 +6,14 @@
         <div class="course-content">
             <div class="course-title heading-1">{{title}}</div>
             <div class="course-enrolled-student margin-top-10"><mat-icon class="icon">people</mat-icon> {{enrolled}}</div>
-            <button class="primary-button margin-top-10">Enroll Now</button>
+            <a routerLink="/course/{{id}}/{{title}}/0/0"><button class="primary-button margin-top-10">Enroll Now</button></a>
         </div>
     </div>
     
     <div class="course-description-detail">
         <mat-tab-group>
             <mat-tab label="Overview" > 
-                <app-course-overview [overview]="overview">
-                </app-course-overview>
+                <app-course-overview [overview]="overview"></app-course-overview>
             </mat-tab>
             <mat-tab label="Curriculum">
                 <app-course-curriculum [curriculum]="curriculum"></app-course-curriculum>

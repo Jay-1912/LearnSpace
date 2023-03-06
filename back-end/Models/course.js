@@ -16,6 +16,10 @@ const CourseSchema = new mongoose.Schema({
     sections: {
         type: Array,
         required: false
+    },
+    instructor: {
+        type: String,
+        required: true
     }
 });
 

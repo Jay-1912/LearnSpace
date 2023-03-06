@@ -11,14 +11,19 @@ import { IInstructor } from '../shared/interface';
 })
 export class InstructorService {
   baseUrl:string = 'assets/temporary-data/'
-
+  url:string = "http://localhost:3000/";
   constructor(private http:HttpClient) { }
 
   getInstructors() : Observable<IInstructor[]>{
-    return this.http.get<IInstructor[]>(this.baseUrl+'instructor.json')
+    return this.http.get<IInstructor[]>(this.url+'teachers')
     .pipe(
       catchError(this.handleError)
     );
+  }
+
+  getInstructorByID(id: string): Observable<any>{
+    const url = this.url+"teacher/"+id;
+    return this.http.get<any>(url);
   }
 
   private handleError(error: any) {

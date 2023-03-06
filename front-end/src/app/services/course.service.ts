@@ -12,28 +12,28 @@ import { ICourse } from '../shared/interface';
 export class CourseService {
 
   baseUrl: string = 'assets/temporary-data/'
-
+  url: string = "http://localhost:3000/"
   constructor(private http:HttpClient) { }
 
   getCourses() : Observable<ICourse[]>{
-    return this.http.get<ICourse[]>(this.baseUrl+'courses.json')
+    return this.http.get<ICourse[]>(this.url+'courses')
     .pipe(
         catchError(this.handleError)
     );
   }
 
   getCourseByID(id: string):Observable<any>{
-    const url = "http://localhost:3000/course/"+id;
+    const url = this.url+"course/"+id;
     return this.http.get<any>(url);
   }
 
   postCourse(course: any): Observable<any>{
-    const url = "http://localhost:3000/add_course";
+    const url = this.url+"add_course";
     return this.http.post<any>(url, course);
   }
 
   postLesson(lesson: any): Observable<any>{
-    const url = "http://localhost:3000/add_lesson";
+    const url = this.url+"add_lesson";
     return this.http.post<any>(url, lesson);
   }
 

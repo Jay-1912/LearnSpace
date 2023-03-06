@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { InstructorService } from '../services/instructor.service';
 import { IInstructor } from '../shared/interface';
 
@@ -7,17 +7,21 @@ import { IInstructor } from '../shared/interface';
   templateUrl: './course-instructor.component.html',
   styleUrls: ['./course-instructor.component.css']
 })
-export class CourseInstructorComponent implements OnInit{
-  @Input() instructor!:number|undefined;
+export class CourseInstructorComponent implements OnInit, OnChanges{
+  @Input() instructor!:string;
 
   constructor(private instructorService:InstructorService){}
   name!:string|undefined;
   about!:string|undefined;
   ngOnInit(): void{
-    this.instructorService.getInstructors().subscribe((instructors:IInstructor[])=>{
-      let i = instructors.find((inst) => inst.id == this.instructor);
-      this.name =i?.name;
-      this.about = i?.about;
-    })
+  }
+
+  ngOnChanges(){
+    if(this.instructor){
+      this.instructorService.getInstructorByID(this.instructor).subscribe((instructor) =>{
+        instructor = instructor[0];
+        this.name = instructor.firstName + " " + instructor.lastName;
+      });
+    }
   }
 }

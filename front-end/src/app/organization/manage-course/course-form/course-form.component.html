@@ -10,12 +10,18 @@
             <textarea id="overview" name="overview" formControlName="overview"></textarea>
         </div>
         <div class="input-field">
-            <label for="thumbnail">Course Thumbnail*</label>
-            <input type="file" #thumbnail name="thumbnail" id="thumbnail">
+            <label for="instructor">Course Instructor*</label>
+            <select name="instructor" id="instructor" formControlName="instructor">
+                <option [ngValue]="instructor._id" *ngFor="let instructor of instructors">{{ instructor.firstName + " " + instructor.lastName }}</option>
+            </select>
         </div>
         <div class="input-field">
             <label for="section">Section*</label>
             <input type="text" name="section" id="section" placeholder="Insert Section by Comma" formControlName="sections">
+        </div>
+        <div class="input-field">
+            <label for="thumbnail">Course Thumbnail*</label>
+            <input type="file" #thumbnail name="thumbnail" id="thumbnail">
         </div>
     </div>
     <button type="submit" class="primary-button margin-top-16">Upload Lessons</button>

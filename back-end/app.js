@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
+app.use('/images', express.static('images'));
 
 mongoose.connect(
   "mongodb+srv://jayvadhavana23:SaiKWADtyfKL7p0j@cluster0.ffgkkwd.mongodb.net/?retryWrites=true&w=majority",

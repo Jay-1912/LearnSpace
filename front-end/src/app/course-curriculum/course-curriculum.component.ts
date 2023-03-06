@@ -8,9 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CourseCurriculumComponent implements OnInit {
   panelOpenState = false;
   @Input() curriculum!:any;
+  @Input() id!: string;
 
   ngOnInit(): void{
-    
+  }
+
+  navigate(title:string, section:number, lesson:number){
+    if(section!=-1 && lesson!=-1){
+      location.href="http://localhost:4200/course/"+this.id+"/"+ title+"/"+section+"/"+lesson;
+    }
   }
   
 }

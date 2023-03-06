@@ -29,7 +29,7 @@ app.get("/users", async (request, response) => {
 const multer = require("multer");
 
 var storage = multer.diskStorage({
-  destination: "./images",
+  destination: "./public/images",
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
   },
@@ -62,6 +62,7 @@ app.post("/add_course", upload.single("thumbnail"), async (req, res) => {
     overview: req.body.overview,
     thumbnail: filename,
     sections: JSON.parse(req.body.sections),
+    instructor: req.body.instructor
   });
   try {
     await course.save();
@@ -132,7 +133,27 @@ app.post("/delete-student", async (req, res) => {
   }
 });
 
-// manage teachers routes
+// manage teachers route
+app.get("/teachers", async(req, res)=>{
+  const teachers = await Teacher.find();
+  try {
+    res.send(teachers);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+app.get("/teacher/:id", async(req, res)=>{
+  const teacher = await Teacher.find({ _id: req.params.id });
+  console.log(teacher);
+  try {
+    res.send(teacher);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+
 app.post("/create-teacher", async (req, res) => {
   const teacher = new Teacher({
     id: req.body.id,

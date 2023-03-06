@@ -1,29 +1,37 @@
-import { Component } from '@angular/core';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-};
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CourseService } from 'src/app/services/course.service';
+import { InstructorService } from 'src/app/services/instructor.service';
+import { Subject,from } from 'rxjs';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 @Component({
   selector: 'app-course-table',
   templateUrl: './course-table.component.html',
   styleUrls: ['./course-table.component.css']
 })
-export class CourseTableComponent {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+export class CourseTableComponent implements OnInit {
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  courses$:any[] = [];
+  constructor(private courseService:CourseService, private instructorService:InstructorService){}
+
+  ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      processing: true
+    };
+    this.courseService.getCourses().subscribe( (courses) =>{
+      this.courses$ = courses;
+    } )
+  }
+
+  // getInstructorName(id:string): string{
+  //   let instructorName="";
+  //   this.instructorService.getInstructorByID(id).subscribe( (instructor) =>{
+  //     instructor = instructor[0];
+  //     instructorName = instructor.firstName + " " + instructor.lastName;
+  //   } )
+  //   return instructorName;
+  // }
+
 }
