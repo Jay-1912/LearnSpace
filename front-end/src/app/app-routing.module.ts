@@ -22,6 +22,7 @@ import { TeacherTableComponent } from './organization/manage-teacher/teacher-tab
 import { CreateTeacherComponent } from './organization/manage-teacher/create-teacher/create-teacher.component';
 import { DeleteTeacherComponent } from './organization/manage-teacher/delete-teacher/delete-teacher.component';
 import { UpdateTeacherComponent } from './organization/manage-teacher/update-teacher/update-teacher.component';
+import { StudentFormComponent } from './organization/manage-student/student-form/student-form.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -29,7 +30,10 @@ const routes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'course/:id/:title', component: CourseDescriptionComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'course/:id/:title/:section/:lesson', component: CourseContentComponent },
+  {
+    path: 'course/:id/:title/:section/:lesson',
+    component: CourseContentComponent,
+  },
   {
     path: 'organization',
     component: OrganizationComponent,
@@ -60,7 +64,7 @@ const routes: Routes = [
         component: ManageStudentComponent,
         children: [
           { path: 'students', component: StudentsTableComponent },
-          { path: 'create-student', component: CreateStudentComponent },
+          { path: 'create-student', component: StudentFormComponent },
           { path: 'delete-student', component: DeleteStudentComponent },
           { path: 'update-student', component: UpdateStudentComponent },
         ],

@@ -18,6 +18,7 @@ export class CreateTeacherComponent implements OnInit {
       id: '',
       email: '',
       password: '',
+      profile: null,
     });
   }
 
@@ -31,9 +32,10 @@ export class CreateTeacherComponent implements OnInit {
       id: teacherDataControl['id'].value,
       email: teacherDataControl['email'].value,
       password: teacherDataControl['password'].value,
+      profile: teacherDataControl['profile'].value,
     };
 
-    // console.log(this.studentData);
+    console.log(this.teacherData);
 
     const headers = new HttpHeaders()
       .set('Authorization', 'my-auth-token')

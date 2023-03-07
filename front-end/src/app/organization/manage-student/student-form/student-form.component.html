@@ -1,0 +1,59 @@
+<div class="title heading-1">Add Student</div>
+<form
+  class="course-form margin-top-16"
+  [formGroup]="createStudentForm"
+  (submit)="handleSubmitData($event)"
+>
+  <div class="form-fields-wrapper">
+    <div class="input-field margin-top-16">
+      <label for="firstname">Firstname*</label>
+      <input
+        type="text"
+        name="firstname"
+        id="firstname"
+        placeholder="Insert Firstname"
+        formControlName="firstName"
+      />
+    </div>
+
+    <div class="input-field margin-top-16">
+      <label for="lastname">Lastname*</label>
+      <input
+        type="text"
+        name="lastname"
+        id="lastname"
+        placeholder="Insert Lastname"
+        formControlName="lastName"
+        required
+      />
+    </div>
+
+    <div class="input-field margin-top-16">
+      <label for="email">Email*</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Insert Email"
+        formControlName="email"
+      />
+    </div>
+
+    <div class="input-field">
+      <label for="thumbnail">Profile Pic*</label>
+      <input
+        type="file"
+        #profile
+        name="profile"
+        formControlName="profile"
+        id="profile"
+      />
+    </div>
+  </div>
+  <button type="submit" class="primary-button margin-top-16">
+    Upload Profile Pic
+  </button>
+  <button type="submit" class="primary-button margin-top-16">
+    Add Student
+  </button>
+</form>

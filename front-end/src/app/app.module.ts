@@ -63,6 +63,7 @@ import { CreateTeacherComponent } from './organization/manage-teacher/create-tea
 import { TeacherTableComponent } from './organization/manage-teacher/teacher-table/teacher-table.component';
 import { UpdateTeacherComponent } from './organization/manage-teacher/update-teacher/update-teacher.component';
 import { DeleteTeacherComponent } from './organization/manage-teacher/delete-teacher/delete-teacher.component';
+import { StudentFormComponent } from './organization/manage-student/student-form/student-form.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { DeleteTeacherComponent } from './organization/manage-teacher/delete-tea
     TeacherTableComponent,
     UpdateTeacherComponent,
     DeleteTeacherComponent,
+    StudentFormComponent,
   ],
   imports: [
     BrowserModule,

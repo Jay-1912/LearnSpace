@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IStudent } from 'src/app/shared/interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Component({
-  selector: 'app-create-student',
-  templateUrl: './create-student.component.html',
-  styleUrls: ['./create-student.component.css'],
+  selector: 'app-student-form',
+  templateUrl: './student-form.component.html',
+  styleUrls: ['./student-form.component.css'],
 })
-export class CreateStudentComponent implements OnInit {
+export class StudentFormComponent {
   createStudentForm!: FormGroup;
   studentData!: IStudent;
 
   ngOnInit(): void {
     this.createStudentForm = this.fb.group({
-      firstName: '',
-      lastName: '',
-      id: '',
-      email: '',
-      password: '',
+      firstName: 'firstname',
+      lastName: 'lastname',
+      id: 'id',
+      email: 'email',
+      password: 'password',
       profile: null,
     });
   }
@@ -35,7 +36,7 @@ export class CreateStudentComponent implements OnInit {
       profile: studentDataControl['profile'].value,
     };
 
-    // console.log(this.studentData);
+    console.log(this.studentData);
 
     const headers = new HttpHeaders()
       .set('Authorization', 'my-auth-token')
