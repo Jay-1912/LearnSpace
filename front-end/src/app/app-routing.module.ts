@@ -64,10 +64,10 @@ const routes: Routes = [
         path: 'manage-student',
         component: ManageStudentComponent,
         children: [
-          { path: 'students', component: StudentsTableComponent },
+          { path: '', component: StudentsTableComponent },
           { path: 'create-student', component: StudentFormComponent },
           { path: 'delete-student', component: DeleteStudentComponent },
-          { path: 'update-student', component: UpdateStudentComponent },
+          { path: 'update-student/:id', component: StudentFormComponent },
         ],
       },
     ],

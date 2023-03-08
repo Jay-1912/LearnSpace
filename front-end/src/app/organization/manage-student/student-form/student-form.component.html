@@ -1,4 +1,4 @@
-<div class="title heading-1">Add Student</div>
+<div #title class="title heading-1">Add Student</div>
 <form
   class="course-form margin-top-16"
   [formGroup]="createStudentForm"
@@ -39,21 +39,42 @@
       />
     </div>
 
-    <div class="input-field">
-      <label for="thumbnail">Profile Pic*</label>
+    <div class="input-field margin-top-16">
+      <label for="password">Password*</label>
       <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Insert Password"
+        formControlName="password"
+      />
+    </div>
+
+    <div class="input-field margin-top-16 profile-container">
+      <div>
+
+        <label for="profile">Profile Pic*</label>
+        <br>
+        <input
+        (change)="uploadProfile($event)"
         type="file"
         #profile
         name="profile"
-        formControlName="profile"
         id="profile"
-      />
+        />
+      </div>
+
+      <div *ngIf="imageSrc != null">
+        <img
+          class="profile-preview"
+          id="profilePreview"
+          [src]="imageSrc"
+          alt="your image"
+        />
+      </div>
     </div>
   </div>
-  <button type="submit" class="primary-button margin-top-16">
-    Upload Profile Pic
-  </button>
-  <button type="submit" class="primary-button margin-top-16">
+  <button type="submit" #submit class="primary-button margin-top-16">
     Add Student
   </button>
 </form>
