@@ -115,7 +115,8 @@ app.post("/add_lesson", upload.single("file"), async (req, res) => {
     try {
       const updateResult = await courseModel.findByIdAndUpdate(
         { _id: courseID },
-        { sections: tempSections }
+        { sections: tempSections },
+        { new: true}
       );
       res.send(updateResult);
     } catch (error) {
