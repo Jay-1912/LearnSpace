@@ -23,6 +23,7 @@ import { CreateTeacherComponent } from './organization/manage-teacher/create-tea
 import { DeleteTeacherComponent } from './organization/manage-teacher/delete-teacher/delete-teacher.component';
 import { UpdateTeacherComponent } from './organization/manage-teacher/update-teacher/update-teacher.component';
 import { StudentFormComponent } from './organization/manage-student/student-form/student-form.component';
+import { TeacherFormComponent } from './organization/manage-teacher/teacher-form/teacher-form.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -46,7 +47,7 @@ const routes: Routes = [
           { path: 'courses', component: CourseTableComponent },
           { path: 'add-course', component: CourseFormComponent },
           { path: ':id/upload-lesson', component: UploadLessonComponent },
-          { path: 'edit-course/:id', component: CourseFormComponent }
+          { path: 'edit-course/:id', component: CourseFormComponent },
         ],
       },
       {
@@ -54,10 +55,10 @@ const routes: Routes = [
         component: ManageTeacherComponent,
 
         children: [
-          { path: 'teachers', component: TeacherTableComponent },
-          { path: 'create-teacher', component: CreateTeacherComponent },
-          { path: 'delete-teacher', component: DeleteTeacherComponent },
-          { path: 'update-teacher', component: UpdateTeacherComponent },
+          { path: '', component: TeacherTableComponent },
+          { path: 'create-teacher', component: TeacherFormComponent },
+          { path: 'delete-teacher/:id', component: TeacherTableComponent },
+          { path: 'update-teacher/:id', component: TeacherFormComponent },
         ],
       },
       {
@@ -66,7 +67,7 @@ const routes: Routes = [
         children: [
           { path: '', component: StudentsTableComponent },
           { path: 'create-student', component: StudentFormComponent },
-          { path: 'delete-student', component: DeleteStudentComponent },
+          { path: 'delete-student/:id', component: StudentsTableComponent },
           { path: 'update-student/:id', component: StudentFormComponent },
         ],
       },

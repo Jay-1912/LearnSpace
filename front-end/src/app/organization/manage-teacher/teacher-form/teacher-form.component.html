@@ -1,7 +1,7 @@
-<div #title class="title heading-1">Add Student</div>
+<div #title class="title heading-1">Add Teacher</div>
 <form
   class="course-form margin-top-16"
-  [formGroup]="createStudentForm"
+  [formGroup]="createTeacherForm"
   (submit)="handleSubmitData($event)"
 >
   <div class="form-fields-wrapper">
@@ -81,6 +81,6 @@
     </div>
   </div>
   <button type="submit" #submit class="primary-button margin-top-16">
-    Add Student
+    Add Teacher
   </button>
 </form>

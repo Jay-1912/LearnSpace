@@ -1,34 +1,50 @@
 <div class="container">
-    <a routerLink="/organization/manage-student/create-student"><button class="primary-button btn">Add Student</button></a>
-    <div class="card m-5 p-3 margin-top-16">
-        <div class="card-body">
-            <table *ngIf="displayTable" class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions">
-                <thead>
-                <tr>
-                    <th>Index</th>
-                    <th>Student Name</th>
-                    <th>Student email</th>
-                    <th>Student organization</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody >
-                <tr *ngFor="let student of students$; let indexOfStudent=index;">
-                    <td>{{ indexOfStudent+1 }}</td>
-                    <td>{{ student.firstName + " " + student.lastName }}</td>
-                    <td>{{ student.email }}</td>
-                    <td>{{ student.organization }}</td>
-                    <td>
-                        <a routerLink="/organization/manage-student/update-student/{{student._id}}"><button mat-icon-button class="icon">
-                            <mat-icon>edit</mat-icon>
-                        </button></a>
-                        <button mat-icon-button class="icon">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+  <a routerLink="/organization/manage-student/create-student"
+    ><button class="primary-button btn">Add Student</button></a
+  >
+  <div class="card m-5 p-3 margin-top-16">
+    <div class="card-body">
+      <table
+        *ngIf="displayTable"
+        class="table table-striped table-bordered table-sm row-border hover"
+        datatable
+        [dtOptions]="dtOptions"
+      >
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Student Name</th>
+            <th>Student email</th>
+            <th>Student organization</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students$; let indexOfStudent = index">
+            <td>{{ indexOfStudent + 1 }}</td>
+            <td>{{ student.firstName + " " + student.lastName }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.organization }}</td>
+            <td>
+              <a
+                routerLink="/organization/manage-student/update-student/{{
+                  student._id
+                }}"
+              >
+                <button mat-icon-button class="icon">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </a>
+
+              <a (click)="deleteStudent(student._id)">
+                <button mat-icon-button class="icon">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

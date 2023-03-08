@@ -60,9 +60,9 @@
   display: flex;
   justify-content: space-between;
 }
-.fs_12 {
-  font-size: 12px;
-}
 .fc_green {
   color: green;
+}
+.fs_12 {
+  font-size: 12px;
 }

@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
 const TeacherSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-  },
   firstName: {
     type: String,
     required: true,
@@ -20,6 +16,15 @@ const TeacherSchema = new mongoose.Schema({
     type: String,
     required: true,
     default: "org123",
+  },
+  profile: {
+    type: String,
+    required: true,
+  },
+  organization: {
+    type: String,
+    required: true,
+    default: "org",
   },
 });
 

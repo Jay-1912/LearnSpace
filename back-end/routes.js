@@ -117,7 +117,7 @@ app.post("/add_lesson", upload.single("file"), async (req, res) => {
       const updateResult = await courseModel.findByIdAndUpdate(
         { _id: courseID },
         { sections: tempSections },
-        { new: true}
+        { new: true }
       );
       res.send(updateResult);
     } catch (error) {
@@ -126,16 +126,16 @@ app.post("/add_lesson", upload.single("file"), async (req, res) => {
   }
 });
 
-app.post("/edit_lesson", upload.single("file"), async (req, res) =>{
+app.post("/edit_lesson", upload.single("file"), async (req, res) => {
   let filename;
-  if(req.file){
+  if (req.file) {
     filename = req.file.filename;
-  }else{
+  } else {
     filename = req.body.file;
   }
   const courseID = req.body.courseID;
-  if(courseID){
-    let course = await courseModel.find({_id: courseID});
+  if (courseID) {
+    let course = await courseModel.find({ _id: courseID });
     let tempSections = course[0].sections;
     let editedSection = req.body.section;
     let editedLesson = req.body.lesson;
@@ -155,14 +155,14 @@ app.post("/edit_lesson", upload.single("file"), async (req, res) =>{
   }
 });
 
-app.post("/delete_lesson", upload.single(""), async(req, res)=>{
+app.post("/delete_lesson", upload.single(""), async (req, res) => {
   const courseID = req.body.courseID;
-  if(courseID){
-    let course = await courseModel.find({_id: courseID});
+  if (courseID) {
+    let course = await courseModel.find({ _id: courseID });
     let tempSections = course[0].sections;
     let deletedSection = req.body.section;
     let deletedLesson = req.body.lesson;
-    if(deletedLesson>-1){
+    if (deletedLesson > -1) {
       tempSections[deletedSection].lesson.splice(deletedLesson, 1);
     }
     try {
@@ -176,7 +176,7 @@ app.post("/delete_lesson", upload.single(""), async(req, res)=>{
       res.send(error);
     }
   }
-})
+});
 
 // manage student routes
 
@@ -201,7 +201,7 @@ app.post("/create-student", upload.single("profile"), async (req, res) => {
     profile: filename,
     organization: req.body.organization,
   });
-  console.log(student);
+  // console.log(student);
   try {
     await student.save();
     res.send(student);
@@ -211,12 +211,11 @@ app.post("/create-student", upload.single("profile"), async (req, res) => {
   }
 });
 
-app.post("/delete-student", async (req, res) => {
-  const stuId = req.body.stuId;
-  console.log(req.body.stuId);
+app.delete("/delete-student/:id", async (req, res) => {
+  const stuId = req.params.id;
   try {
-    await Student.deleteOne({ id: stuId });
-    res.send(stuId + " deleted");
+    let deleteStudentResponse = await Student.deleteOne({ _id: stuId });
+    res.send(deleteStudentResponse);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -259,6 +258,15 @@ app.get("/teachers", async (req, res) => {
   }
 });
 
+app.get("/get-teachers/:org", async (req, res) => {
+  const teachers = await Teacher.find({ organization: req.params.org });
+  try {
+    res.send(teachers);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 app.get("/teacher/:id", async (req, res) => {
   const teacher = await Teacher.find({ _id: req.params.id });
   console.log(teacher);
@@ -269,21 +277,60 @@ app.get("/teacher/:id", async (req, res) => {
   }
 });
 
-app.post("/create-teacher", async (req, res) => {
+app.delete("/delete-teacher/:id", async (req, res) => {
+  const teacherId = req.params.id;
+  try {
+    let deleteTeacherResponse = await Teacher.deleteOne({ _id: teacherId });
+    res.send(deleteTeacherResponse);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+app.post("/create-teacher", upload.single("profile"), async (req, res) => {
+  const filename = req.file.filename;
   const teacher = new Teacher({
-    id: req.body.id,
     firstName: req.body.firstname,
     lastName: req.body.lastname,
     email: req.body.email,
     password: req.body.password,
+    profile: filename,
+    organization: req.body.organization,
   });
-  console.log(teacher);
+  // console.log(student);
   try {
     await teacher.save();
     res.send(teacher);
     console.log("teacher saved");
   } catch (error) {
     res.status(500).send(error);
+  }
+});
+
+app.post("/update-teacher/:id", upload.single("profile"), async (req, res) => {
+  let filename = "";
+  if (req.file != undefined) {
+    filename = req.file.filename;
+  } else {
+    filename = req.body.profile;
+  }
+  try {
+    let updatedData = await Teacher.updateOne(
+      { _id: req.params.id },
+      {
+        firstName: req.body.firstname,
+        lastName: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password,
+        profile: filename,
+        organization: req.body.organization,
+      }
+    );
+    res.send(updatedData);
+  } catch (error) {
+    res.status(500).send(error);
+    console.log(filename);
+    console.log("here here  ");
   }
 });
 

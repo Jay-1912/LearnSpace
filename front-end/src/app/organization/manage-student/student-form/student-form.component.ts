@@ -25,6 +25,7 @@ export class StudentFormComponent implements OnInit {
   stuId: any;
   tempData!: any;
   baseUrl!: string;
+  updateMode: boolean = false;
   ngOnInit(): void {
     this.createStudentForm = new FormGroup({
       firstName: new FormControl(''),
@@ -43,22 +44,28 @@ export class StudentFormComponent implements OnInit {
         this.submit.nativeElement.innerText = 'Update Student';
       }, 10);
     }
-    this.studentService.getStudentById(this.stuId).subscribe((data) => {
-      this.tempData = data;
+    if (this.stuId != null) {
+      this.updateMode = true;
+      this.studentService.getStudentById(this.stuId).subscribe((data) => {
+        this.tempData = data;
 
-      console.log(data);
+        console.log(data);
 
-      this.createStudentForm.controls['firstName'].setValue(data[0].firstName);
-      this.createStudentForm.controls['lastName'].setValue(data[0].lastName);
-      this.createStudentForm.controls['email'].setValue(data[0].email);
-      this.createStudentForm.controls['password'].setValue(data[0].password);
+        this.createStudentForm.controls['firstName'].setValue(
+          data[0].firstName
+        );
+        this.createStudentForm.controls['lastName'].setValue(data[0].lastName);
+        this.createStudentForm.controls['email'].setValue(data[0].email);
+        this.createStudentForm.controls['password'].setValue(data[0].password);
 
-      this.createStudentForm.controls['profile'].setValue(data[0].profile);
-      this.imageSrc = 'http://localhost:3000/images/' + data[0].profile;
-      this.createStudentForm.controls['organization'].setValue(
-        data[0].organization
-      );
-    });
+        this.createStudentForm.controls['profile'].setValue(data[0].profile);
+        this.imageSrc = 'http://localhost:3000/images/' + data[0].profile;
+        this.createStudentForm.controls['organization'].setValue(
+          data[0].organization
+        );
+      });
+    } else {
+    }
   }
 
   async uploadProfile(event: any) {
@@ -105,14 +112,11 @@ export class StudentFormComponent implements OnInit {
       this.http
         .post(this.baseUrl, studentFormData)
         .subscribe((data) => console.log(data));
-      // this.stuId = undefined;
-      // this.router.navigate(['/', StudentsTableComponent]);
     } else {
       this.baseUrl = 'http://localhost:3000/create-student/';
       this.http
         .post(this.baseUrl, studentFormData)
         .subscribe((data) => console.log(data));
-      // this.router.navigate(['/', StudentsTableComponent]);
     }
   }
 
