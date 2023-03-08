@@ -1,3 +1,4 @@
+<div *ngIf="id==''">
 <div class="title heading-1">Add Course</div>
 <form class="course-form margin-top-16" [formGroup]="courseForm" (submit)="saveCourse($event)">
     <div class="form-fields-wrapper">
@@ -15,17 +16,95 @@
                 <option [ngValue]="instructor._id" *ngFor="let instructor of instructors">{{ instructor.firstName + " " + instructor.lastName }}</option>
             </select>
         </div>
-        <div class="input-field">
+        <!-- <div class="input-field">
             <label for="section">Section*</label>
             <input type="text" name="section" id="section" placeholder="Insert Section by Comma" formControlName="sections">
+        </div> -->
+        <div class="">
+            <label for="section">Section*</label>
+            <mat-form-field class="example-chip-list margin-top-10" appearance="fill">
+                <mat-chip-grid #chipGrid aria-label="Enter Section">
+                  <mat-chip-row *ngFor="let section of sections"
+                                (removed)="remove(section)"
+                                [editable]="true"
+                                (edited)="edit(section, $event)"
+                                [aria-description]="'press enter to edit ' + section.title">
+                    {{section.title}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + section.title">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                  <input placeholder="New section"
+                         [matChipInputFor]="chipGrid"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         [matChipInputAddOnBlur]="addOnBlur"
+                         (matChipInputTokenEnd)="add($event)"/>
+                </mat-chip-grid>
+              </mat-form-field>
         </div>
         <div class="input-field">
             <label for="thumbnail">Course Thumbnail*</label>
-            <input type="file" #thumbnail name="thumbnail" id="thumbnail">
+            <input type="file" #thumbnail name="thumbnail" id="thumbnail" (change)="onFileChanged($event)">
+            <img src="{{image}}" alt="thumbanil" *ngIf="id" class="img">
         </div>
     </div>
-    <button type="submit" class="primary-button margin-top-16">Upload Lessons</button>
-    <button type="submit" class="primary-button margin-top-16">Save Course as Draft</button>
+    <button type="submit" class="primary-button margin-top-16" *ngIf="id">Update Course & Go To Lesson</button>
+
+    <button type="submit" class="primary-button margin-top-16" *ngIf="id==''">Upload Lessons</button>
+    <button type="submit" class="primary-button margin-top-16" *ngIf="id==''">Save Course as Draft</button>
 </form>
+</div>
 
-
+<div *ngIf="id">
+<div class="title heading-1">Edit Course</div>
+<form class="course-form margin-top-16" [formGroup]="courseForm" (submit)="updateCourse($event)">
+    <div class="form-fields-wrapper">
+        <div class="input-field">
+            <label for="title">Course Title*</label>
+            <input type="text" name="title" id="title" formControlName="title">
+        </div>
+        <div class="input-field">
+            <label for="overview">Course Overview*</label>
+            <textarea id="overview" name="overview" formControlName="overview"></textarea>
+        </div>
+        <div class="input-field">
+            <label for="instructor">Course Instructor*</label>
+            <select name="instructor" id="instructor" formControlName="instructor">
+                <option [ngValue]="instructor._id" *ngFor="let instructor of instructors">{{ instructor.firstName + " " + instructor.lastName }}</option>
+            </select>
+        </div>
+        <!-- <div class="input-field">
+            <label for="section">Section*</label>
+            <input type="text" name="section" id="section" placeholder="Insert Section by Comma" formControlName="sections">
+        </div> -->
+        <div class="">
+            <label for="section">Section*</label>
+            <mat-form-field class="example-chip-list margin-top-10" appearance="fill">
+                <mat-chip-grid #chipGrid aria-label="Enter Section">
+                  <mat-chip-row *ngFor="let section of sections"
+                                (removed)="remove(section)"
+                                [editable]="true"
+                                (edited)="edit(section, $event)"
+                                [aria-description]="'press enter to edit ' + section.title">
+                    {{section.title}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + section.title">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                  <input placeholder="New section"
+                         [matChipInputFor]="chipGrid"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         [matChipInputAddOnBlur]="addOnBlur"
+                         (matChipInputTokenEnd)="add($event)"/>
+                </mat-chip-grid>
+              </mat-form-field>
+        </div>
+        <div class="input-field">
+            <label for="thumbnail">Course Thumbnail*</label>
+            <input type="file" #thumbnail name="thumbnail" id="thumbnail" (change)="onFileChanged($event)">
+            <img src="{{image}}" alt="thumbanil" *ngIf="id" class="img">
+        </div>
+    </div>
+    <button type="submit" class="primary-button margin-top-16" *ngIf="id">Update Course & Go To Lesson</button>
+</form>
+</div>

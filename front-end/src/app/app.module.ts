@@ -24,6 +24,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -127,7 +128,8 @@ import { StudentFormComponent } from './organization/manage-student/student-form
     MatTableModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTablesModule
+    DataTablesModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

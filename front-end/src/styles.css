@@ -103,3 +103,15 @@ button{
 .mdc-list-item{
     padding: 0 !important;
 }
+
+.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix{
+    padding : 0 !important;
+}
+    
+.mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix{
+    padding: 0 !important;
+}
+
+.mat-mdc-form-field-infix {
+    min-height: 0 !important;
+}

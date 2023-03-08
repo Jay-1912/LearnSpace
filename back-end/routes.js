@@ -72,6 +72,30 @@ app.post("/add_course", upload.single("thumbnail"), async (req, res) => {
   }
 });
 
+app.post("/edit_course/:id", upload.single("thumbnail"), async (req, res)=>{
+  let filename = "";
+  if(req.file!=undefined){
+    filename = req.file.filename;
+  }else{
+    filename = req.body.thumbnail;
+  }
+  const id = req.params.id;
+  try{
+    const updateResult = await courseModel.findByIdAndUpdate(
+      {_id: id},
+      {
+        title: req.body.title,
+        overview: req.body.overview,
+        instructor: req.body.instructor,
+        thumbnail: filename,
+        sections: JSON.parse(req.body.sections)
+      });
+      res.send(updateResult);
+  }catch(error){
+    res.send(error);
+  }
+})
+
 app.post("/add_lesson", upload.single("file"), async (req, res) => {
   const filename = req.file.filename;
   const courseID = req.body.courseID;

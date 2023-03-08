@@ -46,6 +46,7 @@ const routes: Routes = [
           { path: 'courses', component: CourseTableComponent },
           { path: 'add-course', component: CourseFormComponent },
           { path: ':id/upload-lesson', component: UploadLessonComponent },
+          { path: 'edit-course/:id', component: CourseFormComponent }
         ],
       },
       {

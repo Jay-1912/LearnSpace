@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
+import { Observable, ObservedValueOf, throwError } from 'rxjs';
 import {map, catchError } from 'rxjs/operators';
 
 import { ICourse } from '../shared/interface';
@@ -35,6 +35,14 @@ export class CourseService {
   postLesson(lesson: any): Observable<any>{
     const url = this.url+"add_lesson";
     return this.http.post<any>(url, lesson);
+  }
+
+  updateCourse(id:string, course:any): Observable<any>{
+    const url = this.url+"edit_course/"+id;
+    // for (const value of course.values()) {
+    //   console.log(value);
+    // }
+    return this.http.post<any>(url, course);
   }
 
   private handleError(error: any) {

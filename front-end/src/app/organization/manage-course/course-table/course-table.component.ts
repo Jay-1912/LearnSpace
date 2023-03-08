@@ -33,11 +33,5 @@ export class CourseTableComponent implements OnInit {
       }
       this.displayTable = true;
     })
-
   }
-
-  getInstructorName(id:string){
-    
-  }
-
 }
