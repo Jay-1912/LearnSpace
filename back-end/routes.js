@@ -102,9 +102,6 @@ app.post("/add_lesson", upload.single("file"), async (req, res) => {
   if (courseID) {
     let course = await courseModel.find({ _id: courseID });
     let tempSections = course[0].sections;
-    function findSection(section) {
-      return section.title == req.body.section;
-    }
     let lesson = {
       title: req.body.title,
       type: req.body.type,
@@ -126,6 +123,58 @@ app.post("/add_lesson", upload.single("file"), async (req, res) => {
     }
   }
 });
+
+app.post("/edit_lesson", upload.single("file"), async (req, res) =>{
+  let filename;
+  if(req.file){
+    filename = req.file.filename;
+  }else{
+    filename = req.body.file;
+  }
+  const courseID = req.body.courseID;
+  if(courseID){
+    let course = await courseModel.find({_id: courseID});
+    let tempSections = course[0].sections;
+    let editedSection = req.body.section;
+    let editedLesson = req.body.lesson;
+    tempSections[editedSection].lesson[editedLesson].title = req.body.title;
+    tempSections[editedSection].lesson[editedLesson].type = req.body.type;
+    tempSections[editedSection].lesson[editedLesson].file = filename;
+    try {
+      const updateResult = await courseModel.findByIdAndUpdate(
+        { _id: courseID },
+        { sections: tempSections },
+        { new: true }
+      );
+      res.send(updateResult);
+    } catch (error) {
+      res.send(error);
+    }
+  }
+});
+
+app.post("/delete_lesson", upload.single(""), async(req, res)=>{
+  const courseID = req.body.courseID;
+  if(courseID){
+    let course = await courseModel.find({_id: courseID});
+    let tempSections = course[0].sections;
+    let deletedSection = req.body.section;
+    let deletedLesson = req.body.lesson;
+    if(deletedLesson>-1){
+      tempSections[deletedSection].lesson.splice(deletedLesson, 1);
+    }
+    try {
+      const updateResult = await courseModel.findByIdAndUpdate(
+        { _id: courseID },
+        { sections: tempSections },
+        { new: true }
+      );
+      res.send(updateResult);
+    } catch (error) {
+      res.send(error);
+    }
+  }
+})
 
 // manage student routes
 app.post("/create-student", async (req, res) => {

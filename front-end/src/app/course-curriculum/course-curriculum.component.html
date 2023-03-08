@@ -9,7 +9,15 @@
         <mat-list role="list">
             <mat-list-item role="listitem" *ngFor="let item of curr.lesson; let indexOfLesson=index;">
                 <div class="list-item">
-                    <div><a (click)="navigate(curr.title, indexOfSection, indexOfLesson)">{{item.title}}</a></div> 
+                    <div><a (click)="navigate(curr.title, indexOfSection, indexOfLesson)">{{item.title}}</a></div>
+                    <div class="operation-icon" *ngIf="isManage==true">
+                        <button mat-icon-button class="icon" (click)="handleEditLesson(indexOfSection, indexOfLesson)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button class="icon" (click)="handleDeleteLesson(indexOfSection, indexOfLesson)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div> 
                 </div>
             </mat-list-item>
         </mat-list>

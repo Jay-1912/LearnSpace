@@ -45,6 +45,16 @@ export class CourseService {
     return this.http.post<any>(url, course);
   }
 
+  updateLesson(lesson:any):Observable<any>{
+    const url = this.url+"edit_lesson";
+    return this.http.post<any>(url, lesson);
+  }
+
+  deleteLesson(lesson:any):Observable<any>{
+    const url = this.url+"delete_lesson";
+    return this.http.post<any>(url, lesson);
+  }
+
   private handleError(error: any) {
     console.error('server error:', error);
     if (error.error instanceof Error) {

@@ -108,7 +108,7 @@ export class CourseFormComponent implements OnInit {
     reader.onload = (_event) => { 
         this.image = reader.result; 
     }
-}
+  }
 
   saveCourse(event: Event){
     event.preventDefault();
