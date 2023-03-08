@@ -45,6 +45,11 @@ export class CourseService {
     return this.http.post<any>(url, course);
   }
 
+  deleteCourse(id:string): Observable<any>{
+    const url = this.url+"delete_course/"+id;
+    return this.http.get<any>(url);
+  }
+
   updateLesson(lesson:any):Observable<any>{
     const url = this.url+"edit_lesson";
     return this.http.post<any>(url, lesson);

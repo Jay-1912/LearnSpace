@@ -17,6 +17,13 @@ export class CourseTableComponent implements OnInit {
   displayCourses:any[] = [];
   tempInstructorName:string = "";
 
+  handleDeleteCourse(id:string){
+    this.courseService.deleteCourse(id).subscribe((res)=>{
+      console.log(res);
+      location.reload();
+    })
+  }
+
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',

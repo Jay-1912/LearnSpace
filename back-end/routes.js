@@ -97,6 +97,16 @@ app.post("/edit_course/:id", upload.single("thumbnail"), async (req, res) => {
   }
 });
 
+app.get("/delete_course/:id", async(req, res)=>{
+  let id = req.params.id;
+  try{
+    const result = await courseModel.deleteOne({_id:id});
+    res.send(result);
+  }catch(error){
+    res.send(error);
+  }
+});
+
 app.post("/add_lesson", upload.single("file"), async (req, res) => {
   const filename = req.file.filename;
   const courseID = req.body.courseID;
