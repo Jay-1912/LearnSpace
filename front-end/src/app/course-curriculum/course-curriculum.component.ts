@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-course-curriculum',
@@ -8,8 +8,11 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CourseCurriculumComponent implements OnInit {
   panelOpenState = false;
   @Input() curriculum!:any;
-  @Input() id!: string;
+  @Input() id!: string|null;
+  @Input() isManage:boolean = false;
 
+  @Output() handleEditlessonEvent = new EventEmitter<any>();
+  @Output() handleDeletelessonEvent = new EventEmitter<any>();
   ngOnInit(): void{
   }
 
@@ -17,6 +20,14 @@ export class CourseCurriculumComponent implements OnInit {
     if(section!=-1 && lesson!=-1){
       location.href="http://localhost:4200/course/"+this.id+"/"+ title+"/"+section+"/"+lesson;
     }
+  }
+
+  handleEditLesson(section:number, lesson:number){
+    this.handleEditlessonEvent.emit({section, lesson});
+  }
+
+  handleDeleteLesson(section:number, lesson:number){
+    this.handleDeletelessonEvent.emit({section, lesson});
   }
   
 }

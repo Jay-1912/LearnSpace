@@ -1,30 +1,72 @@
-<div class="title heading-1">
-    Add Lesson
-</div>
-<form action="" class="margin-top-16" [formGroup]="lessonForm" (submit)="saveLesson($event)">
-    <div class="form-fields-wrapper">
-        <div class="input-field">
-            <label for="section">Choose Sections*</label>
-            <select name="section" id="" formControlName="section">
-                <option [ngValue]="null" disabled>Select Section</option>
-                <option  [ngValue]="section.title" *ngFor="let section of sections">{{section.title}}</option>
-            </select> 
-        </div>
-        <div class="input-field">
-            <label for="title">Lesson Title*</label>
-            <input type="text" id="lesson-title" formControlName="title">
-        </div>
-        <div class="input-field">
-            <label for="type">Type*</label>
-            <div class="radio-field">
-                <input type="radio" formControlName="type" id="lesson-type" value="video"> <span class="radio-text">Video</span> 
-                <input type="radio" formControlName="type" id="lesson-type" value="document"> <span class="radio-text">Document</span>
+<div *ngIf="isEdit==false">
+    <div class="title heading-1">
+        Add Lesson
+    </div>
+    <form action="" class="margin-top-16" [formGroup]="lessonForm" (submit)="saveLesson($event)">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="section">Choose Sections*</label>
+                <select name="section" id="" formControlName="section">
+                    <option [ngValue]="null" disabled>Select Section</option>
+                    <option  [ngValue]="section.title" *ngFor="let section of sections">{{section.title}}</option>
+                </select> 
+            </div>
+            <div class="input-field">
+                <label for="title">Lesson Title*</label>
+                <input type="text" id="lesson-title" formControlName="title">
+            </div>
+            <div class="input-field">
+                <label for="type">Type*</label>
+                <div class="radio-field">
+                    <input type="radio" formControlName="type" id="lesson-type" value="video"> <span class="radio-text">Video</span> 
+                    <input type="radio" formControlName="type" id="lesson-type" value="document"> <span class="radio-text">Document</span>
+                </div>
+            </div>
+            <div class="input-field">
+                <label for="file">Upload File*</label>
+                <input type="file" id="upload-file" #file (change)="onFileChanged($event)">
+                <a [href]="url" target="_blank">Preview</a>
             </div>
         </div>
-        <div class="input-field">
-            <label for="file">Upload File*</label>
-            <input type="file" id="upload-file" #file formControlName="file">
-        </div>
+        <button type="submit" class="primary-button margin-top-16">Save Lesson</button>
+    </form>
+</div>
+
+<div *ngIf="isEdit==true">
+    <div class="title heading-1">
+        Edit Lesson
     </div>
-    <button type="submit" class="primary-button margin-top-16">Save Lesson</button>
-</form>
+    <form action="" class="margin-top-16" [formGroup]="lessonForm" (submit)="updateLesson($event)">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="section">Choose Sections*</label>
+                <select name="section" id="" formControlName="section">
+                    <option [ngValue]="null" disabled>Select Section</option>
+                    <option  [ngValue]="section.title" *ngFor="let section of sections">{{section.title}}</option>
+                </select> 
+            </div>
+            <div class="input-field">
+                <label for="title">Lesson Title*</label>
+                <input type="text" id="lesson-title" formControlName="title">
+            </div>
+            <div class="input-field">
+                <label for="type">Type*</label>
+                <div class="radio-field">
+                    <input type="radio" formControlName="type" id="lesson-type" value="video"> <span class="radio-text">Video</span> 
+                    <input type="radio" formControlName="type" id="lesson-type" value="document"> <span class="radio-text">Document</span>
+                </div>
+            </div>
+            <div class="input-field">
+                <label for="file">Upload File*</label>
+                <input type="file" id="upload-file" #file (change)="onFileChanged($event)">
+                <a [href]="url" target="_blank">Preview</a>
+            </div>
+        </div>
+        <button type="submit" class="primary-button margin-top-16">Save Lesson</button>
+    </form>
+</div>
+
+
+<div class="margin-top-16">
+    <app-course-curriculum [curriculum]="sections" [id]="courseID" [isManage]="true" (handleEditlessonEvent)="setFormValues($event)" (handleDeletelessonEvent)="deleteLesson($event)"></app-course-curriculum>
+</div>
