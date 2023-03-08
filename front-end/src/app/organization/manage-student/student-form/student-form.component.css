@@ -48,3 +48,15 @@
 .section-input-field input {
   width: 80%;
 }
+.profile-preview {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 1px solid gray;
+  background-position: center;
+  background-size: cover;
+}
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+}

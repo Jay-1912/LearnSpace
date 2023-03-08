@@ -62,7 +62,7 @@ app.post("/add_course", upload.single("thumbnail"), async (req, res) => {
     overview: req.body.overview,
     thumbnail: filename,
     sections: JSON.parse(req.body.sections),
-    instructor: req.body.instructor
+    instructor: req.body.instructor,
   });
   try {
     await course.save();
@@ -72,29 +72,30 @@ app.post("/add_course", upload.single("thumbnail"), async (req, res) => {
   }
 });
 
-app.post("/edit_course/:id", upload.single("thumbnail"), async (req, res)=>{
+app.post("/edit_course/:id", upload.single("thumbnail"), async (req, res) => {
   let filename = "";
-  if(req.file!=undefined){
+  if (req.file != undefined) {
     filename = req.file.filename;
-  }else{
+  } else {
     filename = req.body.thumbnail;
   }
   const id = req.params.id;
-  try{
+  try {
     const updateResult = await courseModel.findByIdAndUpdate(
-      {_id: id},
+      { _id: id },
       {
         title: req.body.title,
         overview: req.body.overview,
         instructor: req.body.instructor,
         thumbnail: filename,
-        sections: JSON.parse(req.body.sections)
-      });
-      res.send(updateResult);
-  }catch(error){
+        sections: JSON.parse(req.body.sections),
+      }
+    );
+    res.send(updateResult);
+  } catch (error) {
     res.send(error);
   }
-})
+});
 
 app.post("/add_lesson", upload.single("file"), async (req, res) => {
   const filename = req.file.filename;
@@ -128,13 +129,27 @@ app.post("/add_lesson", upload.single("file"), async (req, res) => {
 });
 
 // manage student routes
-app.post("/create-student", async (req, res) => {
+
+app.get("/get-students/:org", async (req, res) => {
+  let data;
+  data = await Student.find({ organization: req.params.org });
+  return res.send(data);
+});
+app.get("/get-student/:id", async (req, res) => {
+  let data;
+  data = await Student.find({ _id: req.params.id });
+  return res.send(data);
+});
+
+app.post("/create-student", upload.single("profile"), async (req, res) => {
+  const filename = req.file.filename;
   const student = new Student({
-    id: req.body.id,
     firstName: req.body.firstname,
     lastName: req.body.lastname,
     email: req.body.email,
     password: req.body.password,
+    profile: filename,
+    organization: req.body.organization,
   });
   console.log(student);
   try {
@@ -157,8 +172,35 @@ app.post("/delete-student", async (req, res) => {
   }
 });
 
+app.post("/update-student/:id", upload.single("profile"), async (req, res) => {
+  let filename = "";
+  if (req.file != undefined) {
+    filename = req.file.filename;
+  } else {
+    filename = req.body.profile;
+  }
+  try {
+    let updatedData = await Student.updateOne(
+      { _id: req.params.id },
+      {
+        firstName: req.body.firstname,
+        lastName: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password,
+        profile: filename,
+        organization: req.body.organization,
+      }
+    );
+    res.send(updatedData);
+  } catch (error) {
+    res.status(500).send(error);
+    console.log(filename);
+    console.log("here here  ");
+  }
+});
+
 // manage teachers route
-app.get("/teachers", async(req, res)=>{
+app.get("/teachers", async (req, res) => {
   const teachers = await Teacher.find();
   try {
     res.send(teachers);
@@ -167,7 +209,7 @@ app.get("/teachers", async(req, res)=>{
   }
 });
 
-app.get("/teacher/:id", async(req, res)=>{
+app.get("/teacher/:id", async (req, res) => {
   const teacher = await Teacher.find({ _id: req.params.id });
   console.log(teacher);
   try {
@@ -176,7 +218,6 @@ app.get("/teacher/:id", async(req, res)=>{
     res.status(500).send(err);
   }
 });
-
 
 app.post("/create-teacher", async (req, res) => {
   const teacher = new Teacher({

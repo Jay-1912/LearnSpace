@@ -42,5 +42,5 @@ export interface IStudent {
   lastname: string;
   email: string;
   password: string;
-  profile: File;
+  profile: ArrayBuffer;
 }

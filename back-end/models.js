@@ -12,10 +12,6 @@ const UserSchema = new mongoose.Schema({
 });
 
 const StudentSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-  },
   firstName: {
     type: String,
     required: true,
@@ -33,6 +29,15 @@ const StudentSchema = new mongoose.Schema({
     required: true,
     default: "org123",
   },
+  profile: {
+    type: String,
+    required: true,
+  },
+  organization : {
+    type : String,
+    required : true,
+    default : 'org'
+  }
 });
 
 const User = mongoose.model("User", UserSchema);
