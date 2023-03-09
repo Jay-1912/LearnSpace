@@ -1,4 +1,4 @@
-<div *ngIf="id==''">
+<div *ngIf="!id">
     <div class="title heading-1">Add Organization</div>
     <form class="course-form margin-top-16" [formGroup]="OrganizationForm" (submit)="saveOrganization($event)">
         <div class="form-fields-wrapper">
@@ -22,7 +22,6 @@
                 <input type="password" formControlName="confirmPassword" id="confirmPassword" (change)="comparePassword()">
                 <span class="hint" #organizationConfirmPassword>*password and confirm password should be same.</span>
             </div>
-
             <div class="input-field">
                 <label for="image">Organization Image*</label>
                 <input type="file" #file formControlName="image" id="image" (change)="setPreview($event)">
