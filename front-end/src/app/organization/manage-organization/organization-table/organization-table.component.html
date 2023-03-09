@@ -6,23 +6,25 @@
                 <thead>
                 <tr>
                     <th>Index</th>
-                    <th>Course Title</th>
-                    <th>Course Instructor</th>
-                    <th>Enrolled Students</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Profile</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody >
-                <tr *ngFor="let course of courses$; let indexOfCourse=index;">
-                    <td>{{ indexOfCourse+1 }}</td>
-                    <td>{{ course.title }}</td>
-                    <td>{{ course.instructor }}</td>
-                    <td>212</td>
+                <tr *ngFor="let org of organizations$; let indexOfOrg=index;">
+                    <td>{{ indexOfOrg+1 }}</td>
+                    <td>{{ org.name }}</td>
+                    <td>{{ org.email }}</td>
                     <td>
-                        <a routerLink="/admin/manage-course/edit-course/{{course._id}}"><button mat-icon-button class="icon">
+                        <img src="http://localhost:3000/images/{{org.image}}" alt="" class="img preview">
+                    </td>
+                    <td>
+                        <a routerLink="/admin/manage-organization/edit-organization/{{org._id}}"><button mat-icon-button class="icon">
                             <mat-icon>edit</mat-icon>
                         </button></a>
-                        <button mat-icon-button class="icon" (click)="handleDeleteCourse(course._id)">
+                        <button mat-icon-button class="icon" (click)="handleDeleteOrg(org._id)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>

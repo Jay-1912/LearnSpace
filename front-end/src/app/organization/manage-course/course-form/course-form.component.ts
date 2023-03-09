@@ -128,7 +128,7 @@ export class CourseFormComponent implements OnInit {
     this.courseService.postCourse(formData).subscribe((res) => {
       console.log(res);
       let navigationURL =
-        'http://localhost:4200/organization/manage-course/' +
+        'http://localhost:4200/admin/manage-course/' +
         res._id +
         '/upload-lesson';
       window.location.href = navigationURL;
@@ -152,7 +152,7 @@ export class CourseFormComponent implements OnInit {
     this.courseService.updateCourse(this.id, formData).subscribe((res) => {
       console.log(res);
       let navigationURL =
-        'http://localhost:4200/organization/manage-course/' +
+        'http://localhost:4200/admin/manage-course/' +
         res._id +
         '/upload-lesson';
       window.location.href = navigationURL;

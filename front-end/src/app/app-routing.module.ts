@@ -24,6 +24,9 @@ import { DeleteTeacherComponent } from './organization/manage-teacher/delete-tea
 import { UpdateTeacherComponent } from './organization/manage-teacher/update-teacher/update-teacher.component';
 import { StudentFormComponent } from './organization/manage-student/student-form/student-form.component';
 import { TeacherFormComponent } from './organization/manage-teacher/teacher-form/teacher-form.component';
+import { ManageOrganizationComponent } from './organization/manage-organization/manage-organization.component';
+import { OrganizationFormComponent } from './organization/manage-organization/organization-form/organization-form.component';
+import { OrganizationTableComponent } from './organization/manage-organization/organization-table/organization-table.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -36,7 +39,7 @@ const routes: Routes = [
     component: CourseContentComponent,
   },
   {
-    path: 'organization',
+    path: 'admin',
     component: OrganizationComponent,
     children: [
       { path: 'dashboard', component: OrgDashboardComponent },
@@ -71,6 +74,15 @@ const routes: Routes = [
           { path: 'update-student/:id', component: StudentFormComponent },
         ],
       },
+      {
+        path: 'manage-organization',
+        component: ManageOrganizationComponent,
+        children:[
+          { path: '', component: OrganizationTableComponent },
+          { path: 'add-organization', component: OrganizationFormComponent },
+          { path: 'edit-organization/:id', component: OrganizationFormComponent }
+        ]
+      }
     ],
   },
 ];

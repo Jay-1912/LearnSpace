@@ -1,0 +1,75 @@
+<div *ngIf="id==''">
+    <div class="title heading-1">Add Organization</div>
+    <form class="course-form margin-top-16" [formGroup]="OrganizationForm" (submit)="saveOrganization($event)">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="name">Oranization Name*</label>
+                <input type="text" formControlName="name" id="name" >
+                <span class="hint" #organizationName>*Organization Name field must be filled.</span>
+            </div>
+            <div class="input-field">
+                <label for="email">Organization Email*</label>
+                <input type="email" formControlName="email" id="email">
+                <span class="hint" #organizationEmail>*Organization Email field must be filled.</span>
+            </div>
+            <div class="input-field">
+                <label for="password">Password*</label>
+                <input type="password" formControlName="password" id="password">
+                <span class="hint" #organizationPassword>*Organization Password field must be filled.</span>
+            </div>
+            <div class="input-field">
+                <label for="confirmPassword">Confirm Password*</label>
+                <input type="password" formControlName="confirmPassword" id="confirmPassword" (change)="comparePassword()">
+                <span class="hint" #organizationConfirmPassword>*password and confirm password should be same.</span>
+            </div>
+
+            <div class="input-field">
+                <label for="image">Organization Image*</label>
+                <input type="file" #file formControlName="image" id="image" (change)="setPreview($event)">
+                <img src="{{image}}" alt="" class="img preview" *ngIf="image">
+                <span class="hint" #organizationImage>*password and confirm password should be same.</span>
+            </div>
+        </div>
+    
+        <button type="submit" class="primary-button margin-top-16">Save Organization</button>
+    </form>
+</div>
+
+<div *ngIf="id">
+    <div class="title heading-1">Edit Organization</div>
+    <form class="course-form margin-top-16" [formGroup]="OrganizationForm" (submit)="updateOrganization($event)">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="name">Oranization Name*</label>
+                <input type="text" formControlName="name" id="name" >
+                <span class="hint" #organizationName>*Organization Name field must be filled.</span>
+            </div>
+            <div class="input-field">
+                <label for="email">Organization Email*</label>
+                <input type="email" formControlName="email" id="email">
+                <span class="hint" #organizationEmail>*Organization Email field must be filled.</span>
+            </div>
+            <div class="input-field">
+                <label for="password">Password*</label>
+                <input type="password" formControlName="password" id="password">
+                <span class="hint" #organizationPassword>*Organization Password field must be filled.</span>
+            </div>
+            <div class="input-field">
+                <label for="confirmPassword">Confirm Password*</label>
+                <input type="password" formControlName="confirmPassword" id="confirmPassword" (change)="comparePassword()">
+                <span class="hint" #organizationConfirmPassword>*password and confirm password should be same.</span>
+            </div>
+
+            <div class="input-field">
+                <label for="image">Organization Image*</label>
+                <input type="file" #file id="image" (change)="setPreview($event)">
+                <img src="{{image}}" alt="" class="img preview" *ngIf="image">
+                <span class="hint" #organizationImage>*password and confirm password should be same.</span>
+            </div>
+        </div>
+    
+        <button type="submit" class="primary-button margin-top-16">Save Organization</button>
+    </form>
+</div>
+
+    

@@ -24,17 +24,23 @@ export class CourseService {
 
   getCourseByID(id: string):Observable<any>{
     const url = this.url+"course/"+id;
-    return this.http.get<any>(url);
+    return this.http.get<any>(url).pipe(
+      catchError(this.handleError)
+    );
   }
 
   postCourse(course: any): Observable<any>{
     const url = this.url+"add_course";
-    return this.http.post<any>(url, course);
+    return this.http.post<any>(url, course).pipe(
+      catchError(this.handleError)
+    );
   }
 
   postLesson(lesson: any): Observable<any>{
     const url = this.url+"add_lesson";
-    return this.http.post<any>(url, lesson);
+    return this.http.post<any>(url, lesson).pipe(
+      catchError(this.handleError)
+    );
   }
 
   updateCourse(id:string, course:any): Observable<any>{
@@ -42,22 +48,30 @@ export class CourseService {
     // for (const value of course.values()) {
     //   console.log(value);
     // }
-    return this.http.post<any>(url, course);
+    return this.http.post<any>(url, course).pipe(
+      catchError(this.handleError)
+    );
   }
 
   deleteCourse(id:string): Observable<any>{
     const url = this.url+"delete_course/"+id;
-    return this.http.get<any>(url);
+    return this.http.get<any>(url).pipe(
+      catchError(this.handleError)
+    );
   }
 
   updateLesson(lesson:any):Observable<any>{
     const url = this.url+"edit_lesson";
-    return this.http.post<any>(url, lesson);
+    return this.http.post<any>(url, lesson).pipe(
+      catchError(this.handleError)
+    );
   }
 
   deleteLesson(lesson:any):Observable<any>{
     const url = this.url+"delete_lesson";
-    return this.http.post<any>(url, lesson);
+    return this.http.post<any>(url, lesson).pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: any) {
