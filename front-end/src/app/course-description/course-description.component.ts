@@ -16,6 +16,7 @@ export class CourseDescriptionComponent implements OnInit {
   enrolled:number = 0;
   curriculum!:any;
   overview:string="";
+  src:string="";
   constructor(private route: ActivatedRoute, private courseService:CourseService, private instructorService:InstructorService){}
 
   ngOnInit(): void{
@@ -27,6 +28,7 @@ export class CourseDescriptionComponent implements OnInit {
       this.id = course._id;
       this.curriculum = course.sections;
       this.overview = course.overview;
+      this.src="http://localhost:3000/images/"+course.thumbnail;
     });
   }
 }

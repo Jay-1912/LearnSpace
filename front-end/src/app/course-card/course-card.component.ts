@@ -15,6 +15,7 @@ export class CourseCardComponent implements OnInit {
   instructorName:string|undefined="";
   progress:number = 0;
   id:string = "";
+  src:string = "";
 
   constructor(private instructorService:InstructorService){}
 
@@ -27,6 +28,7 @@ export class CourseCardComponent implements OnInit {
       })
       this.instructor = Object(this.course)["instructor"];
       this.progress = Object(this.course)["progress"];
+      this.src = "http://localhost:3000/images/"+Object(this.course)["thumbnail"];
     }
   }
 }

@@ -13,6 +13,7 @@ export class CourseInstructorComponent implements OnInit, OnChanges{
   constructor(private instructorService:InstructorService){}
   name!:string|undefined;
   about!:string|undefined;
+  src!:string;
   ngOnInit(): void{
   }
 
@@ -21,6 +22,7 @@ export class CourseInstructorComponent implements OnInit, OnChanges{
       this.instructorService.getInstructorByID(this.instructor).subscribe((instructor) =>{
         instructor = instructor[0];
         this.name = instructor.firstName + " " + instructor.lastName;
+        this.src = "http://localhost:3000/images/"+instructor.profile;
       });
     }
   }
