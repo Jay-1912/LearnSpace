@@ -63,6 +63,7 @@ app.post("/add_course", upload.single("thumbnail"), async (req, res) => {
     overview: req.body.overview,
     thumbnail: filename,
     sections: JSON.parse(req.body.sections),
+    organization: req.body.organization,
     instructor: req.body.instructor,
   });
   try {
@@ -190,6 +191,11 @@ app.post("/delete_lesson", upload.single(""), async (req, res) => {
 });
 
 // manage student routes
+app.get("/get-students", async (req, res) => {
+  let data;
+  data = await Student.find();
+  return res.send(data);
+});
 
 app.get("/get-students/:org", async (req, res) => {
   let data;
@@ -304,11 +310,11 @@ app.post("/create-teacher", upload.single("profile"), async (req, res) => {
     firstName: req.body.firstname,
     lastName: req.body.lastname,
     email: req.body.email,
+    about: req.body.about,
     password: req.body.password,
     profile: filename,
     organization: req.body.organization,
   });
-  // console.log(student);
   try {
     await teacher.save();
     res.send(teacher);
@@ -325,6 +331,7 @@ app.post("/update-teacher/:id", upload.single("profile"), async (req, res) => {
   } else {
     filename = req.body.profile;
   }
+  console.log(req.body);
   try {
     let updatedData = await Teacher.updateOne(
       { _id: req.params.id },
@@ -332,6 +339,7 @@ app.post("/update-teacher/:id", upload.single("profile"), async (req, res) => {
         firstName: req.body.firstname,
         lastName: req.body.lastname,
         email: req.body.email,
+        about: req.body.about,
         password: req.body.password,
         profile: filename,
         organization: req.body.organization,

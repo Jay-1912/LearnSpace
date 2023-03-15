@@ -12,6 +12,10 @@ const TeacherSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  about: {
+    type:String,
+    required: false
+  },
   password: {
     type: String,
     required: true,

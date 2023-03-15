@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IStudent } from 'src/app/shared/interface';
 import { StudentServicesService } from 'src/app/services/student-services.service';
 import { StudentsTableComponent } from '../students-table/students-table.component';
+import { OrganizationService } from 'src/app/services/organization.service';
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -12,7 +13,7 @@ import { StudentsTableComponent } from '../students-table/students-table.compone
 })
 export class StudentFormComponent implements OnInit {
   // TODO:fetch org how?
-  organization: string = 'bvm';
+  organizations: any[] = [];
 
   imageSrc!: any;
   createStudentForm!: FormGroup;
@@ -34,8 +35,12 @@ export class StudentFormComponent implements OnInit {
       email: new FormControl(''),
       password: new FormControl(''),
       profile: new FormControl(),
-      organization: new FormControl(this.organization),
+      organization: new FormControl(),
     });
+
+    this.organizationService.getOrganization().subscribe( (res)=>{
+      this.organizations = res;
+    } )
 
     this.stuId = this.route.snapshot.paramMap.get('id');
     if (this.stuId != undefined) {
@@ -102,8 +107,7 @@ export class StudentFormComponent implements OnInit {
         this.createStudentForm.controls['profile'].value
       );
     }
-    studentFormData.append('organization', this.organization);
-
+    studentFormData.append('organization', studentDataControl['organization'].value);
     if (this.stuId != undefined) {
       console.log('student id is not unefined');
 
@@ -124,6 +128,7 @@ export class StudentFormComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private studentService: StudentServicesService,
-    private router: Router
+    private router: Router,
+    private organizationService:OrganizationService
   ) {}
 }

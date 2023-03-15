@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IStudent } from 'src/app/shared/interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { OrganizationService } from 'src/app/services/organization.service';
 @Component({
   selector: 'app-create-student',
   templateUrl: './create-student.component.html',
@@ -9,7 +10,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class CreateStudentComponent implements OnInit {
   createStudentForm!: FormGroup;
-  studentData!: IStudent;
+  studentData!: any;
+  organizations: any[] = [];
 
   ngOnInit(): void {
     this.createStudentForm = this.fb.group({
@@ -17,9 +19,14 @@ export class CreateStudentComponent implements OnInit {
       lastName: '',
       id: '',
       email: '',
+      organization: '',
       password: '',
       profile: null,
     });
+
+    this.organizationService.getOrganization().subscribe( (res)=>{
+      this.organizations = res;
+    } )
   }
 
   handleSubmitData(event: any) {
@@ -31,6 +38,7 @@ export class CreateStudentComponent implements OnInit {
       lastname: studentDataControl['lastName'].value,
       id: studentDataControl['id'].value,
       email: studentDataControl['email'].value,
+      organization: studentDataControl['organization'].value,
       password: studentDataControl['password'].value,
       profile: studentDataControl['profile'].value,
     };
@@ -48,5 +56,5 @@ export class CreateStudentComponent implements OnInit {
       .subscribe((data) => console.log(data));
   }
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private organizationService: OrganizationService) {}
 }

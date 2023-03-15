@@ -42,6 +42,13 @@
     </div>
 
     <div class="input-field margin-top-16">
+      <label for="organization">Organization</label>
+        <select name="organization" id="organization" formControlName="organization">
+          <option [ngValue]="organization._id" *ngFor="let organization of organizations">{{ organization.name }}</option>
+      </select>
+    </div>
+
+    <div class="input-field margin-top-16">
       <label for="email">Email*</label>
       <input
         type="email"

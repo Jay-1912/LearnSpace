@@ -8,6 +8,7 @@
                     <th>Index</th>
                     <th>Course Title</th>
                     <th>Course Instructor</th>
+                    <th>Course Organization</th>
                     <th>Enrolled Students</th>
                     <th></th>
                 </tr>
@@ -17,6 +18,7 @@
                     <td>{{ indexOfCourse+1 }}</td>
                     <td>{{ course.title }}</td>
                     <td>{{ course.instructor }}</td>
+                    <td>{{ course.organization }}</td>
                     <td>212</td>
                     <td>
                         <a routerLink="/admin/manage-course/edit-course/{{course._id}}"><button mat-icon-button class="icon">

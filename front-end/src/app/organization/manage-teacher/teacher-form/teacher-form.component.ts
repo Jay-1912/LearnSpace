@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherServicesService } from 'src/app/services/teacher-services.service';
+import { OrganizationService } from 'src/app/services/organization.service';
 @Component({
   selector: 'app-teacher-form',
   templateUrl: './teacher-form.component.html',
@@ -10,7 +11,7 @@ import { TeacherServicesService } from 'src/app/services/teacher-services.servic
 })
 export class TeacherFormComponent implements OnInit {
   // TODO:fetch org how?
-  organization: string = 'bvm';
+  organizations: any[] = [];
 
   imageSrc!: any;
   createTeacherForm!: FormGroup;
@@ -27,11 +28,12 @@ export class TeacherFormComponent implements OnInit {
     this.createTeacherForm = new FormGroup({
       firstName: new FormControl(''),
       lastName: new FormControl(''),
+      about: new FormControl(''),
       id: new FormControl(''),
       email: new FormControl(''),
       password: new FormControl(''),
       profile: new FormControl(),
-      organization: new FormControl(this.organization),
+      organization: new FormControl(),
     });
 
     this.teacherId = this.route.snapshot.paramMap.get('id');
@@ -41,6 +43,11 @@ export class TeacherFormComponent implements OnInit {
         this.submit.nativeElement.innerText = 'Update Teacher';
       }, 10);
     }
+
+    this.organizationService.getOrganization().subscribe((res) =>{
+      this.organizations = res;
+    })
+
     if (this.teacherId != null) {
       this.updateMode = true;
       this.teacherService.getTeacherById(this.teacherId).subscribe((data) => {
@@ -53,15 +60,17 @@ export class TeacherFormComponent implements OnInit {
         );
         this.createTeacherForm.controls['lastName'].setValue(data[0].lastName);
         this.createTeacherForm.controls['email'].setValue(data[0].email);
+        this.createTeacherForm.controls['about'].setValue(data[0].about);
         this.createTeacherForm.controls['password'].setValue(data[0].password);
-
         this.createTeacherForm.controls['profile'].setValue(data[0].profile);
         this.imageSrc = 'http://localhost:3000/images/' + data[0].profile;
+        this.organizationService.getOrganizationById(data[0].organization).subscribe((res)=>{
+          console.log(res);
+        })
         this.createTeacherForm.controls['organization'].setValue(
           data[0].organization
         );
       });
-    } else {
     }
   }
 
@@ -84,11 +93,11 @@ export class TeacherFormComponent implements OnInit {
 
     event.preventDefault();
     const teacherDataControl = this.createTeacherForm.controls;
-
     const teacherFormData = new FormData();
     teacherFormData.append('firstname', teacherDataControl['firstName'].value);
     teacherFormData.append('lastname', teacherDataControl['lastName'].value);
     teacherFormData.append('email', teacherDataControl['email'].value);
+    teacherFormData.append('about', teacherDataControl['about'].value);
     teacherFormData.append('password', teacherDataControl['password'].value);
     let selectedFile = this.profilepic.nativeElement.files[0];
     if (selectedFile) {
@@ -99,7 +108,7 @@ export class TeacherFormComponent implements OnInit {
         this.createTeacherForm.controls['profile'].value
       );
     }
-    teacherFormData.append('organization', this.organization);
+    teacherFormData.append('organization', teacherDataControl['organization'].value);
 
     if (this.teacherId != undefined) {
       console.log('student id is not unefined');
@@ -121,6 +130,7 @@ export class TeacherFormComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private teacherService: TeacherServicesService,
-    private router: Router
+    private router: Router,
+    private organizationService:OrganizationService
   ) {}
 }

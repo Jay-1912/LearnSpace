@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TeacherServicesService } from 'src/app/services/teacher-services.service';
+import { OrganizationService } from 'src/app/services/organization.service';
 
 @Component({
   selector: 'app-teacher-table',
@@ -17,7 +18,8 @@ export class TeacherTableComponent implements OnInit {
   constructor(
     private teacherService: TeacherServicesService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private organizationService: OrganizationService
   ) {}
   displayTable: boolean = false;
   displayStudents: any[] = [];
@@ -29,11 +31,18 @@ export class TeacherTableComponent implements OnInit {
       processing: true,
     };
     this.teacherService
-      .getTeachersByOrg(this.organization)
+      .getTeachers()
       .subscribe((data) => {
         console.log(data);
         console.log('here');
         this.teachers$ = data;
+
+        for(let teacher of this.teachers$){
+          this.organizationService.getOrganizationById(teacher.organization).subscribe( (res) =>{
+            res = res[0];
+            teacher.organization = res.name;
+          });
+        }
 
         this.displayTable = true;
       });

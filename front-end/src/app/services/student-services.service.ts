@@ -8,6 +8,11 @@ export class StudentServicesService implements OnInit{
 
   baseurl = "http://localhost:3000"
 
+
+  getStudents() {
+    return this.http.get<any>(this.baseurl + `/get-students`);
+  }
+
   getStudentsByOrg(org : String) {
     return this.http.get<any>(this.baseurl + `/get-students/${org}`);
   }

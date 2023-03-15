@@ -12,7 +12,7 @@
 }
 
 .input-field input,
-.input-field select {
+.input-field select, textarea {
   border: none;
   outline: none;
   border-bottom: 1px solid #0c1f14;
@@ -66,3 +66,4 @@
 .fs_12 {
   font-size: 12px;
 }
+

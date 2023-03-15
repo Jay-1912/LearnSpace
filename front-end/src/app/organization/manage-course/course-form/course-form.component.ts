@@ -5,6 +5,8 @@ import { InstructorService } from 'src/app/services/instructor.service';
 import { ActivatedRoute } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
+import { OrganizationService } from 'src/app/services/organization.service';
+import { TeacherServicesService } from 'src/app/services/teacher-services.service';
 
 @Component({
   selector: 'app-course-form',
@@ -15,13 +17,17 @@ export class CourseFormComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private instructorService: InstructorService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private organizationService: OrganizationService,
+    private teacherService: TeacherServicesService
   ) {}
 
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   sections: any[] = [];
   image: any = '';
+
+ 
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -59,6 +65,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   @ViewChild('thumbnail') thumbnail: any;
+  @ViewChild('instructorSelector') instructorSelector: any;
 
   courseForm = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -66,11 +73,13 @@ export class CourseFormComponent implements OnInit {
     thumbnail: new FormControl(),
     section: new FormControl(),
     sections: new FormControl(),
+    organization: new FormControl(),
     instructor: new FormControl(),
   });
 
   tempSections: string[] = [];
   instructors: any[] = [];
+  organizations: any[] = [];
   id: string = '';
 
   ngOnInit(): void {
@@ -81,16 +90,26 @@ export class CourseFormComponent implements OnInit {
         this.courseForm.controls['title'].setValue(course.title);
         this.courseForm.controls['overview'].setValue(course.overview);
         this.courseForm.controls['thumbnail'].setValue(course.thumbnail);
-        this.image = 'http://localhost:3000/images/' + course.thumbnail;
+        this.courseForm.controls['organization'].setValue(course.organization);
+        this.image = 'http://localhost:3000/images/' + course.thumbnail; 
         this.sections = course.sections;
+        this.teacherService.getTeachersByOrg(course.organization).subscribe((res)=>{
+          this.instructors = res;
+        });
         this.courseForm.controls['instructor'].setValue(course.instructor);
       });
     }
 
-    this.instructorService.getInstructors().subscribe((instructors) => {
-      this.instructors = instructors;
-      console.log(this.instructors);
+    this.organizationService.getOrganization().subscribe((res)=>{
+      this.organizations = res;
     });
+  }
+
+  handleChangeOrganization(event: Event){
+    let selectedOrg = this.courseForm.controls["organization"].value;
+    this.teacherService.getTeachersByOrg(selectedOrg).subscribe((res)=>{
+      this.instructors = res;
+    })
   }
 
   onFileChanged(event: Event) {
@@ -124,6 +143,7 @@ export class CourseFormComponent implements OnInit {
     formData.append('overview', course.overview || '');
     formData.append('thumbnail', selectedFile);
     formData.append('sections', JSON.stringify(this.sections));
+    formData.append('organization', course.organization);
     formData.append('instructor', course.instructor);
     this.courseService.postCourse(formData).subscribe((res) => {
       console.log(res);
@@ -148,6 +168,7 @@ export class CourseFormComponent implements OnInit {
       formData.append('thumbnail', course.thumbnail);
     }
     formData.append('sections', JSON.stringify(this.sections));
+    formData.append('organization', course.organization);
     formData.append('instructor', course.instructor);
     this.courseService.updateCourse(this.id, formData).subscribe((res) => {
       console.log(res);

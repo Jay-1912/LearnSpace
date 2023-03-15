@@ -17,6 +17,10 @@ const CourseSchema = new mongoose.Schema({
         type: Array,
         required: false
     },
+    organization: {
+        type: String,
+        required: true
+    },
     instructor: {
         type: String,
         required: true
