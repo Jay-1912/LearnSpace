@@ -25,6 +25,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -137,7 +138,8 @@ import { OrganizationTableComponent } from './organization/manage-organization/o
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

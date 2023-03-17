@@ -428,6 +428,36 @@ app.get("/delete_organization/:id", async(req, res)=>{
       res.send(err);
     }
   }
-})
+});
+
+
+//Authentication
+app.post('/login', upload.single(), async(req, res)=>{
+  console.log(req.body);
+  const role = req.body.role;
+  let user;
+  try{
+    if(role==1){
+      user = await Organization.findOne({email: req.body.email});
+    }else if(role==2){
+      user = await Teacher.findOne({email: req.body.email});
+    }else{
+      user = await Student.findOne({email: req.body.email});
+    }
+
+    if (user) {
+      const result = req.body.password === user.password;
+      if (result) {
+        res.send({status:200,success:"User LoggedIn Successfully!",user});
+      } else {
+        res.send({status:400, error: "password doesn't match" });
+      }
+    } else {
+      res.send({status:400, error: "User doesn't exist" });
+    }
+  }catch(error){
+    res.status(400).json({ error });
+  }
+});
 
 module.exports = app;
