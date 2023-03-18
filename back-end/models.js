@@ -38,6 +38,10 @@ const StudentSchema = new mongoose.Schema({
     type : String,
     required : true,
     default : 'org'
+  },
+  enrolled_courses:{
+    type: Array,
+    required: false
   }
 });
 

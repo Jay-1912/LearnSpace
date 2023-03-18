@@ -4,6 +4,8 @@ import { AuthenticationService } from '../services/authentication.service';
 import { CourseService } from '../services/course.service';
 import { InstructorService } from '../services/instructor.service';
 import { ICourse, IInstructor } from '../shared/interface';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-course-description',
@@ -19,11 +21,29 @@ export class CourseDescriptionComponent implements OnInit {
   overview:string="";
   src:string="";
   loggedInUserID!:string; 
-  constructor(private authService:AuthenticationService, private route: ActivatedRoute, private courseService:CourseService, private instructorService:InstructorService){}
+  constructor(private _snackBar: MatSnackBar,private authService:AuthenticationService, private route: ActivatedRoute, private courseService:CourseService, private instructorService:InstructorService){}
+  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
+  handleEnroll(){
+    this.courseService.enrollToCourse(this.id, this.loggedInUserID).subscribe( (res)=>{
+      if(res.status==200){
+        this.openSnackBar(res.message, "close");
+      }else{
+        this.openSnackBar(res.message, "close");
+      }
+
+      window.location.href ="http://localhost:4200/course/"+this.id+"/"+this.title+"/0/0";
+    })
+  }
 
   ngOnInit(): void{
     if(this.authService.isLoggedIn()){
       this.loggedInUserID = this.authService.isLoggedIn();
+    }else{
+        window.location.href = "http://localhost:4200";
     }
 
     this.id = this.route.snapshot.paramMap.get('id') || "";

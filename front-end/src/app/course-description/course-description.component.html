@@ -6,7 +6,7 @@
         <div class="course-content">
             <div class="course-title heading-1">{{title}}</div>
             <div class="course-enrolled-student margin-top-10"><mat-icon class="icon">people</mat-icon> {{enrolled}}</div>
-            <button class="primary-button margin-top-10">Enroll Now</button>
+            <button class="primary-button margin-top-10" (click)="handleEnroll()">Enroll Now</button>
 <!-- <a routerLink="/course/{{id}}/{{title}}/0/0"></a> -->
         </div>
     </div>

@@ -74,6 +74,13 @@ export class CourseService {
     );
   }
 
+  enrollToCourse(courseID:string, studentID:string):Observable<any>{
+    const url = this.url+"enroll-to-course/"+courseID;
+    return this.http.post<any>(url, {studentID}).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error: any) {
     console.error('server error:', error);
     if (error.error instanceof Error) {

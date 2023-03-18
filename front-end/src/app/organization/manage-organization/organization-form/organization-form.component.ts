@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { OrganizationService } from 'src/app/services/organization.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { OrganizationService } from 'src/app/services/organization.service';
 })
 export class OrganizationFormComponent implements OnInit {
 
-  constructor(private organizationService:OrganizationService, private route: ActivatedRoute){}
+  constructor(private authService:AuthenticationService, private organizationService:OrganizationService, private route: ActivatedRoute){}
 
   @ViewChild('organizationName') organizationName: any;
   @ViewChild('organizationEmail') organizationEmail: any;
@@ -136,6 +137,9 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   ngOnInit(): void{
+    if(!this.authService.isLoggedIn()){
+      window.location.href = "http://localhost:4200";
+    }
     if (this.route.snapshot.paramMap.get('id')) {
       this.id = this.route.snapshot.paramMap.get('id');
       this.organizationService.getOrganizationById(this.id).subscribe( (res)=>{

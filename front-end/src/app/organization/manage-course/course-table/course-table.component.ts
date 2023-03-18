@@ -3,6 +3,7 @@ import { CourseService } from 'src/app/services/course.service';
 import { InstructorService } from 'src/app/services/instructor.service';
 import { Subject } from 'rxjs';
 import { OrganizationService } from 'src/app/services/organization.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-course-table',
@@ -13,7 +14,7 @@ export class CourseTableComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   courses$:any[] = [];
-  constructor(private courseService:CourseService, private instructorService:InstructorService, private organizationService:OrganizationService){}
+  constructor(private courseService:CourseService, private instructorService:InstructorService, private organizationService:OrganizationService, private authService:AuthenticationService){}
   displayTable: boolean = false;
   displayCourses:any[] = [];
   tempInstructorName:string = "";
@@ -26,6 +27,10 @@ export class CourseTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!this.authService.isLoggedIn()){
+      window.location.href = "http://localhost:4200";
+    }
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,

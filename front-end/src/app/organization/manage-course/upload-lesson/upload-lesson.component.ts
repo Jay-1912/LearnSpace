@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CourseService } from 'src/app/services/course.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class UploadLessonComponent implements OnInit{
   isEdit: boolean = false;
   editedSection!: any;
   editedLesson!: any;
-  constructor(private changeDetectorRefs:ChangeDetectorRef, private route:ActivatedRoute, private courseService: CourseService, private sanitizer:DomSanitizer){}
+  constructor(private authService:AuthenticationService ,private changeDetectorRefs:ChangeDetectorRef, private route:ActivatedRoute, private courseService: CourseService, private sanitizer:DomSanitizer){}
 
   lessonForm = new FormGroup({
     section: new FormControl(this.sections, Validators.required),
@@ -106,6 +107,9 @@ export class UploadLessonComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    if(!this.authService.isLoggedIn()){
+      window.location.href = "http://localhost:4200";
+    }
     this.courseID = this.route.snapshot.paramMap.get('id');
     if(this.courseID){
       this.courseService.getCourseByID(this.courseID).subscribe( (res) =>{

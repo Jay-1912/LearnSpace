@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 import { CourseService } from '../services/course.service';
 
 
@@ -21,9 +22,13 @@ export class CourseContentComponent implements OnInit, OnChanges {
   prevLesson!:number;
   nextSection!:number;
   nextLesson!:number;
-  constructor(private route:ActivatedRoute, private courseService:CourseService){}
+  constructor(private route:ActivatedRoute, private courseService:CourseService, private authService:AuthenticationService){}
 
   ngOnInit(): void{
+    if(!this.authService.isLoggedIn()){
+      window.location.href = "http://localhost:4200";
+    }
+
     this.id = this.route.snapshot.paramMap.get('id') || "";
     this.section = parseInt(this.route.snapshot.paramMap.get('section') || "");
     this.lesson = parseInt(this.route.snapshot.paramMap.get("lesson") || "");

@@ -28,6 +28,7 @@ app.get("/users", async (request, response) => {
 
 const multer = require("multer");
 const Organization = require("./Models/organization");
+const Course = require("./Models/course");
 
 var storage = multer.diskStorage({
   destination: "./public/images",
@@ -189,6 +190,44 @@ app.post("/delete_lesson", upload.single(""), async (req, res) => {
     }
   }
 });
+
+app.post("/enroll-to-course/:id", upload.single(""), async (req, res)=>{
+  const courseID = req.params.id;
+  const studentID = req.body.studentID;
+  const course = await courseModel.findById({_id:courseID});
+  const student = await Student.findById({_id:studentID});
+  console.log(course);
+  try{
+      let enrolledStudents;
+      if(course.enrolled_students){
+        enrolledStudents = course.enrolled_students;
+      }else{
+        enrolledStudents = [];
+      }
+      enrolledStudents.push(studentID);
+      let updatedCourse = await courseModel.findByIdAndUpdate(
+        {_id:courseID},
+        {enrolled_students: enrolledStudents},
+        {new: true});
+      
+      let enrolledCourses;
+      if(student.enrolled_courses){
+        enrolledCourses = student.enrolled_courses;
+      }else{
+        enrolledCourses = [];
+      }
+      enrolledCourses.push(courseID);
+      let updatedStudent = await Student.findByIdAndUpdate(
+        {_id: studentID},
+        {enrolled_courses: enrolledCourses},
+        {new: true}
+      )
+      res.send({"status":200, "message":"enrolled successfully!"});
+  }catch(error){
+      console.log(error);
+      res.send({"status":400, "message":"something went wrong!"});
+  }
+})
 
 // manage student routes
 app.get("/get-students", async (req, res) => {

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
 import { InstructorService } from '../services/instructor.service';
 import { ICourse, IInstructor } from '../shared/interface';
 
@@ -16,6 +17,7 @@ export class CourseCardComponent implements OnInit {
   progress:number = 0;
   id:string = "";
   src:string = "";
+  loggedInUserId:string = "";
 
   constructor(private instructorService:InstructorService){}
 
