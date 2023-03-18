@@ -68,6 +68,7 @@ import { TeacherFormComponent } from './organization/manage-teacher/teacher-form
 import { ManageOrganizationComponent } from './organization/manage-organization/manage-organization.component';
 import { OrganizationFormComponent } from './organization/manage-organization/organization-form/organization-form.component';
 import { OrganizationTableComponent } from './organization/manage-organization/organization-table/organization-table.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
