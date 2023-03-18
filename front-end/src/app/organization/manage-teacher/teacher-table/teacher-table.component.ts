@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TeacherServicesService } from 'src/app/services/teacher-services.service';
 import { OrganizationService } from 'src/app/services/organization.service';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { DialogBoxComponent } from 'src/app/dialog-box/dialog-box.component';
 
 @Component({
   selector: 'app-teacher-table',
@@ -16,6 +18,7 @@ export class TeacherTableComponent implements OnInit {
   teachers$: any[] = [];
   organization: String = 'bvm';
   constructor(
+    public dialog: MatDialog,
     private teacherService: TeacherServicesService,
     private http: HttpClient,
     private router: Router,
@@ -47,6 +50,22 @@ export class TeacherTableComponent implements OnInit {
         this.displayTable = true;
       });
   }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, id:string): void {
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data:{isDelete:false}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        if(result==true){
+          this.deleteStudent(id);
+        }
+    });
+  }
+
   public deleteStudent(id: string) {
     console.log('here');
 

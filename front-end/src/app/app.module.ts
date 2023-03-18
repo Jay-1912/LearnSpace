@@ -25,7 +25,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -70,6 +71,7 @@ import { TeacherFormComponent } from './organization/manage-teacher/teacher-form
 import { ManageOrganizationComponent } from './organization/manage-organization/manage-organization.component';
 import { OrganizationFormComponent } from './organization/manage-organization/organization-form/organization-form.component';
 import { OrganizationTableComponent } from './organization/manage-organization/organization-table/organization-table.component';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +115,7 @@ import { OrganizationTableComponent } from './organization/manage-organization/o
     ManageOrganizationComponent,
     OrganizationFormComponent,
     OrganizationTableComponent,
+    DialogBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -139,7 +142,8 @@ import { OrganizationTableComponent } from './organization/manage-organization/o
     ReactiveFormsModule,
     DataTablesModule,
     MatChipsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

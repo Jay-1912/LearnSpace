@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { OrganizationService } from 'src/app/services/organization.service';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { DialogBoxComponent } from 'src/app/dialog-box/dialog-box.component';
 
 @Component({
   selector: 'app-organization-table',
@@ -9,17 +11,32 @@ import { OrganizationService } from 'src/app/services/organization.service';
   styleUrls: ['./organization-table.component.css']
 })
 export class OrganizationTableComponent implements OnInit {
-  constructor(private organizationService:OrganizationService, private authService:AuthenticationService){}
+  constructor(public dialog: MatDialog ,private organizationService:OrganizationService, private authService:AuthenticationService){}
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   organizations$:any[] = [];
   displayTable: boolean = false;
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, id:string): void {
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data:{isDelete:false}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        if(result==true){
+          this.handleDeleteOrg(id);
+        }
+    });
+  }
   
   handleDeleteOrg(id:string){
     this.organizationService.deleteOrganization(id).subscribe( (res)=>{
       console.log(res);
       location.reload();
-    } )
+    })
   }
   
   ngOnInit(): void {

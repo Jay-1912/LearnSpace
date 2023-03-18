@@ -4,7 +4,8 @@ import { InstructorService } from 'src/app/services/instructor.service';
 import { Subject } from 'rxjs';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { DialogBoxComponent } from 'src/app/dialog-box/dialog-box.component';
 @Component({
   selector: 'app-course-table',
   templateUrl: './course-table.component.html',
@@ -14,10 +15,25 @@ export class CourseTableComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   courses$:any[] = [];
-  constructor(private courseService:CourseService, private instructorService:InstructorService, private organizationService:OrganizationService, private authService:AuthenticationService){}
+  constructor(public dialog: MatDialog, private courseService:CourseService, private instructorService:InstructorService, private organizationService:OrganizationService, private authService:AuthenticationService){}
   displayTable: boolean = false;
   displayCourses:any[] = [];
   tempInstructorName:string = "";
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, id:string): void {
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data:{isDelete:false}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        if(result==true){
+          this.handleDeleteCourse(id);
+        }
+    });
+  }
 
   handleDeleteCourse(id:string){
     this.courseService.deleteCourse(id).subscribe((res)=>{

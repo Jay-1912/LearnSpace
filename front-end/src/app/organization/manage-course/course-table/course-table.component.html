@@ -24,7 +24,7 @@
                         <a routerLink="/admin/manage-course/edit-course/{{course._id}}"><button mat-icon-button class="icon">
                             <mat-icon>edit</mat-icon>
                         </button></a>
-                        <button mat-icon-button class="icon" (click)="handleDeleteCourse(course._id)">
+                        <button mat-icon-button class="icon" (click)="this.openDialog('0ms', '0ms', course._id)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
