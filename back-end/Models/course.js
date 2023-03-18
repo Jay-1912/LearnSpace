@@ -24,6 +24,10 @@ const CourseSchema = new mongoose.Schema({
     instructor: {
         type: String,
         required: true
+    },
+    enrolled_students: {
+        type: Array,
+        required: false
     }
 });
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { ICourse } from 'src/app/shared/interface';
 import { ElementRef } from '@angular/core';
 
@@ -11,7 +11,7 @@ import { InstructorService } from '../services/instructor.service';
   styleUrls: ['./course-carousel.component.css']
 })
 export class CourseCarouselComponent implements OnInit, OnChanges {
-  courses!:ICourse[];
+  @Input() courses: any[] = [];
   slideIndex:number = 1;
   slides!:HTMLCollection;
 
@@ -35,11 +35,7 @@ export class CourseCarouselComponent implements OnInit, OnChanges {
 
  
   ngOnInit(){
-    this.courseService.getCourses().subscribe(
-      ((courses:ICourse[]) => {
-        this.courses=courses;
-      })
-    );
+
     this.slides = document.getElementsByClassName("course-item");
 
     this.showSlides(this.slideIndex);

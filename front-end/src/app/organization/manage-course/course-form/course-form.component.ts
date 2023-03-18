@@ -7,6 +7,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { TeacherServicesService } from 'src/app/services/teacher-services.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-course-form',
@@ -19,7 +20,8 @@ export class CourseFormComponent implements OnInit {
     private instructorService: InstructorService,
     private route: ActivatedRoute,
     private organizationService: OrganizationService,
-    private teacherService: TeacherServicesService
+    private teacherService: TeacherServicesService,
+    private authService: AuthenticationService
   ) {}
 
   addOnBlur = true;
@@ -83,6 +85,9 @@ export class CourseFormComponent implements OnInit {
   id: string = '';
 
   ngOnInit(): void {
+    if(!this.authService.isLoggedIn()){
+      window.location.href = "http://localhost:4200";
+    }
     if (this.route.snapshot.paramMap.get('id')) {
       this.id = this.route.snapshot.paramMap.get('id') || '';
       this.courseService.getCourseByID(this.id).subscribe((course) => {

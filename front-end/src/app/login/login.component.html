@@ -2,20 +2,19 @@
     <div class="title heading-1">
         Log In
     </div>
-    <form action="" class="margin-top-16">
+    <form action="" class="margin-top-16" [formGroup]="loginForm" (submit)="handleLogin()">
         <div class="input-field">
             <label for="email">Email*</label>
-            <input type="email" name="email" id="email" placeholder="Insert Email">
+            <input type="email" name="email" id="email" placeholder="Insert Email" formControlName="email">
         </div>
         <div class="input-field margin-top-16">
             <label for="password">Password*</label>
-            <input type="password" name="password" id="password" placeholder="Insert Password">
+            <input type="password" name="password" id="password" placeholder="Insert Password" formControlName="password">
         </div>
         <div class="input-field margin-top-16">
             <label for="role">Role</label>
-            <select name="role" id="role">
-                <option value="0">Select Your Role</option>
-                <option value="1">Admin</option>
+            <select name="role" id="role" formControlName="role">
+                <option value="1">Organization</option>
                 <option value="2">Teacher</option>
                 <option value="3">Student</option>
             </select>

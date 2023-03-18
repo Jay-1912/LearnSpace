@@ -29,6 +29,7 @@ app.get("/users", async (request, response) => {
 
 const multer = require("multer");
 const Organization = require("./Models/organization");
+const Course = require("./Models/course");
 
 var storage = multer.diskStorage({
   destination: "./public/images",
@@ -188,6 +189,45 @@ app.post("/delete_lesson", upload.single(""), async (req, res) => {
     } catch (error) {
       res.send(error);
     }
+  }
+});
+
+app.post("/enroll-to-course/:id", upload.single(""), async (req, res) => {
+  const courseID = req.params.id;
+  const studentID = req.body.studentID;
+  const course = await courseModel.findById({ _id: courseID });
+  const student = await Student.findById({ _id: studentID });
+  console.log(course);
+  try {
+    let enrolledStudents;
+    if (course.enrolled_students) {
+      enrolledStudents = course.enrolled_students;
+    } else {
+      enrolledStudents = [];
+    }
+    enrolledStudents.push(studentID);
+    let updatedCourse = await courseModel.findByIdAndUpdate(
+      { _id: courseID },
+      { enrolled_students: enrolledStudents },
+      { new: true }
+    );
+
+    let enrolledCourses;
+    if (student.enrolled_courses) {
+      enrolledCourses = student.enrolled_courses;
+    } else {
+      enrolledCourses = [];
+    }
+    enrolledCourses.push(courseID);
+    let updatedStudent = await Student.findByIdAndUpdate(
+      { _id: studentID },
+      { enrolled_courses: enrolledCourses },
+      { new: true }
+    );
+    res.send({ status: 200, message: "enrolled successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: 400, message: "something went wrong!" });
   }
 });
 
@@ -461,6 +501,34 @@ app.get("/view-quiz/:id", async (req, res) => {
     console.log(quiz);
   } catch (err) {
     console.error(err);
+  }
+});
+//Authentication
+app.post("/login", upload.single(), async (req, res) => {
+  console.log(req.body);
+  const role = req.body.role;
+  let user;
+  try {
+    if (role == 1) {
+      user = await Organization.findOne({ email: req.body.email });
+    } else if (role == 2) {
+      user = await Teacher.findOne({ email: req.body.email });
+    } else {
+      user = await Student.findOne({ email: req.body.email });
+    }
+
+    if (user) {
+      const result = req.body.password === user.password;
+      if (result) {
+        res.send({ status: 200, success: "User LoggedIn Successfully!", user });
+      } else {
+        res.send({ status: 400, error: "password doesn't match" });
+      }
+    } else {
+      res.send({ status: 400, error: "User doesn't exist" });
+    }
+  } catch (error) {
+    res.status(400).json({ error });
   }
 });
 

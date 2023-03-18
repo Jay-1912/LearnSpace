@@ -24,7 +24,7 @@
                         <a routerLink="/admin/manage-organization/edit-organization/{{org._id}}"><button mat-icon-button class="icon">
                             <mat-icon>edit</mat-icon>
                         </button></a>
-                        <button mat-icon-button class="icon" (click)="handleDeleteOrg(org._id)">
+                        <button mat-icon-button class="icon" (click)="this.openDialog('0ms', '0ms', org._id)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>

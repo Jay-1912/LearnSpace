@@ -10,9 +10,8 @@
                 <mat-progress-bar mode="determinate" value='{{progress}}'></mat-progress-bar>
                 <span class="progress-text">{{progress}}% of course completed</span>
             </div>
-            <a routerLink="/course-content"><button class="primary-button btn" *ngIf="enroll==true"> Complete Remaining Course </button></a>
+            <a routerLink="/course/{{id}}/{{title}}/0/0"><button class="primary-button btn" *ngIf="enroll==true"> Complete Remaining Course </button></a>
             <a routerLink="/course/{{id}}/{{title}}"><button class="primary-button btn" *ngIf="enroll==false"> Enroll Now </button></a>
-            
         </div>
     </mat-card-content>
 </mat-card>
