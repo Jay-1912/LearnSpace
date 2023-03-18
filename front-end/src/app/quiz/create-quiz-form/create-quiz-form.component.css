@@ -1,0 +1,140 @@
+.fs-16 {
+  font-size: 16px;
+}
+.w-200 {
+  width: 200px;
+}
+.mt-24 {
+  margin-top: 24px;
+}
+
+.input-field input,
+.input-field select,
+textarea {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #0c1f14;
+  font-family: "Quicksand";
+  font-size: 16px;
+  background: none;
+}
+
+.input-field input[type="file"] {
+  border: none;
+}
+
+.radio-field {
+  display: flex;
+  align-items: center;
+  font-family: "Quicksand";
+  font-size: 16px;
+}
+
+.radio-field input[type="radio"] {
+  border: 1px solid #0c1f14;
+  height: 16px;
+  width: 16px;
+  margin: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.radio-field .radio-text {
+  margin-right: 6px;
+}
+
+.section-input-field input {
+  width: 80%;
+}
+
+.example-chip-list {
+  width: 100%;
+}
+
+.img {
+  width: 200px;
+}
+
+.form-fields-wrapper {
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.input-field input,
+.input-field select,
+textarea {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #0c1f14;
+  font-family: "Quicksand";
+  font-size: 16px;
+  background: none;
+}
+
+.input-field input[type="file"] {
+  border: none;
+}
+
+.radio-field {
+  display: flex;
+  align-items: center;
+  font-family: "Quicksand";
+  font-size: 16px;
+}
+
+.radio-field input[type="radio"] {
+  border: 1px solid #0c1f14;
+  height: 16px;
+  width: 16px;
+  margin: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.radio-field .radio-text {
+  margin-right: 6px;
+}
+
+.section-input-field input {
+  width: 80%;
+}
+.profile-preview {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 1px solid gray;
+  background-position: center;
+  background-size: cover;
+}
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+}
+.fc_green {
+  color: green;
+}
+.fs_12 {
+  font-size: 12px;
+}
+
+.ml-auto {
+  margin-inline: auto;
+}
+.bg-purple {
+  color: purple;
+}
+.fc-white {
+  color: white;
+}
+.question-container {
+  width: min(100% - 2rem, 1000px);
+  margin-inline: auto;
+}

@@ -1,117 +1,132 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
-    font-family: 'Quicksand';
-    src: url('assets/Quicksand/Quicksand-VariableFont_wght.ttf');
+  font-family: "Quicksand";
+  src: url("assets/Quicksand/Quicksand-VariableFont_wght.ttf");
 }
 
-html, body { height: 100%; }
-body { 
-    margin: 0; 
-    font-family: 'Quicksand', "Helvetica Neue", sans-serif; 
-    background-color: #FBFDF8;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #1C1B1F;
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Quicksand", "Helvetica Neue", sans-serif;
+  background-color: #fbfdf8;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1c1b1f;
 }
 
-a{
-    text-decoration: none;
-    color: #006d42;
+a {
+  text-decoration: none;
+  color: #006d42;
 }
 
-.main-container{
-    padding: 16px;
+.main-container {
+  padding: 16px;
 }
 
-.heading-1{
-    font-size: 1.5rem;
-    font-weight: 600;
+.heading-1 {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-.heading-2{
-    font-size: 1.25rem;
-    font-weight: 600;
+.heading-2 {
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
-.img{
-    width: 100%;
-    object-fit: cover;
+.img {
+  width: 100%;
+  object-fit: cover;
 }
 
-p{
-    margin: 0;
+p {
+  margin: 0;
 }
 
-ul { padding-left: 0; }
-
-.margin-top-10{
-    margin-top: 10px;
+ul {
+  padding-left: 0;
 }
 
-.margin-top-16{
-    margin-top: 16px;
+.margin-top-10 {
+  margin-top: 10px;
 }
 
-button{
-    outline: none;
-    border: none;
-    background: none;
-    cursor: pointer;
+.margin-top-16 {
+  margin-top: 16px;
 }
 
-.primary-button{
-    font-family: 'Quicksand';
-    font-weight: 600;
-    background-color: #006d42;
-    border-radius: 30px;
-    padding: 10px 14px;
-    transition: 0.3s ease-in;
-    color: #FFFFFF;
+button {
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
-.primary-button:hover{
-    background-color: #FBFDF8;
-    border: 1px solid #006d42;
-    color: #006d42;
+.primary-button {
+  font-family: "Quicksand";
+  font-weight: 600;
+  background-color: #006d42;
+  border-radius: 30px;
+  padding: 10px 14px;
+  transition: 0.3s ease-in;
+  color: #ffffff;
 }
 
-.accent-button{
-    font-family: 'Quicksand';
-    font-weight: 600;
-    background-color: #FBFDF8;
-    border: 1px solid #006d42;
-    border-radius: 30px;
-    padding: 10px 14px;
-    transition: 0.3s ease-in;
-    color: #006d42;
+.primary-button:hover {
+  background-color: #fbfdf8;
+  border: 1px solid #006d42;
+  color: #006d42;
 }
 
-.accent-button:hover{
-    background-color: #006d42;
-    border: none;
-    color: #FFFFFF;
+.accent-button {
+  font-family: "Quicksand";
+  font-weight: 600;
+  background-color: #fbfdf8;
+  border: 1px solid #006d42;
+  border-radius: 30px;
+  padding: 10px 14px;
+  transition: 0.3s ease-in;
+  color: #006d42;
 }
 
-.mat-badge-content{
-    color: #006d42 !important;
+.accent-button:hover {
+  background-color: #006d42;
+  border: none;
+  color: #ffffff;
 }
 
-.mdc-tab__text-label{
-    font-weight: 700;
+.mat-badge-content {
+  color: #006d42 !important;
 }
 
-.mdc-list-item{
-    padding: 0 !important;
+.mdc-tab__text-label {
+  font-weight: 700;
 }
 
-.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix{
-    padding : 0 !important;
+.mdc-list-item {
+  padding: 0 !important;
 }
-    
-.mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix{
-    padding: 0 !important;
+
+.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(
+    .mdc-text-field--textarea
+  )
+  .mat-mdc-form-field-infix {
+  padding: 0 !important;
+}
+
+.mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined)
+  .mat-mdc-form-field-infix {
+  padding: 0 !important;
 }
 
 .mat-mdc-form-field-infix {
-    min-height: 0 !important;
+  min-height: 0 !important;
+}
+.d-flex-row-center-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
