@@ -6,6 +6,9 @@ import { IStudent } from 'src/app/shared/interface';
 import { StudentServicesService } from 'src/app/services/student-services.service';
 import { StudentsTableComponent } from '../students-table/students-table.component';
 import { OrganizationService } from 'src/app/services/organization.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
+
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -27,6 +30,11 @@ export class StudentFormComponent implements OnInit {
   tempData!: any;
   baseUrl!: string;
   updateMode: boolean = false;
+  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+  
   ngOnInit(): void {
     this.createStudentForm = new FormGroup({
       firstName: new FormControl(''),
@@ -115,12 +123,18 @@ export class StudentFormComponent implements OnInit {
 
       this.http
         .post(this.baseUrl, studentFormData)
-        .subscribe((data) => console.log(data));
+        .subscribe((data) => {
+          console.log(data)
+          this.openSnackBar("Student updated successfully", "close");
+        });
     } else {
       this.baseUrl = 'http://localhost:3000/create-student/';
       this.http
         .post(this.baseUrl, studentFormData)
-        .subscribe((data) => console.log(data));
+        .subscribe((data) => {
+          console.log(data)
+          this.openSnackBar("Student added successfully", "close");
+        });
     }
   }
 
@@ -129,6 +143,7 @@ export class StudentFormComponent implements OnInit {
     private route: ActivatedRoute,
     private studentService: StudentServicesService,
     private router: Router,
-    private organizationService:OrganizationService
+    private organizationService:OrganizationService,
+    private _snackBar: MatSnackBar
   ) {}
 }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { OrganizationService } from 'src/app/services/organization.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-organization-form',
@@ -11,7 +12,7 @@ import { OrganizationService } from 'src/app/services/organization.service';
 })
 export class OrganizationFormComponent implements OnInit {
 
-  constructor(private authService:AuthenticationService, private organizationService:OrganizationService, private route: ActivatedRoute){}
+  constructor(private _snackBar: MatSnackBar, private authService:AuthenticationService, private organizationService:OrganizationService, private route: ActivatedRoute){}
 
   @ViewChild('organizationName') organizationName: any;
   @ViewChild('organizationEmail') organizationEmail: any;
@@ -30,6 +31,10 @@ export class OrganizationFormComponent implements OnInit {
     confirmPassword: new FormControl('', Validators.required),
     image: new FormControl('')
   });
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
 
   setPreview(event:Event){
     const files = this.imageFile.nativeElement.files;
@@ -88,6 +93,7 @@ export class OrganizationFormComponent implements OnInit {
 
       this.organizationService.postOrganization(formData).subscribe( (res)=>{
         console.log(res);
+        this.openSnackBar("Organization added successfully", "close");
       } )
     }
     
@@ -132,6 +138,7 @@ export class OrganizationFormComponent implements OnInit {
 
       this.organizationService.updateOrganization(this.id,formData).subscribe( (res)=>{
         console.log(res);
+        this.openSnackBar("Organization updated successfully", "close");
       } )
     }
   }

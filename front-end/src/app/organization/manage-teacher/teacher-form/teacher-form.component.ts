@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherServicesService } from 'src/app/services/teacher-services.service';
 import { OrganizationService } from 'src/app/services/organization.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-teacher-form',
   templateUrl: './teacher-form.component.html',
@@ -24,6 +26,11 @@ export class TeacherFormComponent implements OnInit {
   tempData!: any;
   baseUrl!: string;
   updateMode: boolean = false;
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
   ngOnInit(): void {
     this.createTeacherForm = new FormGroup({
       firstName: new FormControl(''),
@@ -117,12 +124,17 @@ export class TeacherFormComponent implements OnInit {
 
       this.http
         .post(this.baseUrl, teacherFormData)
-        .subscribe((data) => console.log(data));
+        .subscribe((data) => {console.log(data)
+          this.openSnackBar("Teacher updated successfully", "close");
+        });
     } else {
       this.baseUrl = 'http://localhost:3000/create-teacher/';
       this.http
         .post(this.baseUrl, teacherFormData)
-        .subscribe((data) => console.log(data));
+        .subscribe((data) => {
+          console.log(data)
+          this.openSnackBar("Teacher added successfully", "close");
+        });
     }
   }
 
@@ -131,6 +143,7 @@ export class TeacherFormComponent implements OnInit {
     private route: ActivatedRoute,
     private teacherService: TeacherServicesService,
     private router: Router,
-    private organizationService:OrganizationService
+    private organizationService:OrganizationService,
+    private _snackBar: MatSnackBar
   ) {}
 }

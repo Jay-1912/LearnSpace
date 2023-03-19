@@ -8,6 +8,7 @@ import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { TeacherServicesService } from 'src/app/services/teacher-services.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-course-form',
@@ -21,7 +22,8 @@ export class CourseFormComponent implements OnInit {
     private route: ActivatedRoute,
     private organizationService: OrganizationService,
     private teacherService: TeacherServicesService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private _snackBar: MatSnackBar
   ) {}
 
   addOnBlur = true;
@@ -29,6 +31,9 @@ export class CourseFormComponent implements OnInit {
   sections: any[] = [];
   image: any = '';
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
  
 
   add(event: MatChipInputEvent): void {
@@ -157,6 +162,7 @@ export class CourseFormComponent implements OnInit {
         res._id +
         '/upload-lesson';
       window.location.href = navigationURL;
+      this.openSnackBar("Course added successfully", "close");
     });
   }
 
@@ -182,6 +188,7 @@ export class CourseFormComponent implements OnInit {
         res._id +
         '/upload-lesson';
       window.location.href = navigationURL;
+      this.openSnackBar("Course updated successfully", "close");
     });
   }
 }
