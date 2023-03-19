@@ -1,13 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IStudent } from 'src/app/shared/interface';
-import { StudentServicesService } from 'src/app/services/student-services.service';
-import { StudentsTableComponent } from '../students-table/students-table.component';
 import { OrganizationService } from 'src/app/services/organization.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-
+import { StudentServicesService } from 'src/app/services/student-services.service';
 
 @Component({
   selector: 'app-student-form',
@@ -30,11 +27,11 @@ export class StudentFormComponent implements OnInit {
   tempData!: any;
   baseUrl!: string;
   updateMode: boolean = false;
-  
+
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
-  
+
   ngOnInit(): void {
     this.createStudentForm = new FormGroup({
       firstName: new FormControl(''),
@@ -46,9 +43,9 @@ export class StudentFormComponent implements OnInit {
       organization: new FormControl(),
     });
 
-    this.organizationService.getOrganization().subscribe( (res)=>{
+    this.organizationService.getOrganization().subscribe((res) => {
       this.organizations = res;
-    } )
+    });
 
     this.stuId = this.route.snapshot.paramMap.get('id');
     if (this.stuId != undefined) {
@@ -115,26 +112,25 @@ export class StudentFormComponent implements OnInit {
         this.createStudentForm.controls['profile'].value
       );
     }
-    studentFormData.append('organization', studentDataControl['organization'].value);
+    studentFormData.append(
+      'organization',
+      studentDataControl['organization'].value
+    );
     if (this.stuId != undefined) {
       console.log('student id is not unefined');
 
       this.baseUrl = 'http://localhost:3000/update-student/' + this.stuId;
 
-      this.http
-        .post(this.baseUrl, studentFormData)
-        .subscribe((data) => {
-          console.log(data)
-          this.openSnackBar("Student updated successfully", "close");
-        });
+      this.http.post(this.baseUrl, studentFormData).subscribe((data) => {
+        console.log(data);
+        this.openSnackBar('Student updated successfully', 'close');
+      });
     } else {
-      this.baseUrl = 'http://localhost:3000/create-student/';
-      this.http
-        .post(this.baseUrl, studentFormData)
-        .subscribe((data) => {
-          console.log(data)
-          this.openSnackBar("Student added successfully", "close");
-        });
+      this.baseUrl = 'http://localhost:3000/create-student';
+      this.http.post(this.baseUrl, studentFormData).subscribe((data) => {
+        console.log(data);
+        this.openSnackBar('Student added successfully', 'close');
+      });
     }
   }
 
@@ -143,7 +139,7 @@ export class StudentFormComponent implements OnInit {
     private route: ActivatedRoute,
     private studentService: StudentServicesService,
     private router: Router,
-    private organizationService:OrganizationService,
+    private organizationService: OrganizationService,
     private _snackBar: MatSnackBar
   ) {}
 }

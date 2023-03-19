@@ -1,24 +1,53 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { QuizServiceService } from '../quiz-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { OrganizationService } from 'src/app/services/organization.service';
+import { ICourse } from 'src/app/shared/interface';
+import { CourseService } from 'src/app/services/course.service';
 @Component({
   selector: 'app-create-quiz-form',
   templateUrl: './create-quiz-form.component.html',
   styleUrls: ['./create-quiz-form.component.css'],
 })
-export class CreateQuizFormComponent {
+export class CreateQuizFormComponent implements OnInit {
   questions: any[] = [];
   options: any[] = [];
   correctOptions: any[] = [];
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  organizations: any;
+  courses!: any;
 
   quizForm = new FormGroup({
     quizName: new FormControl('', Validators.required),
-    questionText: new FormControl(''),
+    questionText: new FormControl('', Validators.required),
+    quizOrganization: new FormControl('', Validators.required),
+    quizOrganizationCourse: new FormControl('', Validators.required),
   });
+
+  ngOnInit(): void {
+    this.orgService.getOrganization().subscribe((data) => {
+      this.organizations = data;
+    });
+    this.courseService
+      .getCoursesByOrg(this.quizForm.controls.quizOrganization.value)
+      .subscribe((data: any) => {
+        this.courses = data;
+        console.log(this.courses);
+      });
+  }
+
+  setCourseByOrg(event: any) {
+    this.courseService
+      .getCoursesByOrg(this.quizForm.controls.quizOrganization.value)
+      .subscribe((data: any) => {
+        this.courses = data;
+        console.log(this.courses);
+      });
+  }
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -120,8 +149,12 @@ export class CreateQuizFormComponent {
 
     const quiz = {
       quizName: this.quizForm.controls.quizName.value?.trim(),
+      quizOrganization: this.quizForm.controls.quizOrganization.value?.trim(),
+      quizOrganizationCourse:
+        this.quizForm.controls.quizOrganizationCourse.value?.trim(),
       questions: this.questions,
     };
+    console.log('here ' + quiz);
 
     this.quizService.saveQuiz(quiz).subscribe((data) => {
       console.log(data);
@@ -134,5 +167,10 @@ export class CreateQuizFormComponent {
     this.correctOptions = [];
     this.options = [];
   }
-  constructor(private quizService: QuizServiceService) {}
+  constructor(
+    private quizService: QuizServiceService,
+    private authService: AuthenticationService,
+    private orgService: OrganizationService,
+    private courseService: CourseService
+  ) {}
 }

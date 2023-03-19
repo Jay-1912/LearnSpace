@@ -17,12 +17,13 @@ export class ViewQuizComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.quizId = this.route.snapshot.paramMap.get('quizId');
-    console.log(this.quizId);
 
     // TODO: fix quizId null issue
-    this.quizService.viewQuiz(this.quizId)?.subscribe((data) => {
-      this.quiz = data;
-    });
+    if (this.quizId != null) {
+      this.quizService.viewQuiz(this.quizId)?.subscribe((data) => {
+        this.quiz = data;
+      });
+    }
   }
 
   ngAfterViewInit(): void {

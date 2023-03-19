@@ -1,85 +1,119 @@
 <div class="quiz-container">
   <form action="" [formGroup]="quizForm" (submit)="saveQuiz($event)">
-    <div class="quiz-name input-field w-200 ml-auto">
-      <p class="fs-16 ml-auto">Enter Quiz Name*</p>
+    <div class="quiz-name input-field w-200">
+      <p class="fs-16">Enter Quiz Name*</p>
       <input type="text" name="" id="" formControlName="quizName" />
     </div>
-    <div class="question-container mt-24">
-      <fieldset>
-        <legend>Question</legend>
-        <div class="question-text mt-24">
-          <p for="question-text">Question Text</p>
-          <br />
-          <textarea
-            id="question-text"
-            name="question-text"
-            formControlName="questionText"
-            rows="1"
-            cols="80"
-            (resize)="(false)"
-          ></textarea>
-        </div>
 
-        <label for="option" class="mt-24">Options*</label>
-        <mat-form-field class="example-chip-list" appearance="fill">
-          <mat-chip-grid #chipGrid aria-label="Enter option">
-            <mat-chip-row
-              *ngFor="let option of options"
-              (removed)="remove(option)"
-              [editable]="true"
-              (edited)="edit(option, $event)"
-              [aria-description]="'press enter to edit ' + option.text"
-            >
-              {{ option.text }}
-              <button matChipRemove [attr.aria-label]="'remove ' + option.text">
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip-row>
-            <input
-              placeholder="New option"
-              [matChipInputFor]="chipGrid"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              [matChipInputAddOnBlur]="addOnBlur"
-              (matChipInputTokenEnd)="add($event)"
-            />
-          </mat-chip-grid>
-        </mat-form-field>
-
-        <label for="correct-option" class="mt-24">Correct Options*</label>
-        <mat-form-field class="example-chip-list" appearance="fill">
-          <mat-chip-grid #chipGridCorrect aria-label="Enter Correct options">
-            <mat-chip-row
-              *ngFor="let option of correctOptions"
-              (removed)="removeCorrectOpt(option)"
-              [editable]="true"
-              (edited)="editCorrectOpt(option, $event)"
-              [aria-description]="'press enter to edit ' + option.text"
-            >
-              {{ option.text }}
-              <button matChipRemove [attr.aria-label]="'remove ' + option.text">
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip-row>
-            <input
-              placeholder="New Correct option"
-              [matChipInputFor]="chipGridCorrect"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              [matChipInputAddOnBlur]="addOnBlur"
-              (matChipInputTokenEnd)="addCorrectOpt($event)"
-            />
-          </mat-chip-grid>
-        </mat-form-field>
-
-        <div class="save-question-btn">
-          <button
-            class="primary-button"
-            type="submit"
-            (click)="saveQuestion($event)"
+    <div class="quiz-org input-field w-200 mt-24">
+      <div class="input-field">
+        <label for="organization">Quiz Organization*</label>
+        <select
+          name="organization"
+          id="organization"
+          formControlName="quizOrganization"
+          (change)="setCourseByOrg($event)"
+        >
+          <!-- TODO: on opt change chage the courses value -->
+          <option
+            *ngFor="let organization of organizations"
+            [ngValue]="organization._id"
           >
-            Save Question
-          </button>
-        </div>
-      </fieldset>
+            {{ organization.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- TODO: keep courses disabled until org selected -->
+    <div class="quiz-org-course input-field w-200 mt-24">
+      <div class="input-field">
+        <label for="org-course">Course Name*</label>
+        <select
+          name="org-course"
+          id="org-course"
+          formControlName="quizOrganizationCourse"
+        >
+          <!-- TODO: on opt change chage the courses value -->
+          <option *ngFor="let course of courses" [ngValue]="course._id">
+            {{ course.title }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="question-container mt-24">
+      <div class="question-text">
+        <p for="question-text">Question Text</p>
+        <textarea
+          id="question-text"
+          name="question-text"
+          formControlName="questionText"
+          rows="1"
+          cols="80"
+          (resize)="(false)"
+        ></textarea>
+      </div>
+
+      <label for="option" class="mt-24 d-block">Options*</label>
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-chip-grid #chipGrid aria-label="Enter option">
+          <mat-chip-row
+            *ngFor="let option of options"
+            (removed)="remove(option)"
+            [editable]="true"
+            (edited)="edit(option, $event)"
+            [aria-description]="'press enter to edit ' + option.text"
+          >
+            {{ option.text }}
+            <button matChipRemove [attr.aria-label]="'remove ' + option.text">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          <input
+            placeholder="New option"
+            [matChipInputFor]="chipGrid"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+          />
+        </mat-chip-grid>
+      </mat-form-field>
+
+      <label for="correct-option" class="mt-24">Correct Options*</label>
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-chip-grid #chipGridCorrect aria-label="Enter Correct options">
+          <mat-chip-row
+            *ngFor="let option of correctOptions"
+            (removed)="removeCorrectOpt(option)"
+            [editable]="true"
+            (edited)="editCorrectOpt(option, $event)"
+            [aria-description]="'press enter to edit ' + option.text"
+          >
+            {{ option.text }}
+            <button matChipRemove [attr.aria-label]="'remove ' + option.text">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          <input
+            placeholder="New Correct option"
+            [matChipInputFor]="chipGridCorrect"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="addCorrectOpt($event)"
+          />
+        </mat-chip-grid>
+      </mat-form-field>
+
+      <div class="save-question-btn">
+        <button
+          class="primary-button"
+          type="submit"
+          (click)="saveQuestion($event)"
+        >
+          Save Question
+        </button>
+      </div>
     </div>
 
     <div class="d-flex-row-center-center mt-24">

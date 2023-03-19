@@ -1,0 +1,45 @@
+<div class="container">
+  <a routerLink="/admin/manage-quiz/create-quiz"
+    ><button class="primary-button btn">Add Quiz</button></a
+  >
+  <div class="card m-5 p-3 margin-top-16">
+    <div class="card-body">
+      <table
+        *ngIf="displayTable"
+        class="table table-striped table-bordered table-sm row-border hover"
+        datatable
+        [dtOptions]="dtOptions"
+      >
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Quiz Name</th>
+            <th>Quiz Course Name</th>
+            <th>Quiz Organization</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let quiz of quizes; let indexOfQuiz = index">
+            <td>{{ indexOfQuiz + 1 }}</td>
+            <td>{{ quiz.quizName }}</td>
+            <td>{{ quiz.quizOrganizationCourse }}</td>
+            <td>{{ quiz.quizOrganization }}</td>
+            <td>
+              <a routerLink="/admin/manage-quiz/view-quiz/{{ quiz._id }}">
+                <button mat-icon-button class="icon">
+                  <mat-icon>remove_red_eye</mat-icon>
+                </button>
+              </a>
+              <a (click)="this.openDialog('0ms', '0ms', quiz._id)">
+                <button mat-icon-button class="icon">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -39,6 +39,28 @@
             {{ option.text }}
           </mat-checkbox>
         </div>
+
+        <!-- <div *ngIf="question.correctOptions.length === 1">
+          <mat-radio-group aria-label="Select an option">
+            <div
+              class="question-options"
+              *ngFor="let option of question.options; let optIndex = index"
+            >
+              <mat-radio-button
+                (change)="
+                  optionChange(
+                    questionIndex,
+                    optIndex,
+                    option.text,
+                    option.isTrue
+                  )
+                "
+              >
+                {{ option.text }}
+              </mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div> -->
       </div>
     </form>
   </div>

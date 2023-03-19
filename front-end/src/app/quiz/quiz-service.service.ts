@@ -14,13 +14,18 @@ export class QuizServiceService {
     return this.http.post(this.baseUrl + '/save-quiz', quiz);
   }
 
-  viewQuiz(id: string | null) {
-    if (id === null) {
-      return;
-    }
+  viewQuiz(id: string) {
     console.log(id);
 
     return this.http.get(this.baseUrl + `/view-quiz/${id}`);
+  }
+
+  getQuiz() {
+    return this.http.get(this.baseUrl + '/quizes');
+  }
+
+  getQuizById(id: string) {
+    return this.http.get(this.baseUrl + `/quizes/${id}`);
   }
 
   constructor(private http: HttpClient) {}

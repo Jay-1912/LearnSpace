@@ -7,6 +7,12 @@
 .mt-24 {
   margin-top: 24px;
 }
+.mt-12 {
+  margin-top: 12px;
+}
+.d-block {
+  display: block;
+}
 
 .input-field input,
 .input-field select,
@@ -134,7 +140,7 @@ textarea {
 .fc-white {
   color: white;
 }
-.question-container {
+/* .question-container {
   width: min(100% - 2rem, 1000px);
   margin-inline: auto;
-}
+} */

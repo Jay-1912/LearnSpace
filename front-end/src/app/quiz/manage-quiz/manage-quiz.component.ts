@@ -2,11 +2,11 @@ import { OnInit, Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
-  selector: 'app-manage-student',
-  templateUrl: './manage-student.component.html',
-  styleUrls: ['./manage-student.component.css'],
+  selector: 'app-manage-quiz',
+  templateUrl: './manage-quiz.component.html',
+  styleUrls: ['./manage-quiz.component.css'],
 })
-export class ManageStudentComponent implements OnInit {
+export class ManageQuizComponent implements OnInit {
   ngOnInit(): void {
     if (!this.authService.isLoggedIn()) {
       window.location.href = 'http://localhost:4200';

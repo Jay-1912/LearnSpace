@@ -29,6 +29,8 @@ import { OrganizationFormComponent } from './organization/manage-organization/or
 import { OrganizationTableComponent } from './organization/manage-organization/organization-table/organization-table.component';
 import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
 import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
+import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
+import { QuizTableComponent } from './quiz/quiz-table/quiz-table.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -36,8 +38,6 @@ const routes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'course/:id/:title', component: CourseDescriptionComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'create-quiz', component: CreateQuizFormComponent },
-  { path: 'view-quiz/:quizId', component: ViewQuizComponent },
   {
     path: 'course/:id/:title/:section/:lesson',
     component: CourseContentComponent,
@@ -88,6 +88,15 @@ const routes: Routes = [
             path: 'edit-organization/:id',
             component: OrganizationFormComponent,
           },
+        ],
+      },
+      {
+        path: 'manage-quiz',
+        component: ManageQuizComponent,
+        children: [
+          { path: '', component: QuizTableComponent },
+          { path: 'view-quiz/:quizId', component: ViewQuizComponent },
+          { path: 'create-quiz', component: CreateQuizFormComponent },
         ],
       },
     ],

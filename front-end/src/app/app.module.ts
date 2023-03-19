@@ -27,6 +27,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -74,6 +75,8 @@ import { OrganizationTableComponent } from './organization/manage-organization/o
 import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
 import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
+import { QuizTableComponent } from './quiz/quiz-table/quiz-table.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +123,8 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     ViewQuizComponent,
     CreateQuizFormComponent,
     DialogBoxComponent,
+    ManageQuizComponent,
+    QuizTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -141,6 +146,7 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     MatDividerModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatRadioModule,
     MatDialogModule,
     MatSnackBarModule,
     NgxMatSelectSearchModule,

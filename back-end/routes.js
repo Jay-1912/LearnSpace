@@ -58,6 +58,15 @@ app.get("/course/:id", async (req, res) => {
   }
 });
 
+app.get("/courses/:org", async (req, res) => {
+  const courses = await courseModel.find({ organization: req.params.org });
+  try {
+    res.send(courses);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 app.post("/add_course", upload.single("thumbnail"), async (req, res) => {
   const filename = req.file.filename;
   const course = new courseModel({
@@ -250,6 +259,7 @@ app.get("/get-student/:id", async (req, res) => {
 });
 
 app.post("/create-student", upload.single("profile"), async (req, res) => {
+  console.log("here");
   const filename = req.file.filename;
   const student = new Student({
     firstName: req.body.firstname,
@@ -259,12 +269,13 @@ app.post("/create-student", upload.single("profile"), async (req, res) => {
     profile: filename,
     organization: req.body.organization,
   });
-  // console.log(student);
+  console.log(student);
   try {
+    console.log(student);
     await student.save();
     res.send(student);
-    console.log("student saved");
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
@@ -478,7 +489,8 @@ app.get("/delete_organization/:id", async (req, res) => {
 app.post("/save-quiz", async (req, res) => {
   const quizData = new Quiz({
     quizName: req.body.quizName,
-
+    quizOrganization: req.body.quizOrganization,
+    quizOrganizationCourse: req.body.quizOrganizationCourse,
     questions: req.body.questions,
   });
 
@@ -503,6 +515,36 @@ app.get("/view-quiz/:id", async (req, res) => {
     console.error(err);
   }
 });
+
+app.get("/quizes", async (req, res) => {
+  try {
+    let quizes = await Quiz.find({});
+    res.send(quizes);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+app.get("/quizes/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    let quiz = await Quiz.findOne({ _id: id });
+    res.send(quiz);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+app.delete("/delete-quiz/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    let response = await Quiz.deleteOne({ _id: id });
+    res.send(response);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 //Authentication
 app.post("/login", upload.single(), async (req, res) => {
   console.log(req.body);
