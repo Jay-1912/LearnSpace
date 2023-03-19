@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,8 +24,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -71,6 +71,8 @@ import { TeacherFormComponent } from './organization/manage-teacher/teacher-form
 import { ManageOrganizationComponent } from './organization/manage-organization/manage-organization.component';
 import { OrganizationFormComponent } from './organization/manage-organization/organization-form/organization-form.component';
 import { OrganizationTableComponent } from './organization/manage-organization/organization-table/organization-table.component';
+import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
+import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
 @NgModule({
@@ -115,6 +117,8 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     ManageOrganizationComponent,
     OrganizationFormComponent,
     OrganizationTableComponent,
+    ViewQuizComponent,
+    CreateQuizFormComponent,
     DialogBoxComponent,
   ],
   imports: [
@@ -136,14 +140,15 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     MatGridListModule,
     MatDividerModule,
     MatSelectModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatSnackBarModule,
     NgxMatSelectSearchModule,
     MatTableModule,
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
     MatChipsModule,
-    MatSnackBarModule,
-    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

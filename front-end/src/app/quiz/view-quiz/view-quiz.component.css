@@ -1,0 +1,18 @@
+.fs-24 {
+  font-size: 24px;
+}
+.fc-green {
+  color: #006d42;
+}
+.mt-24 {
+  margin-top: 24px;
+}
+.bg-light-gray {
+  background: #eee;
+}
+.quiz-name-submit-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

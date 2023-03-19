@@ -1,0 +1,45 @@
+<div class="quiz-container">
+  <div class="quiz-name-submit-container">
+    <div class="quiz-name-container">
+      <p class="fc-green fs-24">
+        {{ quiz.quizName }}
+      </p>
+    </div>
+    <button
+      class="submit-btn primary-button"
+      (click)="handleQuizSubmit($event)"
+    >
+      Submit
+    </button>
+  </div>
+
+  <div
+    *ngFor="let question of quiz.questions; let questionIndex = index"
+    [attr.data-index]="questionIndex"
+    class="quiz-questions-container mt-24"
+  >
+    <form action="">
+      <div class="question-text">
+        <span class="question-index">{{ questionIndex + 1 + "." }}</span>
+        <span class="fs-16">
+          {{ question.questionText }}
+        </span>
+      </div>
+
+      <div class="question-options-container margin-top-16">
+        <div
+          class="question-options"
+          *ngFor="let option of question.options; let optIndex = index"
+        >
+          <mat-checkbox
+            (change)="
+              optionChange(questionIndex, optIndex, option.text, option.isTrue)
+            "
+          >
+            {{ option.text }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

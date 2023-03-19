@@ -4,6 +4,7 @@ const courseModel = require("./Models/course");
 const app = express();
 const Student = require("./models");
 const Teacher = require("./modelTeacher");
+const Quiz = require("./Models/quiz");
 
 app.post("/add_user", async (request, response) => {
   const user = new userModel(request.body);
@@ -100,12 +101,12 @@ app.post("/edit_course/:id", upload.single("thumbnail"), async (req, res) => {
   }
 });
 
-app.get("/delete_course/:id", async(req, res)=>{
+app.get("/delete_course/:id", async (req, res) => {
   let id = req.params.id;
-  try{
-    const result = await courseModel.deleteOne({_id:id});
+  try {
+    const result = await courseModel.deleteOne({ _id: id });
     res.send(result);
-  }catch(error){
+  } catch (error) {
     res.send(error);
   }
 });
@@ -191,43 +192,44 @@ app.post("/delete_lesson", upload.single(""), async (req, res) => {
   }
 });
 
-app.post("/enroll-to-course/:id", upload.single(""), async (req, res)=>{
+app.post("/enroll-to-course/:id", upload.single(""), async (req, res) => {
   const courseID = req.params.id;
   const studentID = req.body.studentID;
-  const course = await courseModel.findById({_id:courseID});
-  const student = await Student.findById({_id:studentID});
+  const course = await courseModel.findById({ _id: courseID });
+  const student = await Student.findById({ _id: studentID });
   console.log(course);
-  try{
-      let enrolledStudents;
-      if(course.enrolled_students){
-        enrolledStudents = course.enrolled_students;
-      }else{
-        enrolledStudents = [];
-      }
-      enrolledStudents.push(studentID);
-      let updatedCourse = await courseModel.findByIdAndUpdate(
-        {_id:courseID},
-        {enrolled_students: enrolledStudents},
-        {new: true});
-      
-      let enrolledCourses;
-      if(student.enrolled_courses){
-        enrolledCourses = student.enrolled_courses;
-      }else{
-        enrolledCourses = [];
-      }
-      enrolledCourses.push(courseID);
-      let updatedStudent = await Student.findByIdAndUpdate(
-        {_id: studentID},
-        {enrolled_courses: enrolledCourses},
-        {new: true}
-      )
-      res.send({"status":200, "message":"enrolled successfully!"});
-  }catch(error){
-      console.log(error);
-      res.send({"status":400, "message":"something went wrong!"});
+  try {
+    let enrolledStudents;
+    if (course.enrolled_students) {
+      enrolledStudents = course.enrolled_students;
+    } else {
+      enrolledStudents = [];
+    }
+    enrolledStudents.push(studentID);
+    let updatedCourse = await courseModel.findByIdAndUpdate(
+      { _id: courseID },
+      { enrolled_students: enrolledStudents },
+      { new: true }
+    );
+
+    let enrolledCourses;
+    if (student.enrolled_courses) {
+      enrolledCourses = student.enrolled_courses;
+    } else {
+      enrolledCourses = [];
+    }
+    enrolledCourses.push(courseID);
+    let updatedStudent = await Student.findByIdAndUpdate(
+      { _id: studentID },
+      { enrolled_courses: enrolledCourses },
+      { new: true }
+    );
+    res.send({ status: 200, message: "enrolled successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: 400, message: "something went wrong!" });
   }
-})
+});
 
 // manage student routes
 app.get("/get-students", async (req, res) => {
@@ -392,9 +394,8 @@ app.post("/update-teacher/:id", upload.single("profile"), async (req, res) => {
   }
 });
 
-
 //Organization
-app.get('/organizations', async(req, res)=>{
+app.get("/organizations", async (req, res) => {
   const organization = await Organization.find();
   try {
     res.send(organization);
@@ -403,98 +404,130 @@ app.get('/organizations', async(req, res)=>{
   }
 });
 
-app.get('/organization/:id', async(req, res)=>{
+app.get("/organization/:id", async (req, res) => {
   let id = req.params.id;
-  if(id){
-    const organization = await Organization.find({_id:id});
-    try{
+  if (id) {
+    const organization = await Organization.find({ _id: id });
+    try {
       res.send(organization);
-    }catch(err){
+    } catch (err) {
       res.send(err);
     }
   }
-})
+});
 
-app.post("/add_organization", upload.single('file'), async(req, res)=>{
+app.post("/add_organization", upload.single("file"), async (req, res) => {
   const filename = req.file.filename;
   const organization = new Organization({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    image: filename
+    image: filename,
   });
 
-  try{
+  try {
     await organization.save();
     res.send(organization);
-  }catch(err){
+  } catch (err) {
     res.send(err);
   }
-})
+});
 
-app.post("/edit_organization/:id", upload.single('file'), async(req, res)=>{
+app.post("/edit_organization/:id", upload.single("file"), async (req, res) => {
   let filename;
-  if(req.file){
+  if (req.file) {
     filename = req.file.filename;
-  }else{
+  } else {
     filename = req.body.file;
   }
 
   const id = req.params.id;
-  if(id){
-    try{
-      let updatedRes = await Organization.findByIdAndUpdate({_id: id},{
-        name : req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        image: filename
-      }, {new: true});
+  if (id) {
+    try {
+      let updatedRes = await Organization.findByIdAndUpdate(
+        { _id: id },
+        {
+          name: req.body.name,
+          email: req.body.email,
+          password: req.body.password,
+          image: filename,
+        },
+        { new: true }
+      );
 
       res.send(updatedRes);
-    }catch(err){
+    } catch (err) {
       res.send(err);
     }
   }
 });
 
-app.get("/delete_organization/:id", async(req, res)=>{
+app.get("/delete_organization/:id", async (req, res) => {
   const id = req.params.id;
-  if(id){
-    try{
-      let deletedRes = await Organization.deleteOne({_id:id});
+  if (id) {
+    try {
+      let deletedRes = await Organization.deleteOne({ _id: id });
       res.send(deletedRes);
-    }catch(err){
+    } catch (err) {
       res.send(err);
     }
   }
 });
 
+// quiz endpoints
+app.post("/save-quiz", async (req, res) => {
+  const quizData = new Quiz({
+    quizName: req.body.quizName,
 
+    questions: req.body.questions,
+  });
+
+  console.log(quizData);
+  try {
+    let saveQuizResp = await quizData.save();
+    res.send({ resp: saveQuizResp });
+    console.log(saveQuizResp);
+  } catch (err) {
+    res.send(err);
+    console.log(err);
+  }
+});
+
+app.get("/view-quiz/:id", async (req, res) => {
+  const quizId = req.params.id;
+  try {
+    let quiz = await Quiz.findOne({ _id: quizId });
+    res.send(quiz);
+    console.log(quiz);
+  } catch (err) {
+    console.error(err);
+  }
+});
 //Authentication
-app.post('/login', upload.single(), async(req, res)=>{
+app.post("/login", upload.single(), async (req, res) => {
   console.log(req.body);
   const role = req.body.role;
   let user;
-  try{
-    if(role==1){
-      user = await Organization.findOne({email: req.body.email});
-    }else if(role==2){
-      user = await Teacher.findOne({email: req.body.email});
-    }else{
-      user = await Student.findOne({email: req.body.email});
+  try {
+    if (role == 1) {
+      user = await Organization.findOne({ email: req.body.email });
+    } else if (role == 2) {
+      user = await Teacher.findOne({ email: req.body.email });
+    } else {
+      user = await Student.findOne({ email: req.body.email });
     }
 
     if (user) {
       const result = req.body.password === user.password;
       if (result) {
-        res.send({status:200,success:"User LoggedIn Successfully!",user});
+        res.send({ status: 200, success: "User LoggedIn Successfully!", user });
       } else {
-        res.send({status:400, error: "password doesn't match" });
+        res.send({ status: 400, error: "password doesn't match" });
       }
     } else {
-      res.send({status:400, error: "User doesn't exist" });
+      res.send({ status: 400, error: "User doesn't exist" });
     }
-  }catch(error){
+  } catch (error) {
     res.status(400).json({ error });
   }
 });
