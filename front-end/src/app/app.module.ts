@@ -24,6 +24,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -68,7 +71,9 @@ import { TeacherFormComponent } from './organization/manage-teacher/teacher-form
 import { ManageOrganizationComponent } from './organization/manage-organization/manage-organization.component';
 import { OrganizationFormComponent } from './organization/manage-organization/organization-form/organization-form.component';
 import { OrganizationTableComponent } from './organization/manage-organization/organization-table/organization-table.component';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
+import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +117,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ManageOrganizationComponent,
     OrganizationFormComponent,
     OrganizationTableComponent,
+    ViewQuizComponent,
+    CreateQuizFormComponent,
+    DialogBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -133,6 +141,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDividerModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatDialogModule,
+    MatSnackBarModule,
     NgxMatSelectSearchModule,
     MatTableModule,
     FormsModule,
