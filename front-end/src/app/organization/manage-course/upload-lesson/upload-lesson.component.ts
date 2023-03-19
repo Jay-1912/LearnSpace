@@ -5,6 +5,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CourseService } from 'src/app/services/course.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-upload-lesson',
@@ -20,7 +22,7 @@ export class UploadLessonComponent implements OnInit{
   isEdit: boolean = false;
   editedSection!: any;
   editedLesson!: any;
-  constructor(private authService:AuthenticationService ,private changeDetectorRefs:ChangeDetectorRef, private route:ActivatedRoute, private courseService: CourseService, private sanitizer:DomSanitizer){}
+  constructor(private _snackBar: MatSnackBar, private authService:AuthenticationService ,private changeDetectorRefs:ChangeDetectorRef, private route:ActivatedRoute, private courseService: CourseService, private sanitizer:DomSanitizer){}
 
   lessonForm = new FormGroup({
     section: new FormControl(this.sections, Validators.required),
@@ -28,6 +30,10 @@ export class UploadLessonComponent implements OnInit{
     type: new FormControl("", Validators.required),
     file: new FormControl("", Validators.required)
   })
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
 
 
   saveLesson(event: Event){
@@ -41,6 +47,7 @@ export class UploadLessonComponent implements OnInit{
       console.log(res);
       this.sections = res.sections;
       this.changeDetectorRefs.detectChanges();
+      this.openSnackBar("Lesson added successfully", "close");
     });
   }
 
@@ -62,6 +69,7 @@ export class UploadLessonComponent implements OnInit{
       this.sections = res.sections;
       this.changeDetectorRefs.detectChanges();
       this.isEdit = false;
+      this.openSnackBar("Lesson Updated successfully", "close");
     });
   }
 
@@ -75,6 +83,7 @@ export class UploadLessonComponent implements OnInit{
       console.log(res);
       this.sections = res.sections;
       this.changeDetectorRefs.detectChanges();
+      this.openSnackBar("Lesson deleted successfully", "close");
     })
   }
 

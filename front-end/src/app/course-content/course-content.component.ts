@@ -18,6 +18,7 @@ export class CourseContentComponent implements OnInit, OnChanges {
   section:number = 0;
   lesson:number = 0;
   lessonName:string = "";
+  type:string = "";
   prevSection!:number;
   prevLesson!:number;
   nextSection!:number;
@@ -38,6 +39,7 @@ export class CourseContentComponent implements OnInit, OnChanges {
       this.sections = course.sections;
       this.lessonName = this.sections[this.section].lesson[this.lesson].title;
       this.src = this.sections[this.section].lesson[this.lesson].file;
+      this.type = this.sections[this.section].lesson[this.lesson].type;
 
       if(this.lesson==0){
         if(this.section>0){
