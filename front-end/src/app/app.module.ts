@@ -75,6 +75,7 @@ import { OrganizationTableComponent } from './organization/manage-organization/o
 import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
 import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { SafePipe } from './pipes/safe.pipe';
 import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
 import { QuizTableComponent } from './quiz/quiz-table/quiz-table.component';
 
@@ -123,6 +124,7 @@ import { QuizTableComponent } from './quiz/quiz-table/quiz-table.component';
     ViewQuizComponent,
     CreateQuizFormComponent,
     DialogBoxComponent,
+    SafePipe,
     ManageQuizComponent,
     QuizTableComponent,
   ],

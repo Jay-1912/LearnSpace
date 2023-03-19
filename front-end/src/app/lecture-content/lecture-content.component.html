@@ -1,5 +1,14 @@
 <div class="lecture-content-wrapper">
-    <video controls width="250" class="video-player">
-        <source *ngIf="source" src="http://localhost:3000/images/{{source}}" type="video/mp4">
+    <video controls width="250" class="video-player" *ngIf="type=='video'">
+        <source *ngIf="source" [src]="source | safe" type="video/mp4">
     </video>
+    <object
+        [data]="source | safe"
+        type="application/pdf"
+        width="100%"
+        height="100%" *ngIf="type=='document'">
+        <p>Your browser does not support PDFs.
+            <a [href]="source | safe">Download the PDF</a>
+        </p>
+    </object>
 </div>
