@@ -225,9 +225,13 @@ app.post("/enroll-to-course/:id", upload.single(""), async (req, res) => {
     if (student.enrolled_courses) {
       enrolledCourses = student.enrolled_courses;
     } else {
-      enrolledCourses = [];
+      enrolledCourses = {};
     }
-    enrolledCourses.push(courseID);
+    let courseMat = [];
+    for(let section of updatedCourse.sections){
+      courseMat.push(new Array(section.lesson.length));
+    }
+    enrolledCourses[courseID] = courseMat;
     let updatedStudent = await Student.findByIdAndUpdate(
       { _id: studentID },
       { enrolled_courses: enrolledCourses },
@@ -316,6 +320,53 @@ app.post("/update-student/:id", upload.single("profile"), async (req, res) => {
     console.log("here here  ");
   }
 });
+
+
+app.post("/update-student-progress",upload.single(), async(req, res)=>{
+  let studentId = req.body.studentId;
+  let courseId = req.body.courseId;
+  let section = req.body.section;
+  let lesson = req.body.lesson;
+
+  let student = await Student.findById({_id:studentId});
+  let enrolledCourses = student.enrolled_courses;
+  enrolledCourses[courseId][section][lesson] = 1;
+
+  try{
+    let updatedStudent = await Student.findByIdAndUpdate(
+      { _id: studentId },
+      { enrolled_courses: enrolledCourses },
+      { new: true }
+    );
+    res.send({ status: 200, message: "progress updated successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.send({ status: 400, message: "something went wrong!" });
+  }
+})
+
+app.get("/get-student-progress/:studentId/:courseId", async(req, res)=>{
+  let studentId = req.params.studentId;
+  let courseId = req.params.courseId;
+  try{
+    let student = await Student.findById({_id:studentId});
+    let course = student.enrolled_courses[courseId];
+    let completedLesson = 0;
+    let totalLesson = 0;
+    for(let section of course){
+      for(let lesson of section){
+        if(lesson==1) completedLesson++;
+        totalLesson++;
+      }
+    }
+    var progress = (completedLesson/totalLesson)*100;
+    res.send({progress});
+  }
+  catch(error){
+    res.send(error);
+  }
+  
+})
 
 // manage teachers route
 app.get("/teachers", async (req, res) => {

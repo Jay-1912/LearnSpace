@@ -38,6 +38,10 @@ const StudentSchema = new mongoose.Schema({
     required: true,
     default: "org",
   },
+  enrolled_courses:{
+    type:Object,
+    required: false
+  }
 });
 
 const User = mongoose.model("User", UserSchema);

@@ -1,5 +1,5 @@
 <div class="lecture-content-wrapper">
-    <video controls width="250" class="video-player" *ngIf="type=='video'">
+    <video controls width="250" class="video-player" *ngIf="type=='video'" (ended)="updateProgress()">
         <source *ngIf="source" [src]="source | safe" type="video/mp4">
     </video>
     <object

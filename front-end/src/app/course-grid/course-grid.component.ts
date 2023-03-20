@@ -27,7 +27,7 @@ export class CourseGridComponent implements OnInit {
       ((courses:any[]) => {
         this.studentService.getStudentById(this.loggedInUserId).subscribe( (student) =>{
           student = student[0];
-          this.enrolledCourses = student.enrolled_courses;
+          this.enrolledCourses = Object.keys(student.enrolled_courses);
           if(this.enrolledCourses){
             for(let course of courses){
               if(this.enrolledCourses.includes(course._id)){

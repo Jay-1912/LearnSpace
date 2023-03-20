@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
     this.studentService.getStudentById(this.loggedInUserId).subscribe((student)=>{
       student = student[0];
-      for(let courseID of student.enrolled_courses){
+      for(let courseID of Object.keys(student.enrolled_courses)){
         this.courseService.getCourseByID(courseID).subscribe( (course)=>{
           course = course[0];
           this.enrolledCourse.push(course);
