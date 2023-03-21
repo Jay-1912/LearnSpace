@@ -23,6 +23,11 @@
                 <span class="hint" #organizationConfirmPassword>*password and confirm password should be same.</span>
             </div>
             <div class="input-field">
+                <label for="phone">Phone*</label>
+                <input type="phone" formControlName="phone" id="phone">
+                <span class="hint" #organizationPhone>*Organization Phone field must be filled</span>
+            </div>
+            <div class="input-field">
                 <label for="image">Organization Image*</label>
                 <input type="file" #file formControlName="image" id="image" (change)="setPreview($event)">
                 <img src="{{image}}" alt="" class="img preview" *ngIf="image">
@@ -58,7 +63,11 @@
                 <input type="password" formControlName="confirmPassword" id="confirmPassword" (change)="comparePassword()">
                 <span class="hint" #organizationConfirmPassword>*password and confirm password should be same.</span>
             </div>
-
+            <div class="input-field">
+                <label for="phone">Phone*</label>
+                <input type="phone" formControlName="phone" id="phone">
+                <span class="hint" #organizationPhone>*Organization Phone field must be filled</span>
+            </div>
             <div class="input-field">
                 <label for="image">Organization Image*</label>
                 <input type="file" #file id="image" (change)="setPreview($event)">

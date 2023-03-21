@@ -64,6 +64,8 @@ export class CourseTableComponent implements OnInit {
           instructor = instructor[0];
           course.instructor = instructor.firstName + " " + instructor.lastName;
         });
+
+        course.enrolled_students = course.enrolled_students.length;
       }
       this.displayTable = true;
     })

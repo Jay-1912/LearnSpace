@@ -19,6 +19,7 @@ export class OrganizationFormComponent implements OnInit {
   @ViewChild('organizationPassword') organizationPassword: any;
   @ViewChild('organizationConfirmPassword') organizationConfirmPassword: any;
   @ViewChild('organizationImage') organizationImage:any;
+  @ViewChild('organizationPhone') organizationPhone:any;
   @ViewChild('file') imageFile:any;
 
   image!:any;
@@ -29,6 +30,7 @@ export class OrganizationFormComponent implements OnInit {
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     confirmPassword: new FormControl('', Validators.required),
+    phone: new FormControl('', Validators.required),
     image: new FormControl('')
   });
 
@@ -63,6 +65,7 @@ export class OrganizationFormComponent implements OnInit {
     let email = this.OrganizationForm.controls["email"].value;
     let password = this.OrganizationForm.controls["password"].value;
     let confirmPassword = this.OrganizationForm.controls["confirmPassword"].value;
+    let phone = this.OrganizationForm.controls["phone"].value;
 
     if(name==""){
       this.organizationName.nativeElement.style.display = "block";
@@ -76,19 +79,24 @@ export class OrganizationFormComponent implements OnInit {
       this.organizationPassword.nativeElement.style.display = "block";
     }
 
-    
+    if(phone==""){
+      this.organizationPhone.nativeElement.style.display = "block";
+    }
 
-    if(name!="" && email!="" && password!="" && password==confirmPassword){
+    if(name!="" && email!="" && password!="" && password==confirmPassword && phone!=""){
       this.organizationName.nativeElement.style.display = "none";
       this.organizationEmail.nativeElement.style.display = "none";
       this.organizationPassword.nativeElement.style.display = "none";
       this.organizationConfirmPassword.nativeElement.style.display = "none";
+      this.organizationPhone.nativeElement.style.display = "none";
+
       let selectedFile = this.imageFile.nativeElement.files[0];
       
       let formData = new FormData();
       formData.append("name", this.OrganizationForm.controls["name"].value || "");
       formData.append("email", this.OrganizationForm.controls["email"].value || "");
       formData.append("password", this.OrganizationForm.controls["password"].value || "");
+      formData.append("phone", this.OrganizationForm.controls["phone"].value || "");
       formData.append("file", selectedFile);
 
       this.organizationService.postOrganization(formData).subscribe( (res)=>{
@@ -106,6 +114,7 @@ export class OrganizationFormComponent implements OnInit {
     let email = this.OrganizationForm.controls["email"].value;
     let password = this.OrganizationForm.controls["password"].value;
     let confirmPassword = this.OrganizationForm.controls["confirmPassword"].value;
+    let phone = this.OrganizationForm.controls["phone"].value;
 
     if(name==""){
       this.organizationName.nativeElement.style.display = "block";
@@ -119,17 +128,24 @@ export class OrganizationFormComponent implements OnInit {
       this.organizationPassword.nativeElement.style.display = "block";
     }
 
-    if(name!="" && email!="" && password!="" && password==confirmPassword){
+    if(phone==""){
+      this.organizationPhone.nativeElement.style.display = "block";
+    }
+
+    if(name!="" && email!="" && password!="" && password==confirmPassword && phone!=""){
       this.organizationName.nativeElement.style.display = "none";
       this.organizationEmail.nativeElement.style.display = "none";
       this.organizationPassword.nativeElement.style.display = "none";
       this.organizationConfirmPassword.nativeElement.style.display = "none";
+      this.organizationPhone.nativeElement.style.display = "none";
+      
       let selectedFile = this.imageFile.nativeElement.files[0];
       
       let formData = new FormData();
       formData.append("name", this.OrganizationForm.controls["name"].value || "");
       formData.append("email", this.OrganizationForm.controls["email"].value || "");
       formData.append("password", this.OrganizationForm.controls["password"].value || "");
+      formData.append("phone", this.OrganizationForm.controls["phone"].value || "");
       if(selectedFile){
         formData.append("file", selectedFile);
       }else{
@@ -154,6 +170,7 @@ export class OrganizationFormComponent implements OnInit {
         this.OrganizationForm.controls["name"].setValue(organization.name);
         this.OrganizationForm.controls["email"].setValue(organization.email);
         this.OrganizationForm.controls["password"].setValue(organization.password);
+        this.OrganizationForm.controls["phone"].setValue(organization.phone);
         this.OrganizationForm.controls["image"].setValue(organization.image);
         this.image = "http://localhost:3000/images/"+organization.image;
       })

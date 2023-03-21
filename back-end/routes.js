@@ -269,6 +269,7 @@ app.post("/create-student", upload.single("profile"), async (req, res) => {
     firstName: req.body.firstname,
     lastName: req.body.lastname,
     email: req.body.email,
+    phone: req.body.phone,
     password: req.body.password,
     profile: filename,
     organization: req.body.organization,
@@ -308,6 +309,7 @@ app.post("/update-student/:id", upload.single("profile"), async (req, res) => {
         firstName: req.body.firstname,
         lastName: req.body.lastname,
         email: req.body.email,
+        phone: req.body.phone,
         password: req.body.password,
         profile: filename,
         organization: req.body.organization,
@@ -413,6 +415,7 @@ app.post("/create-teacher", upload.single("profile"), async (req, res) => {
     firstName: req.body.firstname,
     lastName: req.body.lastname,
     email: req.body.email,
+    phone: req.body.phone,
     about: req.body.about,
     password: req.body.password,
     profile: filename,
@@ -442,6 +445,7 @@ app.post("/update-teacher/:id", upload.single("profile"), async (req, res) => {
         firstName: req.body.firstname,
         lastName: req.body.lastname,
         email: req.body.email,
+        phone: req.body.phone,
         about: req.body.about,
         password: req.body.password,
         profile: filename,
@@ -484,6 +488,7 @@ app.post("/add_organization", upload.single("file"), async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
+    phone: req.body.phone,
     image: filename,
   });
 
@@ -512,6 +517,7 @@ app.post("/edit_organization/:id", upload.single("file"), async (req, res) => {
           name: req.body.name,
           email: req.body.email,
           password: req.body.password,
+          phone: req.body.phone,
           image: filename,
         },
         { new: true }

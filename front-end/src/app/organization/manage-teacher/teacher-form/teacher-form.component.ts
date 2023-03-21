@@ -38,6 +38,7 @@ export class TeacherFormComponent implements OnInit {
       about: new FormControl(''),
       id: new FormControl(''),
       email: new FormControl(''),
+      phone: new FormControl(''),
       password: new FormControl(''),
       profile: new FormControl(),
       organization: new FormControl(),
@@ -67,6 +68,7 @@ export class TeacherFormComponent implements OnInit {
         );
         this.createTeacherForm.controls['lastName'].setValue(data[0].lastName);
         this.createTeacherForm.controls['email'].setValue(data[0].email);
+        this.createTeacherForm.controls['phone'].setValue(data[0].phone);
         this.createTeacherForm.controls['about'].setValue(data[0].about);
         this.createTeacherForm.controls['password'].setValue(data[0].password);
         this.createTeacherForm.controls['profile'].setValue(data[0].profile);
@@ -104,6 +106,7 @@ export class TeacherFormComponent implements OnInit {
     teacherFormData.append('firstname', teacherDataControl['firstName'].value);
     teacherFormData.append('lastname', teacherDataControl['lastName'].value);
     teacherFormData.append('email', teacherDataControl['email'].value);
+    teacherFormData.append('phone', teacherDataControl['phone'].value);
     teacherFormData.append('about', teacherDataControl['about'].value);
     teacherFormData.append('password', teacherDataControl['password'].value);
     let selectedFile = this.profilepic.nativeElement.files[0];

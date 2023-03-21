@@ -40,6 +40,11 @@
     </div>
 
     <div class="input-field margin-top-16">
+      <label for="phone">Phone*</label>
+      <input type="phone" name="phone" id="phone" placeholder="Insert Phone" formControlName="phone">
+    </div>
+
+    <div class="input-field margin-top-16">
       <label for="organization">Organization</label>
         <select name="organization" id="organization" formControlName="organization">
           <option [ngValue]="organization._id" *ngFor="let organization of organizations">{{ organization.name }}</option>

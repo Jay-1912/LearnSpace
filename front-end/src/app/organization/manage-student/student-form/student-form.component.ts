@@ -38,6 +38,7 @@ export class StudentFormComponent implements OnInit {
       lastName: new FormControl(''),
       id: new FormControl(''),
       email: new FormControl(''),
+      phone: new FormControl(''),
       password: new FormControl(''),
       profile: new FormControl(),
       organization: new FormControl(),
@@ -67,7 +68,7 @@ export class StudentFormComponent implements OnInit {
         this.createStudentForm.controls['lastName'].setValue(data[0].lastName);
         this.createStudentForm.controls['email'].setValue(data[0].email);
         this.createStudentForm.controls['password'].setValue(data[0].password);
-
+        this.createStudentForm.controls['phone'].setValue(data[0].phone);
         this.createStudentForm.controls['profile'].setValue(data[0].profile);
         this.imageSrc = 'http://localhost:3000/images/' + data[0].profile;
         this.createStudentForm.controls['organization'].setValue(
@@ -102,6 +103,7 @@ export class StudentFormComponent implements OnInit {
     studentFormData.append('firstname', studentDataControl['firstName'].value);
     studentFormData.append('lastname', studentDataControl['lastName'].value);
     studentFormData.append('email', studentDataControl['email'].value);
+    studentFormData.append('phone', studentDataControl['phone'].value);
     studentFormData.append('password', studentDataControl['password'].value);
     let selectedFile = this.profilepic.nativeElement.files[0];
     if (selectedFile) {
