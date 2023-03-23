@@ -27,10 +27,14 @@ import { TeacherFormComponent } from './organization/manage-teacher/teacher-form
 import { ManageOrganizationComponent } from './organization/manage-organization/manage-organization.component';
 import { OrganizationFormComponent } from './organization/manage-organization/organization-form/organization-form.component';
 import { OrganizationTableComponent } from './organization/manage-organization/organization-table/organization-table.component';
-import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
-import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
-import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
-import { QuizTableComponent } from './quiz/quiz-table/quiz-table.component';
+import { ManageQuizComponent } from './organization/manage-quiz/manage-quiz.component';
+import { QuizTableComponent } from './organization/manage-quiz/quiz-table/quiz-table.component';
+import { QuizFormComponent } from './organization/manage-quiz/quiz-form/quiz-form.component';
+import { UploadQuesionComponent } from './organization/manage-quiz/upload-quesion/upload-quesion.component';
+// import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
+// import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
+// import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
+// import { QuizTableComponent } from './quiz/quiz-table/quiz-table.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -95,8 +99,9 @@ const routes: Routes = [
         component: ManageQuizComponent,
         children: [
           { path: '', component: QuizTableComponent },
-          { path: 'view-quiz/:quizId', component: ViewQuizComponent },
-          { path: 'create-quiz', component: CreateQuizFormComponent },
+          { path: 'add-quiz', component:  QuizFormComponent},
+          { path: 'edit-quiz/:id', component: QuizFormComponent},
+          { path: ':id/upload-question', component: UploadQuesionComponent}
         ],
       },
     ],

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateQuizFormComponent } from './create-quiz-form.component';
+import { UploadQuesionComponent } from './upload-quesion.component';
 
-describe('CreateQuizFormComponent', () => {
-  let component: CreateQuizFormComponent;
-  let fixture: ComponentFixture<CreateQuizFormComponent>;
+describe('UploadQuesionComponent', () => {
+  let component: UploadQuesionComponent;
+  let fixture: ComponentFixture<UploadQuesionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateQuizFormComponent ]
+      declarations: [ UploadQuesionComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateQuizFormComponent);
+    fixture = TestBed.createComponent(UploadQuesionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
