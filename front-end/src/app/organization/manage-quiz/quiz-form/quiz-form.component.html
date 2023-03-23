@@ -19,11 +19,9 @@
                 <input type="text" name="title" id="title" formControlName="title">
             </div>
             <div class="input-field">
-                <label for="section_lesson">Section & Lesson*</label>
-                <select name="section_lesson" id="section_lesson" formControlName="section_lesson">
-                    <optGroup label="{{section_lesson.title}}" *ngFor="let section_lesson of section_lessons;let indexOfSection=index;">
-                        <option value="{{indexOfSection}}{{indexOfLesson}}" *ngFor="let lesson of section_lesson.lesson;let indexOfLesson=index;">{{lesson.title}}</option>
-                    </optGroup>
+                <label for="section">Section*</label>
+                <select name="section" id="section" formControlName="section">
+                    <option [ngValue]="i" *ngFor="let section of sections; let i=index">{{section.title}}</option>
                 </select>
             </div>
         </div>
@@ -52,11 +50,9 @@
                 <input type="text" name="title" id="title" formControlName="title">
             </div>
             <div class="input-field">
-                <label for="section_lesson">Section & Lesson*</label>
-                <select name="section_lesson" id="section_lesson" formControlName="section_lesson">
-                    <optGroup label="{{section_lesson.title}}" *ngFor="let section_lesson of section_lessons;let indexOfSection=index;">
-                        <option value="{{indexOfSection}}{{indexOfLesson}}" *ngFor="let lesson of section_lesson.lesson;let indexOfLesson=index;">{{lesson.title}}</option>
-                    </optGroup>
+                <label for="section_lesson">Section*</label>
+                <select name="section" id="section" formControlName="section">
+                    <option [ngValue]="i" *ngFor="let section of sections; let i=index">{{section.title}}</option>
                 </select>
             </div>
         </div>

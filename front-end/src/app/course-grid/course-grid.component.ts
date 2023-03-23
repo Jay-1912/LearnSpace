@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { CourseService } from '../services/course.service';
 import { StudentServicesService } from '../services/student-services.service';
@@ -27,7 +28,9 @@ export class CourseGridComponent implements OnInit {
       ((courses:any[]) => {
         this.studentService.getStudentById(this.loggedInUserId).subscribe( (student) =>{
           student = student[0];
-          this.enrolledCourses = Object.keys(student.enrolled_courses);
+          if(student.enrolled_courses){
+            this.enrolledCourses = Object.keys(student.enrolled_courses);
+          }
           if(this.enrolledCourses){
             for(let course of courses){
               if(this.enrolledCourses.includes(course._id)){

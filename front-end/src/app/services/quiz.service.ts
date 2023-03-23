@@ -53,6 +53,11 @@ export class QuizService {
     return this.http.get<any>(url).pipe(catchError(this.handleError));
   }
 
+  attendQuiz(quizId:string, studentId:string, studentRes:any): Observable<any>{
+    const url = this.url+"attend_quiz/"+quizId+"/"+studentId;
+    return this.http.post<any>(url, studentRes).pipe(catchError(this.handleError));
+  }
+
 
   private handleError(error: any) {
     console.error('server error:', error);

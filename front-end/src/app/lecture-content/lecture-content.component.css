@@ -11,3 +11,54 @@
 object{
     height: 600px;
 }
+
+.input-field{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 600;
+    margin-top:16px;
+}
+
+.input-field input, .input-field select{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #0c1f14;
+    font-family: 'Quicksand';
+    font-size: 16px;
+    background: none;
+}
+
+.input-field input[type="file"]{
+    border: none;
+}
+
+.input-field label{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.radio-field{
+    display:  flex;
+    align-items: center;
+    font-family: 'Quicksand';
+    font-size: 16px;
+}
+
+.radio-field input[type="radio"]{
+    border: 1px solid #0c1f14;
+    height: 16px;
+    width: 16px;
+    margin: 0;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.radio-field .radio-text{
+    margin-right: 6px;
+}
+
+.question, .answer-label{
+    font-weight: 600;
+    font-size: 18px;
+}

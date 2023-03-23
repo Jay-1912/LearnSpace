@@ -20,7 +20,7 @@ export class QuizFormComponent implements OnInit {
 
   organizations:any[] = [];
   courses:any[] = [];
-  section_lessons: any[] = [];
+  sections: any[] = [];
   id:string = "";
   
 
@@ -28,7 +28,7 @@ export class QuizFormComponent implements OnInit {
     title: new FormControl('', Validators.required),
     organization: new FormControl('', Validators.required),
     course: new FormControl('', Validators.required),
-    section_lesson: new FormControl('',Validators.required)
+    section: new FormControl('',Validators.required)
   })
 
   openSnackBar(message: string, action: string) {
@@ -46,7 +46,7 @@ export class QuizFormComponent implements OnInit {
     let selectedCourse = this.quizForm.controls["course"].value;
     this.courseService.getCourseByID(selectedCourse || "").subscribe( (res)=>{
       console.log(res[0].sections);
-      this.section_lessons = res[0].sections;
+      this.sections = res[0].sections;
     } )
   }
 
@@ -57,14 +57,14 @@ export class QuizFormComponent implements OnInit {
     formData.append("title", quiz.title || "");
     formData.append("organization", quiz.organization || "");
     formData.append("course", quiz.course || "");
-    let section_lesson = quiz.section_lesson;
-    let section, lesson;
-    if(section_lesson){
-      section = section_lesson[0];
-      lesson = section_lesson[1];
-    }
-    formData.append("section", section || "" );
-    formData.append("lesson", lesson || "");
+    // let section_lesson = quiz.section;
+    // let section, lesson;
+    // if(section_lesson){
+    //   section = section_lesson[0];
+    //   lesson = section_lesson[1];
+    // }
+    formData.append("section", quiz.section?.toString() || "" );
+    // formData.append("lesson", lesson || "");
 
     this.quizService.postQuiz(formData).subscribe( (res)=>{
       if(res.code==200){
@@ -88,14 +88,14 @@ export class QuizFormComponent implements OnInit {
     formData.append("title", quiz.title || "");
     formData.append("organization", quiz.organization || "");
     formData.append("course", quiz.course || "");
-    let section_lesson = quiz.section_lesson;
-    let section, lesson;
-    if(section_lesson){
-      section = section_lesson[0];
-      lesson = section_lesson[1];
-    }
-    formData.append("section", section || "" );
-    formData.append("lesson", lesson || "");
+    // let section_lesson = quiz.section;
+    // let section, lesson;
+    // if(section_lesson){
+    //   section = section_lesson[0];
+    //   lesson = section_lesson[1];
+    // }
+    formData.append("section", quiz.section || "" );
+    // formData.append("lesson", lesson || "");
 
     this.quizService.updateQuiz(this.id, formData).subscribe( (res)=>{
       if(res.code==200){
@@ -131,10 +131,10 @@ export class QuizFormComponent implements OnInit {
         let selectedCourse = this.quizForm.controls["course"].value;
         this.courseService.getCourseByID(selectedCourse || "").subscribe( (res)=>{
           console.log(res[0].sections);
-          this.section_lessons = res[0].sections;
+          this.sections = res[0].sections;
         } )
         this.quizForm.controls["title"].setValue(quiz.title);
-        this.quizForm.controls["section_lesson"].setValue(quiz.section.toString()+quiz.lesson.toString());
+        this.quizForm.controls["section"].setValue(quiz.section);
       })
     }
   }

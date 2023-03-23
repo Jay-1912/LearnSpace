@@ -38,8 +38,11 @@ export class CourseContentComponent implements OnInit, OnChanges {
       this.title = course.title;
       this.sections = course.sections;
       this.lessonName = this.sections[this.section].lesson[this.lesson].title;
-      this.src = this.sections[this.section].lesson[this.lesson].file;
       this.type = this.sections[this.section].lesson[this.lesson].type;
+      if(this.type=="quiz")
+        this.src = this.sections[this.section].lesson[this.lesson].id;
+      else
+        this.src = this.sections[this.section].lesson[this.lesson].file;
 
       if(this.lesson==0){
         if(this.section>0){

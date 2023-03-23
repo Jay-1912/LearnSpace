@@ -569,14 +569,29 @@ app.post("/add_quiz", upload.single(), async (req, res) => {
       title: req.body.title,
       organization: req.body.organization,
       course: req.body.course,
-      section: parseInt(req.body.section),
-      lesson: parseInt(req.body.lesson)
+      section: parseInt(req.body.section)
     })
 
+    let section = parseInt(req.body.section);
+    let courseID = req.body.course;
     try {
-      await quiz.save();
+      let savedQuiz = await quiz.save();
+      let lesson = {
+        title: req.body.title,
+        type: "quiz",
+        id: savedQuiz._id
+      } 
+      let course = await courseModel.find({ _id: courseID });
+      let tempSections = course[0].sections;
+      tempSections[section].lesson.push(lesson);
+      const updateResult = await courseModel.findByIdAndUpdate(
+        { _id: courseID },
+        { sections: tempSections },
+        { new: true }
+      );
       res.send({code: 200, message:"Quiz Created Successfully!", quiz: quiz});
     } catch (err) {
+      console.log(err);
       res.send({code: 400, message:"something went wrong!"});
     }
 });
@@ -590,8 +605,7 @@ app.post("/edit_quiz/:id", upload.single(), async(req, res)=>{
         title: req.body.title,
         organization: req.body.organization,
         course: req.body.course,
-        section:parseInt(req.body.section),
-        lesson: parseInt(req.body.lesson)
+        section:parseInt(req.body.section)
       },
       {new: true}
     )
@@ -609,6 +623,27 @@ app.get("/delete_quiz/:id", async(req, res)=>{
   }catch(error){
     res.send({code: 400, message:'Something went wrong!'});
     console.log(error);
+  }
+})
+
+app.post("/attend_quiz/:quizId/:studentId", upload.single(), async(req, res)=>{
+  const quizId = req.params.quizId;
+  const studentId = req.params.studentId;
+  const quiz = await Quiz.findById({_id: quizId})
+  let students = {};
+  if(quiz.students){
+    students = quiz.students;
+  }
+  students[studentId]=req.body;
+  try{
+    await Quiz.findByIdAndUpdate(
+      {_id: quizId},
+      {students: students}
+    )
+    res.send({code: 200, message:"Quiz saved successfully!"});
+  }catch(error){
+    console.log(error);
+    res.send({code: 400, message:"Something went wrong!"});
   }
 })
 

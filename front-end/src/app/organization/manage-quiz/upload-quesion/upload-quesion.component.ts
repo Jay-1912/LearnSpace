@@ -91,6 +91,7 @@ export class UploadQuesionComponent implements OnInit{
       }else{
         this.openSnackBar(res.message, "close");
       }
+      this.isEdit = false;
     })
   }
 

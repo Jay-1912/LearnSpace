@@ -2,6 +2,8 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { ActivatedRoute } from '@angular/router';
 import { StudentServicesService } from '../services/student-services.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { QuizService } from '../services/quiz.service';
 
 
 @Component({
@@ -10,7 +12,7 @@ import { StudentServicesService } from '../services/student-services.service';
   styleUrls: ['./lecture-content.component.css']
 })
 export class LectureContentComponent implements OnChanges {
-  constructor(private route:ActivatedRoute, private authService:AuthenticationService, private studentService:StudentServicesService){}
+  constructor(private quizService: QuizService,private route:ActivatedRoute, private authService:AuthenticationService, private studentService:StudentServicesService){}
 
   @Input() src!:string;
   @Input() type!:string;
@@ -19,11 +21,24 @@ export class LectureContentComponent implements OnChanges {
   courseId:string="";
   section!:number;
   lesson!:number;
+  quizForm!: FormGroup;
+  questions:any[] = [];
+  attendedQuiz:boolean = false;
+  selected_options:any[] = [];
 
   updateProgress(){
     this.studentService.updateProgress(this.loggedInUserId, this.courseId, this.section, this.lesson).subscribe( (res)=>{
       console.log(res);
     } )
+  }
+
+  handleQuiz(event:Event){
+    event.preventDefault();
+    this.quizService.attendQuiz(this.src, this.loggedInUserId, this.quizForm.value).subscribe((res)=>{
+      if(res.code==200){
+        location.reload();
+      }
+    })
   }
 
   ngOnChanges(){
@@ -36,6 +51,26 @@ export class LectureContentComponent implements OnChanges {
     this.courseId = this.route.snapshot.paramMap.get('id') || "";
     this.section = parseInt(this.route.snapshot.paramMap.get('section') || "");
     this.lesson = parseInt(this.route.snapshot.paramMap.get("lesson") || "");
-    this.source = "http://localhost:3000/images/"+this.src; 
+    this.source = "http://localhost:3000/images/"+this.src;
+    if(this.type=="quiz"){
+      let form :any = {};
+      this.quizService.getQuizById(this.src).subscribe((res)=>{
+        if(res.quiz.students){
+          let students:any = Object.keys(res.quiz.students);
+          if(students.includes(this.loggedInUserId)){
+            this.attendedQuiz = true;
+            this.selected_options = res.quiz.students[this.loggedInUserId];
+            console.log(this.selected_options);
+          }else{
+            this.attendedQuiz = false;
+          }
+        }
+        this.questions = res.quiz.questions
+        for(let i=0;i<this.questions.length; i++){
+          form[i] = new FormControl('');
+        }
+        this.quizForm = new FormGroup(form);
+      })
+    } 
   }
 }

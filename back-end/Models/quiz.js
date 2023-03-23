@@ -17,12 +17,12 @@ const QuizSchema = new mongoose.Schema({
       type: Number,
       required: true
   },
-  lesson: {
-    type: Number,
-    required: true
-  },
   questions:{
     type:Array,
+    required: false
+  },
+  students:{
+    type: Object,
     required: false
   }
 });
