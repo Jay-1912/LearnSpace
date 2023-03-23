@@ -19,8 +19,9 @@ export class CourseService {
       .get<ICourse[]>(this.url + 'courses')
       .pipe(catchError(this.handleError));
   }
-  getCoursesByOrg(org: string | null) {
-    return this.http.get(this.url + `courses/${org}`);
+  
+  getCoursesByOrg(org: string | null):Observable<any> {
+    return this.http.get(this.url + `courses/${org}`).pipe(catchError(this.handleError));
   }
 
   getCourseByID(id: string): Observable<any> {

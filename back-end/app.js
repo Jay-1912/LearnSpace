@@ -29,13 +29,17 @@ mongoose.connect(
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
-);
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error: "));
-db.once("open", function () {
+).then(()=>{
   console.log("Connected successfully");
+}).catch((err)=>{
+  console.log(err);
 });
+
+// const db = mongoose.connection;
+// db.on("error", console.error.bind(console, "connection error: "));
+// db.once("open", function () {
+//   console.log("Connected successfully");
+// });
 
 // app.get("/trial", (req, res) => {
 //   res.json({

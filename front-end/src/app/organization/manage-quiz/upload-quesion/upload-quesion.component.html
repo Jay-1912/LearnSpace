@@ -1,0 +1,122 @@
+<div *ngIf="isEdit==false">
+    <div class="title heading-1">
+        Add Question
+    </div>
+    <form action="" class="margin-top-16" [formGroup]="quizForm" (submit)="saveQuestion($event)">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="question">Question*</label>
+                <input type="text" id="question" formControlName="question">
+            </div>
+            <div class="input-field">
+                <div formArrayName="options" *ngFor="let option of options().controls; let i=index">
+                    <div class="input-field"  [formGroupName]="i">
+                        <input type="text" formControlName="option_text" id="" (change)="handleCorrectOption()">
+                        <button
+                        mat-icon-button
+                        class="icon"
+                        (click)="removeOption(i)"
+                        aria-label="Example icon-button with menu icon"
+                        >
+                        X
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="primary-button" (click)="addOption($event)">Add Option*</button>
+            </div>
+            <div class="input-field">
+                <label for="correct_option">Correct Option*</label>
+                <select name="correct_option" id="" formControlName="correct_option">
+                    <option [ngValue]="i" *ngFor="let option of selectorArrForCorrectOptions;let i=index">
+                        {{option.option_text}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="primary-button margin-top-16">Save Question</button>
+    </form>
+</div>
+
+<div *ngIf="isEdit==true">
+    <div class="title heading-1">
+        Edit Question
+    </div>
+    <form action="" class="margin-top-16" [formGroup]="quizForm" (submit)="updateQuestion($event)">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="question">Question*</label>
+                <input type="text" id="question" formControlName="question">
+            </div>
+            <div class="input-field">
+                <div formArrayName="options" *ngFor="let option of options().controls; let i=index">
+                    <div class="input-field"  [formGroupName]="i">
+                        <input type="text" formControlName="option_text" id="" (change)="handleCorrectOption()">
+                        <button
+                        mat-icon-button
+                        class="icon"
+                        (click)="removeOption(i)"
+                        aria-label="Example icon-button with menu icon"
+                        >
+                        X
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="primary-button" (click)="addOption($event)">Add Option*</button>
+            </div>
+            <div class="input-field">
+                <label for="correct_option">Correct Option*</label>
+                <select name="correct_option" id="" formControlName="correct_option">
+                    <option [ngValue]="i" *ngFor="let option of selectorArrForCorrectOptions;let i=index">
+                        {{option.option_text}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="primary-button margin-top-16">Save Question</button>
+    </form>
+</div>
+
+
+<div class="margin-top-16">
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                            (closed)="panelOpenState = false" *ngFor="let question of questions; let indexOfQuestion=index;">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+            {{question.question}}
+            <div class="operation-icon">
+                <button mat-icon-button class="icon" (click)="setFormValues(indexOfQuestion)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="icon" (click)="handleDeleteQuestion(indexOfQuestion)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div> 
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+            <mat-list role="list">
+                <mat-list-item role="listitem" *ngFor="let option of question.options">
+                    <div class="list-item">
+                        {{option.option_text}}
+                    </div>
+                </mat-list-item>
+            </mat-list>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+
+<!-- *ngFor="let curr of curriculum; let indexOfSection=index;"
+*ngFor="let item of curr.lesson; let indexOfLesson=index;"
+<div class="operation-icon" *ngIf="isManage==true">
+    <button mat-icon-button class="icon" (click)="handleEditLesson(indexOfSection, indexOfLesson)">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button class="icon" (click)="handleDeleteLesson(indexOfSection, indexOfLesson)">
+        <mat-icon>delete</mat-icon>
+    </button>
+</div> 
+
+<div><a (click)="navigate(curr.title, indexOfSection, indexOfLesson)">{{item.title}}</a></div> -->

@@ -72,12 +72,12 @@ import { TeacherFormComponent } from './organization/manage-teacher/teacher-form
 import { ManageOrganizationComponent } from './organization/manage-organization/manage-organization.component';
 import { OrganizationFormComponent } from './organization/manage-organization/organization-form/organization-form.component';
 import { OrganizationTableComponent } from './organization/manage-organization/organization-table/organization-table.component';
-import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
-import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import { SafePipe } from './pipes/safe.pipe';
-import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
-import { QuizTableComponent } from './quiz/quiz-table/quiz-table.component';
+import { QuizFormComponent } from './organization/manage-quiz/quiz-form/quiz-form.component';
+import { QuizTableComponent } from './organization/manage-quiz/quiz-table/quiz-table.component';
+import { ManageQuizComponent } from './organization/manage-quiz/manage-quiz.component';
+import { UploadQuesionComponent } from './organization/manage-quiz/upload-quesion/upload-quesion.component';
 
 @NgModule({
   declarations: [
@@ -121,12 +121,12 @@ import { QuizTableComponent } from './quiz/quiz-table/quiz-table.component';
     ManageOrganizationComponent,
     OrganizationFormComponent,
     OrganizationTableComponent,
-    ViewQuizComponent,
-    CreateQuizFormComponent,
     DialogBoxComponent,
     SafePipe,
     ManageQuizComponent,
+    QuizFormComponent,
     QuizTableComponent,
+    UploadQuesionComponent
   ],
   imports: [
     BrowserModule,

@@ -323,7 +323,6 @@ app.post("/update-student/:id", upload.single("profile"), async (req, res) => {
   }
 });
 
-
 app.post("/update-student-progress",upload.single(), async(req, res)=>{
   let studentId = req.body.studentId;
   let courseId = req.body.courseId;
@@ -543,54 +542,171 @@ app.get("/delete_organization/:id", async (req, res) => {
 });
 
 // quiz endpoints
-app.post("/save-quiz", async (req, res) => {
-  const quizData = new Quiz({
-    quizName: req.body.quizName,
-    quizOrganization: req.body.quizOrganization,
-    quizOrganizationCourse: req.body.quizOrganizationCourse,
-    questions: req.body.questions,
-  });
-
-  console.log(quizData);
-  try {
-    let saveQuizResp = await quizData.save();
-    res.send({ resp: saveQuizResp });
-    console.log(saveQuizResp);
-  } catch (err) {
-    res.send(err);
-    console.log(err);
+//Quiz
+app.get("/quizes", async(req, res)=>{
+  try{
+    let quizData = await Quiz.find();
+    res.send({code: 200, quizes: quizData});
+  }catch(error){
+    console.log(error);
+    res.send({code: 400})
   }
-});
+})
 
-app.get("/view-quiz/:id", async (req, res) => {
-  const quizId = req.params.id;
-  try {
-    let quiz = await Quiz.findOne({ _id: quizId });
-    res.send(quiz);
-    console.log(quiz);
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-app.get("/quizes", async (req, res) => {
-  try {
-    let quizes = await Quiz.find({});
-    res.send(quizes);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
-
-app.get("/quizes/:id", async (req, res) => {
+app.get("/quiz/:id", async(req, res)=>{
   const id = req.params.id;
-  try {
-    let quiz = await Quiz.findOne({ _id: id });
-    res.send(quiz);
-  } catch (err) {
-    res.status(500).send(err);
+  try{
+    let quizData = await Quiz.findById({_id: id});
+    res.send({code: 200, quiz: quizData});
+  }catch(error){
+    console.log(error)
+    res.send({code:400})
   }
+})
+
+app.post("/add_quiz", upload.single(), async (req, res) => {
+    const quiz = new Quiz({
+      title: req.body.title,
+      organization: req.body.organization,
+      course: req.body.course,
+      section: parseInt(req.body.section),
+      lesson: parseInt(req.body.lesson)
+    })
+
+    try {
+      await quiz.save();
+      res.send({code: 200, message:"Quiz Created Successfully!", quiz: quiz});
+    } catch (err) {
+      res.send({code: 400, message:"something went wrong!"});
+    }
 });
+
+app.post("/edit_quiz/:id", upload.single(), async(req, res)=>{
+  const quizId = req.params.id;
+  try{
+    let updatedQuiz = await Quiz.findByIdAndUpdate(
+      {_id:quizId},
+      {
+        title: req.body.title,
+        organization: req.body.organization,
+        course: req.body.course,
+        section:parseInt(req.body.section),
+        lesson: parseInt(req.body.lesson)
+      },
+      {new: true}
+    )
+    res.send({code: 200, message:"Quiz updated Successfully!", quiz: updatedQuiz});
+  }catch(error){
+    console.log(error);
+    res.send({code: 400, message:"something went wrong!"});
+  }
+})
+
+app.get("/delete_quiz/:id", async(req, res)=>{
+  try{
+    await Quiz.findByIdAndDelete({_id:req.params.id});
+    res.send({code: 200, message: "Quiz deleted successfully!"});
+  }catch(error){
+    res.send({code: 400, message:'Something went wrong!'});
+    console.log(error);
+  }
+})
+
+app.post("/add_question/:id", upload.single(), async(req, res)=>{
+  const id = req.params.id;
+  let question = {
+    question: req.body.question,
+    options: JSON.parse(req.body.options),
+    correct_option: parseInt(req.body.correct_option)
+  }
+  const quiz = await Quiz.findById({_id: id});
+  let questions = quiz.questions;
+  questions.push(question);
+  try{
+    let updatedQuiz = await Quiz.findByIdAndUpdate(
+      {_id: id},
+      {questions: questions},
+      {new: true}
+      )
+    res.send({Code: 200, message:"Question Created Successfully!", quiz: updatedQuiz});
+  }catch(error){
+    res.send({Code: 400, message: "Something went wrong!"});
+  }
+})
+
+app.post("/edit_question/:id", upload.single(), async(req, res) =>{
+  const id = req.params.id;
+  const questionIndex = parseInt(req.body.index);
+  let question = {
+    question: req.body.question,
+    options: JSON.parse(req.body.options),
+    correct_option: parseInt(req.body.correct_option)
+  }
+  const quiz = await Quiz.findById({_id: id});
+  let questions = quiz.questions;
+  questions[questionIndex] = question;
+  try{
+    let updatedQuiz = await Quiz.findByIdAndUpdate(
+      {_id: id},
+      {questions: questions},
+      {new: true}
+      )
+    res.send({Code: 200, message:"Question updated Successfully!", quiz: updatedQuiz});
+  }catch(error){
+    res.send({Code: 400, message: "Something went wrong!"});
+  }
+})
+
+app.get("/delete_question/:id/:index", async(req, res)=>{
+  const quizId = req.params.id;
+  const index = req.params.index;
+  const quiz = await Quiz.findById({_id: quizId});
+  let questions = quiz.questions;
+  if (index > -1) {
+    questions.splice(index, 1);
+  }
+  try{
+    const updatedQuiz = await Quiz.findByIdAndUpdate(
+      {_id: quizId},
+      {questions: questions},
+      {new: true}
+    )
+    res.send({code: 200, message:"Question deleted Successfully", quiz: updatedQuiz})
+  }catch(error){
+    console.log(error);
+    res.send({code: 400, message: "Something went wrong!"})
+  }
+})
+
+// app.get("/view-quiz/:id", async (req, res) => {
+//   const quizId = req.params.id;
+//   try {
+//     let quiz = await Quiz.findOne({ _id: quizId });
+//     res.send(quiz);
+//     console.log(quiz);
+//   } catch (err) {
+//     console.error(err);
+//   }
+// });
+
+// app.get("/quizes", async (req, res) => {
+//   try {
+//     let quizes = await Quiz.find({});
+//     res.send(quizes);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
+
+// app.get("/quizes/:id", async (req, res) => {
+//   const id = req.params.id;
+//   try {
+//     let quiz = await Quiz.findOne({ _id: id });
+//     res.send(quiz);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
 
 app.delete("/delete-quiz/:id", async (req, res) => {
   const id = req.params.id;

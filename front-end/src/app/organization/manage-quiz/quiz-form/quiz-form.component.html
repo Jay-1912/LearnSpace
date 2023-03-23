@@ -1,0 +1,67 @@
+<div *ngIf="id==''">
+    <div class="title heading-1">Add Quiz</div>
+    <form class="course-form margin-top-16" [formGroup]="quizForm" (submit)="saveQuiz($event)">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="organization">Organization*</label>
+                <select name="organization" id="organization" formControlName="organization" (change)="handleChangeOrganization($event)">
+                    <option [ngValue]="organization._id" *ngFor="let organization of organizations">{{ organization.name }}</option>
+                </select>
+            </div>
+            <div class="input-field">
+                <label for="course">Course*</label>
+                <select name="course" id="course" formControlName="course" (change)="handleChangeCourse($event)">
+                    <option [ngValue]="course._id" *ngFor="let course of courses">{{ course.title }}</option>
+                </select>
+            </div>
+            <div class="input-field">
+                <label for="title">Quiz Title*</label>
+                <input type="text" name="title" id="title" formControlName="title">
+            </div>
+            <div class="input-field">
+                <label for="section_lesson">Section & Lesson*</label>
+                <select name="section_lesson" id="section_lesson" formControlName="section_lesson">
+                    <optGroup label="{{section_lesson.title}}" *ngFor="let section_lesson of section_lessons;let indexOfSection=index;">
+                        <option value="{{indexOfSection}}{{indexOfLesson}}" *ngFor="let lesson of section_lesson.lesson;let indexOfLesson=index;">{{lesson.title}}</option>
+                    </optGroup>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="primary-button margin-top-16" *ngIf="id==''">Save Quiz</button>
+    </form>
+</div>
+
+<div *ngIf="id">
+    <div class="title heading-1">Edit Quiz</div>
+    <form class="course-form margin-top-16" [formGroup]="quizForm" (submit)="updateQuiz($event)">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="organization">Organization*</label>
+                <select name="organization" id="organization" formControlName="organization" (change)="handleChangeOrganization($event)">
+                    <option [ngValue]="organization._id" *ngFor="let organization of organizations">{{ organization.name }}</option>
+                </select>
+            </div>
+            <div class="input-field">
+                <label for="course">Course*</label>
+                <select name="course" id="course" formControlName="course" (change)="handleChangeCourse($event)">
+                    <option [ngValue]="course._id" *ngFor="let course of courses">{{ course.title }}</option>
+                </select>
+            </div>
+            <div class="input-field">
+                <label for="title">Quiz Title*</label>
+                <input type="text" name="title" id="title" formControlName="title">
+            </div>
+            <div class="input-field">
+                <label for="section_lesson">Section & Lesson*</label>
+                <select name="section_lesson" id="section_lesson" formControlName="section_lesson">
+                    <optGroup label="{{section_lesson.title}}" *ngFor="let section_lesson of section_lessons;let indexOfSection=index;">
+                        <option value="{{indexOfSection}}{{indexOfLesson}}" *ngFor="let lesson of section_lesson.lesson;let indexOfLesson=index;">{{lesson.title}}</option>
+                    </optGroup>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="primary-button margin-top-16" *ngIf="id">Edit Quiz</button>
+    </form>
+</div>
+
+    

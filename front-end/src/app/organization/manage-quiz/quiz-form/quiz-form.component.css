@@ -7,11 +7,11 @@
 .input-field{
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     font-weight: 600;
 }
 
-.input-field input, .input-field select{
+.input-field input, .input-field select, textarea{
     border: none;
     outline: none;
     border-bottom: 1px solid #0c1f14;
@@ -44,3 +44,14 @@
     margin-right: 6px;
 }
 
+.section-input-field input{
+    width: 80%;
+}
+
+.example-chip-list {
+    width: 100%;
+  }
+
+.img{
+    width:200px;
+}
