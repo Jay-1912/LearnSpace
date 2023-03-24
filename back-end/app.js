@@ -2,8 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Router = require("./routes");
 
-
-
 const app = express();
 
 const cors = require("cors");
@@ -21,19 +19,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
-app.use('/images', express.static('images'));
+app.use("/images", express.static("images"));
 
-mongoose.connect(
-  "mongodb+srv://jayvadhavana23:SaiKWADtyfKL7p0j@cluster0.ffgkkwd.mongodb.net/?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-).then(()=>{
-  console.log("Connected successfully");
-}).catch((err)=>{
-  console.log(err);
-});
+// "mongodb+srv://jayvadhavana23:SaiKWADtyfKL7p0j@cluster0.ffgkkwd.mongodb.net/?retryWrites=true&w=majority",
+mongoose
+  .connect(
+    "mongodb+srv://jayvadhavana23:SaiKWADtyfKL7p0j@cluster0.ffgkkwd.mongodb.net/?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => {
+    console.log("Connected successfully");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // const db = mongoose.connection;
 // db.on("error", console.error.bind(console, "connection error: "));

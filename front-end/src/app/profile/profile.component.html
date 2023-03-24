@@ -1,6 +1,6 @@
 <div class="title heading-1">Profile</div>
 
-<div class="profile-fields-wrapper margin-top-16">
+<div class="profile-fields-wrapper margin-top-16" *ngIf="userRole > 1">
   <form
     [formGroup]="userProfileForm"
     (ngSubmit)="handleSaveProfile($event)"
@@ -8,16 +8,16 @@
     id="profile-form"
   >
     <div class="upload-image img-container">
+      <img #userProfile alt="" class="img profile-img" [src]="imageSrc" />
       <label for="profile-img">
-        <img
-          #userProfile
-          src="https://www.himalmag.com/wp-content/uploads/2019/07/sample-profile-picture.png"
-          alt=""
-          class="img profile-img"
-        />
         <p class="upload-text">Upload Your Image</p>
       </label>
-      <input type="file" name="profile-img" id="profile-img" />
+      <input
+        type="file"
+        name="profile-img"
+        id="profile-img"
+        (change)="uploadProfile($event)"
+      />
     </div>
     <div class="form-grid">
       <div class="input-field margin-top-10">
@@ -60,6 +60,16 @@
           formControlName="phone"
         />
       </div>
+      <div class="input-field margin-top-10">
+        <label for="phone">Password*</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="InsertPassword"
+          formControlName="password"
+        />
+      </div>
       <!-- <div class="input-field margin-top-10">
                 <label for="gender">Gender*</label>
                 <div class="radio-field">
@@ -67,6 +77,73 @@
                     <input type="radio" name="gender" id="gender" value="female"> <span class="radio-text">Female</span>
                 </div>
             </div> -->
+    </div>
+    <button type="submit" class="primary-button margin-top-10">
+      Save Profile
+    </button>
+  </form>
+</div>
+
+<div class="profile-fields-wrapper margin-top-16" *ngIf="userRole < 2">
+  <form
+    [formGroup]="orgProfileForm"
+    (ngSubmit)="handleSaveProfile($event)"
+    action=""
+    id="profile-form"
+  >
+    <div class="upload-image img-container">
+      <img #userProfile alt="" class="img profile-img" [src]="imageSrc" />
+      <label for="profile-img">
+        <p class="upload-text">Upload Your Image</p>
+      </label>
+      <input
+        type="file"
+        (change)="uploadProfile($event)"
+        name="profile-img"
+        id="profile-img"
+      />
+    </div>
+    <div class="form-grid">
+      <div class="input-field margin-top-10">
+        <label for="name">Organization Name*</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Insert Last Name"
+          formControlName="name"
+        />
+      </div>
+      <div class="input-field margin-top-10">
+        <label for="email">Email*</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Insert Email"
+          formControlName="email"
+        />
+      </div>
+      <div class="input-field margin-top-10">
+        <label for="phone">Password*</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="InsertPassword"
+          formControlName="password"
+        />
+      </div>
+      <div class="input-field margin-top-10">
+        <label for="phone">Phone*</label>
+        <input
+          type="phone"
+          name="phone"
+          id="phone"
+          placeholder="Insert Phone Number"
+          formControlName="phone"
+        />
+      </div>
     </div>
     <button type="submit" class="primary-button margin-top-10">
       Save Profile
