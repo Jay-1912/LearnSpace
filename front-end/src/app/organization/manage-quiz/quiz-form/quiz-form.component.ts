@@ -6,6 +6,7 @@ import { QuizService } from 'src/app/services/quiz.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ActivatedRoute } from '@angular/router';
+import { InstructorService } from 'src/app/services/instructor.service';
 
 @Component({
   selector: 'app-quiz-form',
@@ -14,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class QuizFormComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,private authService:AuthenticationService ,private _snackBar: MatSnackBar,private organizationService:OrganizationService, private courseService:CourseService, private quizService:QuizService){}
+  constructor(private instructorService:InstructorService,private route: ActivatedRoute,private authService:AuthenticationService ,private _snackBar: MatSnackBar,private organizationService:OrganizationService, private courseService:CourseService, private quizService:QuizService){}
 
   @ViewChild('selectSectionLesson') selectSectionLesson:any;
 
@@ -22,6 +23,8 @@ export class QuizFormComponent implements OnInit {
   courses:any[] = [];
   sections: any[] = [];
   id:string = "";
+  loggedInUserId!:string;
+  loggedInUserRole!:number;
   
 
   quizForm = new FormGroup({
@@ -114,7 +117,33 @@ export class QuizFormComponent implements OnInit {
   ngOnInit(): void {
     if(!this.authService.isLoggedIn()){
       window.location.href = "http://localhost:4200";
+    }else{
+      this.loggedInUserId = this.authService.isLoggedIn();
+      if(localStorage.getItem("role")!==null){
+        this.loggedInUserRole = parseInt(localStorage.getItem("role") || '');
+      }
     }
+
+    if(this.loggedInUserRole!=0){
+      if(this.loggedInUserRole==1){
+        this.quizForm.controls["organization"].setValue(this.loggedInUserId);
+        let selectedOrg = this.quizForm.controls["organization"].value;
+        this.courseService.getCoursesByOrg(selectedOrg).subscribe((res) =>{
+          this.courses = res;
+        });
+      }else{
+        this.instructorService.getInstructorByID(this.loggedInUserId).subscribe( (res)=>{
+          res = res[0];
+          this.quizForm.controls["organization"].setValue(res.organization);
+        })
+        this.courseService.getCourses().subscribe((res)=>{
+          this.courses = res.filter( (course:any) =>{
+            return course.instructor == this.loggedInUserId;
+          } )
+        })
+      }
+    }
+
     this.organizationService.getOrganization().subscribe( (res)=>{
       this.organizations = res;
     })

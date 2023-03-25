@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { StudentServicesService } from 'src/app/services/student-services.service';
 
@@ -27,12 +28,23 @@ export class StudentFormComponent implements OnInit {
   tempData!: any;
   baseUrl!: string;
   updateMode: boolean = false;
+  loggedInUserId!:string;
+  loggedInUserRole!:number;
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
 
   ngOnInit(): void {
+    if(!this.authService.isLoggedIn()){
+      window.location.href = "http://localhost:4200";
+    }else{
+      this.loggedInUserId = this.authService.isLoggedIn();
+      if(localStorage.getItem("role")!==null){
+        this.loggedInUserRole = parseInt(localStorage.getItem("role") || '');
+      }
+    }
+
     this.createStudentForm = new FormGroup({
       firstName: new FormControl(''),
       lastName: new FormControl(''),
@@ -43,6 +55,12 @@ export class StudentFormComponent implements OnInit {
       profile: new FormControl(),
       organization: new FormControl(),
     });
+
+    if(this.loggedInUserRole != 0 ){
+      if(this.loggedInUserRole==1){
+        this.createStudentForm.controls["organization"].setValue(this.loggedInUserId);
+      }
+    }
 
     this.organizationService.getOrganization().subscribe((res) => {
       this.organizations = res;
@@ -142,6 +160,7 @@ export class StudentFormComponent implements OnInit {
     private studentService: StudentServicesService,
     private router: Router,
     private organizationService: OrganizationService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private authService:AuthenticationService
   ) {}
 }

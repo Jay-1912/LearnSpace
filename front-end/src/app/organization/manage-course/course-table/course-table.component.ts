@@ -19,6 +19,8 @@ export class CourseTableComponent implements OnInit {
   displayTable: boolean = false;
   displayCourses:any[] = [];
   tempInstructorName:string = "";
+  loggedInUserId!:string;
+  loggedInUserRole!:number;
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, id:string): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
@@ -45,7 +47,14 @@ export class CourseTableComponent implements OnInit {
   ngOnInit(): void {
     if(!this.authService.isLoggedIn()){
       window.location.href = "http://localhost:4200";
+    }else{
+      this.loggedInUserId = this.authService.isLoggedIn();
+      if(localStorage.getItem("role")!==null){
+        this.loggedInUserRole = parseInt(localStorage.getItem("role") || '');
+      }
     }
+
+
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -53,7 +62,20 @@ export class CourseTableComponent implements OnInit {
       processing: true
     };
     this.courseService.getCourses().subscribe((courses) =>{
-      this.courses$ = courses;
+      if(this.loggedInUserRole!=0){
+        if(this.loggedInUserRole==1){
+          this.courses$ = courses.filter( (course:any)=>{
+            return course.organization == this.loggedInUserId;
+          } )
+        }else{
+          this.courses$ = courses.filter( (course:any)=>{
+            return course.instructor == this.loggedInUserId;
+          } )
+        }
+      }else{
+        this.courses$ = courses;
+      }
+      
       for(let course of this.courses$){
         this.organizationService.getOrganizationById(course.organization).subscribe((org)=>{
           org = org[0];

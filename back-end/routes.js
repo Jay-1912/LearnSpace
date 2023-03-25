@@ -394,6 +394,7 @@ app.get("/teacher/:id", async (req, res) => {
   try {
     res.send(teacher);
   } catch (err) {
+    console.log(err);
     res.status(500).send(err);
   }
 });
@@ -565,10 +566,12 @@ app.get("/quiz/:id", async(req, res)=>{
 })
 
 app.post("/add_quiz", upload.single(), async (req, res) => {
+    const course = await Course.findById({_id: req.body.course});
     const quiz = new Quiz({
       title: req.body.title,
       organization: req.body.organization,
       course: req.body.course,
+      instructor: course.instructor,
       section: parseInt(req.body.section)
     })
 
@@ -599,12 +602,14 @@ app.post("/add_quiz", upload.single(), async (req, res) => {
 app.post("/edit_quiz/:id", upload.single(), async(req, res)=>{
   const quizId = req.params.id;
   try{
+    const course = await Course.findById({_id: req.body.course});
     let updatedQuiz = await Quiz.findByIdAndUpdate(
       {_id:quizId},
       {
         title: req.body.title,
         organization: req.body.organization,
         course: req.body.course,
+        instructor: course.instructor,
         section:parseInt(req.body.section)
       },
       {new: true}

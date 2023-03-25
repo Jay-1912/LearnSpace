@@ -6,6 +6,7 @@ import { TeacherServicesService } from 'src/app/services/teacher-services.servic
 import { OrganizationService } from 'src/app/services/organization.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogBoxComponent } from 'src/app/dialog-box/dialog-box.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-teacher-table',
@@ -22,12 +23,24 @@ export class TeacherTableComponent implements OnInit {
     private teacherService: TeacherServicesService,
     private http: HttpClient,
     private router: Router,
-    private organizationService: OrganizationService
+    private organizationService: OrganizationService,
+    private authService:AuthenticationService
   ) {}
   displayTable: boolean = false;
   displayStudents: any[] = [];
+  loggedInUserId!:string;
+  loggedInUserRole!:number;
 
   ngOnInit(): void {
+    if(!this.authService.isLoggedIn()){
+      window.location.href = "http://localhost:4200";
+    }else{
+      this.loggedInUserId = this.authService.isLoggedIn();
+      if(localStorage.getItem("role")!==null){
+        this.loggedInUserRole = parseInt(localStorage.getItem("role") || '');
+      }
+    }
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -36,9 +49,15 @@ export class TeacherTableComponent implements OnInit {
     this.teacherService
       .getTeachers()
       .subscribe((data) => {
-        console.log(data);
-        console.log('here');
-        this.teachers$ = data;
+
+        if(this.loggedInUserRole!=0){
+          this.teachers$ = data.filter( (d:any)=>{
+            return d.organization == this.loggedInUserId;
+          } )
+        }else{
+          this.teachers$ = data;
+        }
+        
 
         for(let teacher of this.teachers$){
           this.organizationService.getOrganizationById(teacher.organization).subscribe( (res) =>{

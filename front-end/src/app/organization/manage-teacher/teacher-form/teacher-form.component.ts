@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherServicesService } from 'src/app/services/teacher-services.service';
 import { OrganizationService } from 'src/app/services/organization.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-teacher-form',
@@ -26,12 +27,23 @@ export class TeacherFormComponent implements OnInit {
   tempData!: any;
   baseUrl!: string;
   updateMode: boolean = false;
+  loggedInUserId!:string;
+  loggedInUserRole!:number;
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
 
   ngOnInit(): void {
+    if(!this.authService.isLoggedIn()){
+      window.location.href = "http://localhost:4200";
+    }else{
+      this.loggedInUserId = this.authService.isLoggedIn();
+      if(localStorage.getItem("role")!==null){
+        this.loggedInUserRole = parseInt(localStorage.getItem("role") || '');
+      }
+    }
+
     this.createTeacherForm = new FormGroup({
       firstName: new FormControl(''),
       lastName: new FormControl(''),
@@ -43,6 +55,12 @@ export class TeacherFormComponent implements OnInit {
       profile: new FormControl(),
       organization: new FormControl(),
     });
+
+    if(this.loggedInUserRole != 0){
+      if(this.loggedInUserRole == 1){
+        this.createTeacherForm.controls["organization"].setValue(this.loggedInUserId);
+      }
+    }
 
     this.teacherId = this.route.snapshot.paramMap.get('id');
     if (this.teacherId != undefined) {
@@ -147,6 +165,7 @@ export class TeacherFormComponent implements OnInit {
     private teacherService: TeacherServicesService,
     private router: Router,
     private organizationService:OrganizationService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private authService:AuthenticationService
   ) {}
 }

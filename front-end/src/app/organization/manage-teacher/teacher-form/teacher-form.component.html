@@ -33,7 +33,7 @@
       <textarea id="about" name="about" formControlName="about"></textarea>
     </div>
 
-    <div class="input-field">
+    <div class="input-field" *ngIf="loggedInUserRole==0">
       <label for="organization">Instructor Organization*</label>
       <select name="organization" id="organization" formControlName="organization">
           <option [ngValue]="organization._id" *ngFor="let organization of organizations">{{ organization.name }}</option>

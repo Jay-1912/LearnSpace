@@ -10,13 +10,13 @@
             <label for="overview">Course Overview*</label>
             <textarea id="overview" name="overview" formControlName="overview" rows="1"></textarea>
         </div>
-        <div class="input-field">
+        <div class="input-field" *ngIf="loggedInUserRole==0">
             <label for="organization">Course Organization*</label>
             <select name="organization" id="organization" formControlName="organization" (change)="handleChangeOrganization($event)">
                 <option [ngValue]="organization._id" *ngFor="let organization of organizations">{{ organization.name }}</option>
             </select>
         </div>
-        <div class="input-field">
+        <div class="input-field" *ngIf="loggedInUserRole==0 || loggedInUserRole==1">
             <label for="instructor">Course Instructor*</label>
             <select name="instructor" id="instructor" formControlName="instructor">
                 <option [ngValue]="instructor._id" *ngFor="let instructor of instructors">{{ instructor.firstName + " " + instructor.lastName }}</option>
@@ -73,13 +73,13 @@
             <label for="overview">Course Overview*</label>
             <textarea id="overview" name="overview" formControlName="overview" rows="1"></textarea>
         </div>
-        <div class="input-field">
+        <div class="input-field" *ngIf="loggedInUserRole==0">
             <label for="organization">Course Organization*</label>
             <select name="organization" id="organization" formControlName="organization" (change)="handleChangeOrganization($event)">
                 <option [ngValue]="organization._id" *ngFor="let organization of organizations">{{ organization.name }}</option>
             </select>
         </div>
-        <div class="input-field">
+        <div class="input-field" *ngIf="loggedInUserRole==0 || loggedInUserRole==1">
             <label for="instructor">Course Instructor*</label>
             <select name="instructor" id="instructor" formControlName="instructor">
                 <option [ngValue]="instructor._id" *ngFor="let instructor of instructors">{{ instructor.firstName + " " + instructor.lastName }}</option>

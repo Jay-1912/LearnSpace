@@ -21,6 +21,8 @@ export class QuizTableComponent {
   displayTable: boolean = false;
   displayCourses:any[] = [];
   tempInstructorName:string = "";
+  loggedInUserId!:string;
+  loggedInUserRole!:number;
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
@@ -51,6 +53,11 @@ export class QuizTableComponent {
   ngOnInit(): void {
     if(!this.authService.isLoggedIn()){
       window.location.href = "http://localhost:4200";
+    }else{
+      this.loggedInUserId = this.authService.isLoggedIn();
+      if(localStorage.getItem("role")!==null){
+        this.loggedInUserRole = parseInt(localStorage.getItem("role") || '');
+      }
     }
 
     this.dtOptions = {
@@ -60,7 +67,20 @@ export class QuizTableComponent {
     };
 
     this.quizService.getQuizes().subscribe((res)=>{
-      this.quizes$ = res.quizes;
+      if(this.loggedInUserRole!=0){
+        if(this.loggedInUserRole==1){
+          this.quizes$ = res.quizes.filter( (quiz:any)=>{
+            return quiz.organization == this.loggedInUserId;
+          } )
+        }else{
+          this.quizes$ = res.quizes.filter((quiz:any)=>{
+            return quiz.instructor == this.loggedInUserId;
+          })
+        }
+      }else{
+        this.quizes$ = res.quizes;
+      }
+      
       for(let quiz of this.quizes$){
         this.organizationService.getOrganizationById(quiz.organization).subscribe( (org)=>{
           org = org[0];

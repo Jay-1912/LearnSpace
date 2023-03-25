@@ -55,7 +55,7 @@ const routes: Routes = [
         path: 'manage-course',
         component: ManageCourseComponent,
         children: [
-          { path: 'courses', component: CourseTableComponent },
+          { path: '', component: CourseTableComponent },
           { path: 'add-course', component: CourseFormComponent },
           { path: ':id/upload-lesson', component: UploadLessonComponent },
           { path: 'edit-course/:id', component: CourseFormComponent },
