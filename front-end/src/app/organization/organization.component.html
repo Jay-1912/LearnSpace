@@ -5,6 +5,9 @@
         <a routerLink="dashboard">Dashboard</a>
       </mat-list-item>
       <mat-list-item role="listitem" *ngIf="loggedInUserRole==0">
+        <a routerLink="manage-super-admin">Manage Super Admin</a>
+      </mat-list-item>
+      <mat-list-item role="listitem">
         <a routerLink="manage-organization">Manage Organization</a>
       </mat-list-item>
       <mat-list-item role="listitem" *ngIf="loggedInUserRole==0 || loggedInUserRole==1">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { OrganizationService } from '../services/organization.service';
 import { StudentServicesService } from '../services/student-services.service';
+import { SuperAdminService } from '../services/super-admin.service';
 import { TeacherServicesService } from '../services/teacher-services.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { TeacherServicesService } from '../services/teacher-services.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private authService:AuthenticationService, private studentService:StudentServicesService, private teacherService:TeacherServicesService, private organizationService:OrganizationService){}
+  constructor(private superAdminService:SuperAdminService ,private authService:AuthenticationService, private studentService:StudentServicesService, private teacherService:TeacherServicesService, private organizationService:OrganizationService){}
 
 
   navBarOpen: Boolean = false;
@@ -43,10 +44,14 @@ export class HeaderComponent implements OnInit {
         this.teacherService.getTeacherById(this.loggedInUserId).subscribe((res)=>{
           this.imgSrc = "http://localhost:3000/images/"+res[0].profile;
         });
-      }else{
+      }else if(this.loggedInUserRole==3){
         this.studentService.getStudentById(this.loggedInUserId).subscribe((res)=>{
           this.imgSrc = "http://localhost:3000/images/"+res[0].profile;
         });
+      }else{
+        this.superAdminService.getSuperAdminById(this.loggedInUserId).subscribe((res)=>{
+          this.imgSrc = "http://localhost:3000/images/"+res.admin.profile;
+        })
       }
     }
   } 

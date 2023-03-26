@@ -10,6 +10,7 @@ export class CourseCurriculumComponent implements OnInit {
   @Input() curriculum!:any;
   @Input() id!: string|null;
   @Input() isManage:boolean = false;
+  @Input() enroll:boolean = true;
 
   @Output() handleEditlessonEvent = new EventEmitter<any>();
   @Output() handleDeletelessonEvent = new EventEmitter<any>();

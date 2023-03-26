@@ -30,6 +30,7 @@ app.get("/users", async (request, response) => {
 const multer = require("multer");
 const Organization = require("./Models/organization");
 const Course = require("./Models/course");
+const Admin = require("./Models/admin");
 
 var storage = multer.diskStorage({
   destination: "./public/images",
@@ -758,6 +759,86 @@ app.delete("/delete-quiz/:id", async (req, res) => {
   }
 });
 
+//Super Admin
+app.get("/super-admins", async(req, res)=>{
+  try{
+    const adminData = await Admin.find();
+    res.send({code: 200, admins:adminData});
+  }catch(error){
+    res.end({code:400, message: "something went wrong!"})
+  }
+});
+
+app.get("/super-admin/:id", async(req, res)=>{
+  const id = req.params.id;
+  try{
+    const adminData = await Admin.findById({_id:id});
+    res.send({code: 200, admin:adminData});
+  }catch(error){
+    res.end({code:400, message: "something went wrong!"})
+  }
+});
+
+app.post("/add_super-admin", upload.single("file"), async(req, res)=>{
+  let filename="";
+  if(req.file){
+    filename = req.file.filename;
+  }
+
+  try{
+    const admin = new Admin({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      phone: req.body.phone,
+      password: req.body.password,
+      profile: filename
+    });
+    await admin.save();
+    res.send({code: 200, message:"Super admin saved successfully!"});
+  }catch(error){
+    console.log(error);
+    res.send({code: 400, message: "Something went wrong!"});
+  }
+});
+
+app.post("/edit_super-admin/:id", upload.single("file"), async(req, res)=>{
+  let filename="";
+  const id = req.params.id;
+  if(req.file){
+    filename = req.file.filename;
+  }else{
+    filename = req.body.file;
+  }
+  console.log(req.body);
+
+  try{
+    const admin = await Admin.findByIdAndUpdate({_id: id},{
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      phone: req.body.phone,
+      password: req.body.password,
+      profile: filename
+    });
+    res.send({code: 200, message:"Super admin updated successfully!"});
+  }catch(error){
+    console.log(error);
+    res.send({code: 400, message: "Something went wrong!"});
+  }
+});
+
+app.get("/delete_super-admin/:id", async(req, res)=>{
+  const id = req.params.id;
+  try{
+    await Admin.findByIdAndDelete({_id: id});
+    res.send({code: 200, message:"Super admin deleted successfully!"});
+  }catch(error){
+    res.send({code: 400, message:"Something went wrong!"});
+  }
+})
+
+
 //Authentication
 app.post("/login", upload.single(), async (req, res) => {
   console.log(req.body);
@@ -768,8 +849,10 @@ app.post("/login", upload.single(), async (req, res) => {
       user = await Organization.findOne({ email: req.body.email });
     } else if (role == 2) {
       user = await Teacher.findOne({ email: req.body.email });
-    } else {
+    } else if(role == 3) {
       user = await Student.findOne({ email: req.body.email });
+    } else{
+      user = await Admin.findOne({email:req.body.email});
     }
 
     if (user) {

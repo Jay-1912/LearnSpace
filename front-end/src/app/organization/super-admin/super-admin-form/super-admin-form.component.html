@@ -1,0 +1,69 @@
+<div *ngIf="!id">
+    <div class="title heading-1">Add Super Admin</div>
+    <form class="course-form margin-top-16" [formGroup]="SuperAdminForm" (submit)="saveSuperAdmin($event)">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="firstname">First Name*</label>
+                <input type="text" formControlName="firstname" id="firstname" >
+            </div>
+            <div class="input-field">
+                <label for="lastname">Last Name*</label>
+                <input type="text" formControlName="lastname" id="lastname" >
+            </div>
+            <div class="input-field">
+                <label for="email">Email*</label>
+                <input type="email" formControlName="email" id="email">
+            </div>
+            <div class="input-field">
+                <label for="phone">Phone*</label>
+                <input type="phone" formControlName="phone" id="phone">
+            </div>
+            <div class="input-field">
+                <label for="password">Password*</label>
+                <input type="password" formControlName="password" id="password">
+            </div>
+            <div class="input-field">
+                <label for="file">Profile Image*</label>
+                <input type="file" #file id="file" (change)="setPreview($event)">
+                <img src="{{image}}" alt="" class="img preview" *ngIf="image">
+            </div>
+        </div>
+    
+        <button type="submit" class="primary-button margin-top-16">Save Super Admin</button>
+    </form>
+</div>
+
+<div *ngIf="id">
+    <div class="title heading-1">Edit Super Admin</div>
+    <form class="course-form margin-top-16" [formGroup]="SuperAdminForm" (submit)="updateSuperAdmin($event)">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="firstname">First Name*</label>
+                <input type="text" formControlName="firstname" id="firstname" >
+            </div>
+            <div class="input-field">
+                <label for="lastname">Last Name*</label>
+                <input type="text" formControlName="lastname" id="lastname" >
+            </div>
+            <div class="input-field">
+                <label for="email">Email*</label>
+                <input type="email" formControlName="email" id="email">
+            </div>
+            <div class="input-field">
+                <label for="phone">Phone*</label>
+                <input type="phone" formControlName="phone" id="phone">
+            </div>
+            <div class="input-field">
+                <label for="password">Password*</label>
+                <input type="password" formControlName="password" id="password">
+            </div>
+            <div class="input-field">
+                <label for="file">Profile Image*</label>
+                <input type="file" #file id="file" (change)="setPreview($event)">
+                <img src="{{image}}" alt="" class="img preview" *ngIf="image">
+            </div>
+        </div>
+    
+        <button type="submit" class="primary-button margin-top-16">Save Super Admin</button>
+    </form>
+</div>
