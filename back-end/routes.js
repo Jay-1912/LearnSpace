@@ -31,6 +31,7 @@ const multer = require("multer");
 const Organization = require("./Models/organization");
 const Course = require("./Models/course");
 const Admin = require("./Models/admin");
+const Notice = require("./Models/notice");
 
 var storage = multer.diskStorage({
   destination: "./public/images",
@@ -259,8 +260,13 @@ app.get("/get-students/:org", async (req, res) => {
 });
 app.get("/get-student/:id", async (req, res) => {
   let data;
-  data = await Student.find({ _id: req.params.id });
-  return res.send(data);
+  try{
+    data = await Student.find({ _id: req.params.id });
+    return res.send(data);
+  }catch(error){
+    console.log(error);
+  }
+  
 });
 
 app.post("/create-student", upload.single("profile"), async (req, res) => {
@@ -838,6 +844,70 @@ app.get("/delete_super-admin/:id", async(req, res)=>{
   }
 })
 
+//Notice
+app.get("/notices", async(req, res)=>{
+  try{
+    let noticeData = await Notice.find().sort({date:-1});
+    res.send({code:200, notices:noticeData});
+  }catch(error){
+    console.log(error);
+    res.send({code:400, message: "something went wrong!"});
+  }
+})
+
+app.get("/notice/:id", async(req, res)=>{
+  const id = req.params.id;
+  try{
+    let noticeData = await Notice.findById({_id:id});
+    res.send({code: 200, notice: noticeData});
+  }catch(error){
+    console.log(error);
+    res.send({code: 400, message: "Something went wrong!"});
+  }
+})
+
+app.post("/add_notice", upload.single(), async(req, res)=>{
+  try{
+    const notice = new Notice({
+      title: req.body.title,
+      organization: req.body.organization
+    });
+    await notice.save();
+    res.send({code:200, message:"Notice saved successfully"});
+  }catch(error){
+    console.log(error);
+    res.send({code:400, message: "Something went wrong!"});
+  }
+})
+
+app.post("/edit_notice/:id", upload.single(), async(req, res)=>{
+  const id = req.params.id;
+  try{
+    const notice = await Notice.findByIdAndUpdate(
+      {_id: id},
+      {
+        title: req.body.title,
+        organization: req.body.organization,
+        date: Date.now()
+      }
+    );
+    res.send({code:200, message:"Notice updated successfully"});
+  }catch(error){
+    console.log(error);
+    res.send({code:400, message: "Something went wrong!"});
+  }
+})
+
+app.get("/delete_notice/:id", async(req, res)=>{
+  const id = req.params.id;
+  try{
+    await Notice.findByIdAndDelete({_id:id});
+    res.send({code:200,message:"Notice deleted successfully!"});
+  }catch(error){
+    console.log(error);
+    res.send({code:400, message: "Something went wrong!"});
+  }
+})
 
 //Authentication
 app.post("/login", upload.single(), async (req, res) => {

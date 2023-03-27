@@ -82,6 +82,9 @@ import { SuperAdminComponent } from './organization/super-admin/super-admin.comp
 import { SuperAdminFormComponent } from './organization/super-admin/super-admin-form/super-admin-form.component';
 import { SuperAdminTableComponent } from './organization/super-admin/super-admin-table/super-admin-table.component';
 import { ProfileStaticComponent } from './profile-static/profile-static.component';
+import { ManageNoticeComponent } from './organization/manage-notice/manage-notice.component';
+import { NoticeFormComponent } from './organization/manage-notice/notice-form/notice-form.component';
+import { NoticeTableComponent } from './organization/manage-notice/notice-table/notice-table.component';
 
 @NgModule({
   declarations: [
@@ -134,7 +137,10 @@ import { ProfileStaticComponent } from './profile-static/profile-static.componen
     SuperAdminComponent,
     SuperAdminFormComponent,
     SuperAdminTableComponent,
-    ProfileStaticComponent
+    ProfileStaticComponent,
+    ManageNoticeComponent,
+    NoticeFormComponent,
+    NoticeTableComponent
   ],
   imports: [
     BrowserModule,

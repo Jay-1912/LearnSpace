@@ -35,6 +35,9 @@ import { SuperAdminComponent } from './organization/super-admin/super-admin.comp
 import { SuperAdminTableComponent } from './organization/super-admin/super-admin-table/super-admin-table.component';
 import { SuperAdminFormComponent } from './organization/super-admin/super-admin-form/super-admin-form.component';
 import { ProfileStaticComponent } from './profile-static/profile-static.component';
+import { ManageNoticeComponent } from './organization/manage-notice/manage-notice.component';
+import { NoticeTableComponent } from './organization/manage-notice/notice-table/notice-table.component';
+import { NoticeFormComponent } from './organization/manage-notice/notice-form/notice-form.component';
 // import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
 // import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 // import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
@@ -116,6 +119,15 @@ const routes: Routes = [
           {path: '', component: SuperAdminTableComponent},
           {path:'add-super-admin', component: SuperAdminFormComponent},
           {path:'edit-super-admin/:id', component: SuperAdminFormComponent}
+        ]
+      },
+      {
+        path:'manage-notice',
+        component: ManageNoticeComponent,
+        children:[
+          {path:'', component: NoticeTableComponent},
+          {path:'add-notice',component: NoticeFormComponent},
+          {path:'edit-notice/:id', component: NoticeFormComponent}
         ]
       }
     ],
