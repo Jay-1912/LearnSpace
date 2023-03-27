@@ -1,0 +1,46 @@
+<div class="title heading-1">Profile</div>
+<div class="profile-fields-wrapper margin-top16">
+    <img src="{{imageSrc}}" alt="" class="img" />
+    <p class="field-value">{{name}}</p>
+
+    <div class="details-grid margin-top-16">
+        <div class="field">
+            <p class="field-label">Email</p>
+            <p class="field-value">{{email}}</p>
+        </div>
+        <div class="field">
+            <p class="field-label">Phone</p>
+            <p class="field-value">{{phone}}</p>
+        </div>
+        <div class="course-carousel" *ngIf="courses.length>0">
+            <div class="course-item fade" *ngFor="let course of courses">
+                <mat-card class="course-card">
+                    <mat-card-content class="course-content">
+                        <div class="img-container">
+                            <img src="http://localhost:3000/images/{{course.thumbnail}}" class="img" alt="">
+                        </div>
+                        <div class="card-content">
+                            <p class="course-title heading-2">{{course.title}}</p>
+                            <p class="course-instructor">by <span class="instructor-name">{{course.instructor}}</span></p>
+                            <div class="progress-bar margin-top-16">
+                                <mat-progress-bar mode="determinate" value='{{course.progress}}'></mat-progress-bar>
+                                <span class="progress-text">{{course.progress}}% of course completed</span>
+                            </div>
+                            <a routerLink="/course/{{course._id}}/{{course.title}}"><button class="primary-button btn"> Go To Course </button></a>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="carousel-buttons margin-top-16">
+                <button class="accent-button" color="accent" (click)="plusSlides(-1)" aria-label="prev">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+                <button class="accent-button" color="accent" (click)="plusSlides(+1)" aria-label="next">
+                    <mat-icon>arrow_forward</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+</div>

@@ -26,6 +26,11 @@
             <td>{{ student.email }}</td>
             <td>{{ student.organization }}</td>
             <td>
+              <a routerLink="/admin/profile/{{student._id}}">
+              <button mat-icon-button class="icon">
+                <mat-icon>remove_red_eye</mat-icon>
+              </button>
+              </a>
               <a
                 routerLink="/admin/manage-student/update-student/{{
                   student._id

@@ -34,6 +34,7 @@ import { UploadQuesionComponent } from './organization/manage-quiz/upload-quesio
 import { SuperAdminComponent } from './organization/super-admin/super-admin.component';
 import { SuperAdminTableComponent } from './organization/super-admin/super-admin-table/super-admin-table.component';
 import { SuperAdminFormComponent } from './organization/super-admin/super-admin-form/super-admin-form.component';
+import { ProfileStaticComponent } from './profile-static/profile-static.component';
 // import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
 // import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 // import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
@@ -54,6 +55,7 @@ const routes: Routes = [
     component: OrganizationComponent,
     children: [
       { path: 'dashboard', component: OrgDashboardComponent },
+      { path: 'profile/:id', component: ProfileStaticComponent },
       {
         path: 'manage-course',
         component: ManageCourseComponent,

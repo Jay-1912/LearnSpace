@@ -361,7 +361,7 @@ app.get("/get-student-progress/:studentId/:courseId", async(req, res)=>{
         totalLesson++;
       }
     }
-    var progress = (completedLesson/totalLesson)*100;
+    var progress = ((completedLesson/totalLesson)*100).toFixed(2);
     res.send({progress});
   }
   catch(error){

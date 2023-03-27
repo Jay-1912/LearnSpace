@@ -81,6 +81,7 @@ import { UploadQuesionComponent } from './organization/manage-quiz/upload-quesio
 import { SuperAdminComponent } from './organization/super-admin/super-admin.component';
 import { SuperAdminFormComponent } from './organization/super-admin/super-admin-form/super-admin-form.component';
 import { SuperAdminTableComponent } from './organization/super-admin/super-admin-table/super-admin-table.component';
+import { ProfileStaticComponent } from './profile-static/profile-static.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { SuperAdminTableComponent } from './organization/super-admin/super-admin
     UploadQuesionComponent,
     SuperAdminComponent,
     SuperAdminFormComponent,
-    SuperAdminTableComponent
+    SuperAdminTableComponent,
+    ProfileStaticComponent
   ],
   imports: [
     BrowserModule,
