@@ -78,6 +78,13 @@ import { QuizFormComponent } from './organization/manage-quiz/quiz-form/quiz-for
 import { QuizTableComponent } from './organization/manage-quiz/quiz-table/quiz-table.component';
 import { ManageQuizComponent } from './organization/manage-quiz/manage-quiz.component';
 import { UploadQuesionComponent } from './organization/manage-quiz/upload-quesion/upload-quesion.component';
+import { SuperAdminComponent } from './organization/super-admin/super-admin.component';
+import { SuperAdminFormComponent } from './organization/super-admin/super-admin-form/super-admin-form.component';
+import { SuperAdminTableComponent } from './organization/super-admin/super-admin-table/super-admin-table.component';
+import { ProfileStaticComponent } from './profile-static/profile-static.component';
+import { ManageNoticeComponent } from './organization/manage-notice/manage-notice.component';
+import { NoticeFormComponent } from './organization/manage-notice/notice-form/notice-form.component';
+import { NoticeTableComponent } from './organization/manage-notice/notice-table/notice-table.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +133,14 @@ import { UploadQuesionComponent } from './organization/manage-quiz/upload-quesio
     ManageQuizComponent,
     QuizFormComponent,
     QuizTableComponent,
-    UploadQuesionComponent
+    UploadQuesionComponent,
+    SuperAdminComponent,
+    SuperAdminFormComponent,
+    SuperAdminTableComponent,
+    ProfileStaticComponent,
+    ManageNoticeComponent,
+    NoticeFormComponent,
+    NoticeTableComponent
   ],
   imports: [
     BrowserModule,

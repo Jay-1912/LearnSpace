@@ -31,6 +31,13 @@ import { ManageQuizComponent } from './organization/manage-quiz/manage-quiz.comp
 import { QuizTableComponent } from './organization/manage-quiz/quiz-table/quiz-table.component';
 import { QuizFormComponent } from './organization/manage-quiz/quiz-form/quiz-form.component';
 import { UploadQuesionComponent } from './organization/manage-quiz/upload-quesion/upload-quesion.component';
+import { SuperAdminComponent } from './organization/super-admin/super-admin.component';
+import { SuperAdminTableComponent } from './organization/super-admin/super-admin-table/super-admin-table.component';
+import { SuperAdminFormComponent } from './organization/super-admin/super-admin-form/super-admin-form.component';
+import { ProfileStaticComponent } from './profile-static/profile-static.component';
+import { ManageNoticeComponent } from './organization/manage-notice/manage-notice.component';
+import { NoticeTableComponent } from './organization/manage-notice/notice-table/notice-table.component';
+import { NoticeFormComponent } from './organization/manage-notice/notice-form/notice-form.component';
 // import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
 // import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 // import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
@@ -51,11 +58,12 @@ const routes: Routes = [
     component: OrganizationComponent,
     children: [
       { path: 'dashboard', component: OrgDashboardComponent },
+      { path: 'profile/:id', component: ProfileStaticComponent },
       {
         path: 'manage-course',
         component: ManageCourseComponent,
         children: [
-          { path: 'courses', component: CourseTableComponent },
+          { path: '', component: CourseTableComponent },
           { path: 'add-course', component: CourseFormComponent },
           { path: ':id/upload-lesson', component: UploadLessonComponent },
           { path: 'edit-course/:id', component: CourseFormComponent },
@@ -104,6 +112,24 @@ const routes: Routes = [
           { path: ':id/upload-question', component: UploadQuesionComponent}
         ],
       },
+      {
+        path: 'manage-super-admin',
+        component: SuperAdminComponent,
+        children:[
+          {path: '', component: SuperAdminTableComponent},
+          {path:'add-super-admin', component: SuperAdminFormComponent},
+          {path:'edit-super-admin/:id', component: SuperAdminFormComponent}
+        ]
+      },
+      {
+        path:'manage-notice',
+        component: ManageNoticeComponent,
+        children:[
+          {path:'', component: NoticeTableComponent},
+          {path:'add-notice',component: NoticeFormComponent},
+          {path:'edit-notice/:id', component: NoticeFormComponent}
+        ]
+      }
     ],
   },
 ];

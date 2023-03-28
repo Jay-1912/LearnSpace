@@ -13,6 +13,10 @@ const QuizSchema = new mongoose.Schema({
       type: String,
       required: true
   },
+  instructor: {
+    type: String,
+    required: true
+  },
   section: {
       type: Number,
       required: true

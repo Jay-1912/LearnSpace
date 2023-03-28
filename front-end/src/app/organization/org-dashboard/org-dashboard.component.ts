@@ -8,10 +8,17 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class OrgDashboardComponent implements OnInit {
   constructor(private authService:AuthenticationService){}
+  loggedInUserId!:string;
+  loggedInUserRole!:number;
   
   ngOnInit(): void {
     if(!this.authService.isLoggedIn()){
       window.location.href = "http://localhost:4200";
+    }else{
+      this.loggedInUserId = this.authService.isLoggedIn();
+      if(localStorage.getItem("role")!==null){
+        this.loggedInUserRole = parseInt(localStorage.getItem("role") || '');
+      }
     }
   }
 }

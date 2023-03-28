@@ -1,0 +1,25 @@
+<div *ngIf="!id">
+    <div class="title heading-1">Add Notice</div>
+    <form class="course-form margin-top-16" [formGroup]="noticeForm" (submit)="saveNotice($event)" action="">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="title">Title*</label>
+                <input type="text" formControlName="title">
+            </div>
+        </div>
+        <button type="submit" class="primary-button margin-top-16">Save Notice</button>
+    </form>
+</div>
+
+<div *ngIf="id">
+    <div class="title heading-1">Edit Notice</div>
+    <form class="course-form margin-top-16" [formGroup]="noticeForm" (submit)="updateNotice($event)" action="">
+        <div class="form-fields-wrapper">
+            <div class="input-field">
+                <label for="title">Title*</label>
+                <input type="text" formControlName="title">
+            </div>
+        </div>
+        <button type="submit" class="primary-button margin-top-16">Update Notice</button>
+    </form>
+</div>

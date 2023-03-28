@@ -1,0 +1,104 @@
+.profile-fields-wrapper{
+    background-color: #d1e8d6;
+    border-radius: 4px;
+    border: 1px solid #0c1f14;
+    padding: 12px 10px;
+}
+
+.img{
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.details-grid{
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.field{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.field-label{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.field-value{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+.instructor-name{
+    font-weight: 600;
+    font-style: italic;
+}
+
+.progress-text{
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.card-content{
+    width: 100% ;
+    position: relative;
+}
+
+.img-container .img{
+    border-radius: 4px;
+}
+
+.course-carousel{
+    position: relative;
+}
+
+.course-carousel{
+    position: relative;
+}
+
+.course-item{
+   display: none;
+}
+
+.course-item:nth-child(1){
+    display: block;
+}
+
+.carousel-buttons{
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-buttons button{
+    margin-left: 8px;
+    margin-right: 8px;
+    user-select: none;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+  
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@media screen and (min-width: 480px) {
+    .course-content{
+        display: flex;
+        gap: 16px;
+    }
+
+    .img-container .img{
+        width: 250px;
+    }
+}

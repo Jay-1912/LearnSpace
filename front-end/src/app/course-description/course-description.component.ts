@@ -55,6 +55,9 @@ export class CourseDescriptionComponent implements OnInit {
       this.curriculum = course.sections;
       this.overview = course.overview;
       this.src="http://localhost:3000/images/"+course.thumbnail;
+      if(course.enrolled_students){
+        this.enrolled = course.enrolled_students.length;
+      }
     });
   }
 }

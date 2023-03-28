@@ -2,7 +2,7 @@
     <div class="title heading-1">Add Quiz</div>
     <form class="course-form margin-top-16" [formGroup]="quizForm" (submit)="saveQuiz($event)">
         <div class="form-fields-wrapper">
-            <div class="input-field">
+            <div class="input-field" *ngIf="loggedInUserRole==0">
                 <label for="organization">Organization*</label>
                 <select name="organization" id="organization" formControlName="organization" (change)="handleChangeOrganization($event)">
                     <option [ngValue]="organization._id" *ngFor="let organization of organizations">{{ organization.name }}</option>
@@ -33,7 +33,7 @@
     <div class="title heading-1">Edit Quiz</div>
     <form class="course-form margin-top-16" [formGroup]="quizForm" (submit)="updateQuiz($event)">
         <div class="form-fields-wrapper">
-            <div class="input-field">
+            <div class="input-field" *ngIf="loggedInUserRole==0">
                 <label for="organization">Organization*</label>
                 <select name="organization" id="organization" formControlName="organization" (change)="handleChangeOrganization($event)">
                     <option [ngValue]="organization._id" *ngFor="let organization of organizations">{{ organization.name }}</option>

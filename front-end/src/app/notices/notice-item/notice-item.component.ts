@@ -14,7 +14,7 @@ export class NoticeItemComponent implements OnInit{
   ngOnInit(): void{
     if(this.notice){
       this.title = Object(this.notice)["title"];
-      this.date = Object(this.notice)["date"];
+      this.date = Object(this.notice)["date"].substring(0,10);
     }
   }
 }

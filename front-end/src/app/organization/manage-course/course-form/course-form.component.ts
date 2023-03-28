@@ -30,6 +30,8 @@ export class CourseFormComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   sections: any[] = [];
   image: any = '';
+  loggedInUserId!:string;
+  loggedInUserRole!:number;
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
@@ -92,7 +94,25 @@ export class CourseFormComponent implements OnInit {
   ngOnInit(): void {
     if(!this.authService.isLoggedIn()){
       window.location.href = "http://localhost:4200";
+    }else{
+      this.loggedInUserId = this.authService.isLoggedIn();
+      if(localStorage.getItem("role")!==null){
+        this.loggedInUserRole = parseInt(localStorage.getItem("role") || '');
+      }
     }
+
+    if(this.loggedInUserRole!=0){
+      if(this.loggedInUserRole==1){
+        this.courseForm.controls['organization'].setValue(this.loggedInUserId);
+      }else{
+        this.courseForm.controls['instructor'].setValue(this.loggedInUserId);
+        this.instructorService.getInstructorByID(this.loggedInUserId).subscribe((res)=>{
+          res = res[0];
+          this.courseForm.controls['organization'].setValue(res.organization);
+        })
+      }
+    }
+
     if (this.route.snapshot.paramMap.get('id')) {
       this.id = this.route.snapshot.paramMap.get('id') || '';
       this.courseService.getCourseByID(this.id).subscribe((course) => {
