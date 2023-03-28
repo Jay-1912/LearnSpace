@@ -13,6 +13,7 @@
         <p class="upload-text">Upload Your Image</p>
       </label>
       <input
+        #userProfile
         type="file"
         name="profile-img"
         id="profile-img"
@@ -27,7 +28,7 @@
           name="fname"
           id="fname"
           placeholder="Insert First Name"
-          formControlName="firstName"
+          formControlName="firstname"
         />
       </div>
       <div class="input-field margin-top-10">
@@ -37,7 +38,7 @@
           name="lname"
           id="lname"
           placeholder="Insert Last Name"
-          formControlName="lastName"
+          formControlName="lastname"
         />
       </div>
       <div class="input-field margin-top-10">
@@ -71,6 +72,17 @@
         />
       </div>
       <!-- <div class="input-field margin-top-10">
+        <label for="organization">Organization*</label>
+        <input
+          type="text"
+          name="organization"
+          id="organization"
+          placeholder="Your Organization"
+          formControlName="organization"
+          [readOnly]="true"
+        />
+      </div> -->
+      <!-- <div class="input-field margin-top-10">
                 <label for="gender">Gender*</label>
                 <div class="radio-field">
                     <input type="radio" name="gender" id="gender" value="male"> <span class="radio-text">Male</span> 
@@ -92,11 +104,12 @@
     id="profile-form"
   >
     <div class="upload-image img-container">
-      <img #userProfile alt="" class="img profile-img" [src]="imageSrc" />
+      <img alt="" class="img profile-img" [src]="imageSrc" />
       <label for="profile-img">
         <p class="upload-text">Upload Your Image</p>
       </label>
       <input
+        #userProfile
         type="file"
         (change)="uploadProfile($event)"
         name="profile-img"

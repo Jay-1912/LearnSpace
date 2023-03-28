@@ -26,12 +26,84 @@ export class ProfileComponent implements OnInit {
   orgProfileForm!: FormGroup;
   orgProfileData: any;
 
-  userRole!: any;
+  orgName!: string;
 
-  @ViewChild('userProfile') profile!: ElementRef;
+  userRole!: any;
+  @ViewChild('userProfile') profile!: any;
+
   handleSaveProfile(event: any) {
     event.preventDefault();
     console.log('save profile called');
+    if (parseInt(this.userRole) === UserRole.Organization) {
+      // updated form data creation
+
+      let orgProfileFormData = this.orgProfileForm.controls;
+
+      orgProfileFormData = {
+        name: this.orgProfileForm.controls['name'].value,
+        email: this.orgProfileForm.controls['email'].value,
+        password: this.orgProfileForm.controls['password'].value,
+        phone: this.orgProfileForm.controls['phone'].value,
+        file: this.orgProfileData.image,
+      };
+
+      console.log(orgProfileFormData);
+
+      this.orgService
+        .updateOrganization(this.orgProfileData._id, orgProfileFormData)
+        .subscribe((res) => {
+          console.log(res);
+        });
+    } else if (parseInt(this.userRole) === UserRole.Teacher) {
+      // TODO: create teacher update form and call update teacher
+      let teacherProfileFormData = this.userProfileForm.controls;
+
+      teacherProfileFormData = {
+        firstname: this.userProfileForm.controls['firstname'].value,
+        lastname: this.userProfileForm.controls['lastname'].value,
+        email: this.userProfileForm.controls['email'].value,
+        phone: this.userProfileForm.controls['phone'].value,
+        password: this.userProfileForm.controls['password'].value,
+        file: this.userProfileData.profile,
+        organization: this.userProfileData.organization,
+      };
+
+      console.log(teacherProfileFormData);
+
+      this.teacherService
+        .updateTeacherById(this.userProfileData._id, teacherProfileFormData)
+        .subscribe((res) => {
+          console.log(res);
+        });
+    } else if (parseInt(this.userRole) === UserRole.Student) {
+      // create student update form and call update student
+      let studentProfileFormData = this.userProfileForm.controls;
+
+      this.orgService
+        .getOrganizationById(this.userProfileData.organization)
+        .subscribe((data) => {
+          console.log(data);
+          this.orgName = data[0].name;
+        });
+
+      studentProfileFormData = {
+        firstname: this.userProfileForm.controls['firstname'].value,
+        lastname: this.userProfileForm.controls['lastname'].value,
+        email: this.userProfileForm.controls['email'].value,
+        phone: this.userProfileForm.controls['phone'].value,
+        password: this.userProfileForm.controls['password'].value,
+        file: this.userProfileData.profile,
+        organization: this.userProfileData.organization,
+      };
+
+      console.log(studentProfileFormData);
+
+      this.studentService
+        .updateStudentById(this.userProfileData._id, studentProfileFormData)
+        .subscribe((res) => {
+          console.log(res);
+        });
+    }
   }
 
   async uploadProfile(event: any) {
@@ -47,13 +119,19 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  async getOrgById(id: string) {
+    return this.orgService.getOrganizationById(id).subscribe(async (data) => {
+      return await data[0].organization;
+    });
+  }
+
   async ngOnInit() {
     this.userRole = localStorage.getItem('role');
     console.log(this.userRole);
 
     this.userProfileForm = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
+      firstname: new FormControl('', Validators.required),
+      lastname: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
       phone: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -89,6 +167,9 @@ export class ProfileComponent implements OnInit {
               this.orgProfileForm.controls['email'].setValue(
                 this.orgProfileData.email
               );
+              this.orgProfileForm.controls['phone'].setValue(
+                this.orgProfileData.phone
+              );
               this.orgProfileForm.controls['password'].setValue(
                 this.orgProfileData.password
               );
@@ -102,10 +183,10 @@ export class ProfileComponent implements OnInit {
               this.userProfileData = data[0];
               console.log(this.userProfileData);
 
-              this.userProfileForm.controls['firstName'].setValue(
+              this.userProfileForm.controls['firstname'].setValue(
                 this.userProfileData.firstName
               );
-              this.userProfileForm.controls['lastName'].setValue(
+              this.userProfileForm.controls['lastname'].setValue(
                 this.userProfileData.lastName
               );
               this.userProfileForm.controls['email'].setValue(
@@ -117,20 +198,30 @@ export class ProfileComponent implements OnInit {
               this.userProfileForm.controls['password'].setValue(
                 this.userProfileData.password
               );
-              this.userProfileForm.controls['organization'].setValue(
-                this.userProfileData.organization
-              );
+              this.imageSrc =
+                'http://localhost:3000/images/' + this.userProfileData.profile;
+
+              let orgName;
+              // this.orgService
+              //   .getOrganizationById(this.userProfileData._id)
+              //   .subscribe(async (data) => {
+              //     orgName = await data[0].organization;
+              //     this.userProfileForm.controls['organization'].setValue(
+              //       orgName
+              //     );
+              //   });
             });
+
             break;
 
           case UserRole.Student:
             this.studentService.getStudentById(userId).subscribe((data) => {
               this.userProfileData = data[0];
 
-              this.userProfileForm.controls['firstName'].setValue(
+              this.userProfileForm.controls['firstname'].setValue(
                 this.userProfileData.firstName
               );
-              this.userProfileForm.controls['lastName'].setValue(
+              this.userProfileForm.controls['lastname'].setValue(
                 this.userProfileData.lastName
               );
               this.userProfileForm.controls['email'].setValue(
@@ -142,10 +233,15 @@ export class ProfileComponent implements OnInit {
               this.userProfileForm.controls['password'].setValue(
                 this.userProfileData.password
               );
-              this.userProfileForm.controls['organization'].setValue(
-                this.userProfileData.organization
-              );
+              console.log(this.userProfileData);
+
+              this.imageSrc =
+                'http://localhost:3000/images/' + this.userProfileData.profile;
+              // this.userProfileForm.controls['organization'].setValue(
+              //   this.getOrgById(this.userProfileData._id)
+              // );
             });
+
             break;
         }
       }

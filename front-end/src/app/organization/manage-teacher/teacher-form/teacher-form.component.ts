@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherServicesService } from 'src/app/services/teacher-services.service';
 import { OrganizationService } from 'src/app/services/organization.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-teacher-form',
@@ -52,9 +52,9 @@ export class TeacherFormComponent implements OnInit {
       }, 10);
     }
 
-    this.organizationService.getOrganization().subscribe((res) =>{
+    this.organizationService.getOrganization().subscribe((res) => {
       this.organizations = res;
-    })
+    });
 
     if (this.teacherId != null) {
       this.updateMode = true;
@@ -73,9 +73,11 @@ export class TeacherFormComponent implements OnInit {
         this.createTeacherForm.controls['password'].setValue(data[0].password);
         this.createTeacherForm.controls['profile'].setValue(data[0].profile);
         this.imageSrc = 'http://localhost:3000/images/' + data[0].profile;
-        this.organizationService.getOrganizationById(data[0].organization).subscribe((res)=>{
-          console.log(res);
-        })
+        this.organizationService
+          .getOrganizationById(data[0].organization)
+          .subscribe((res) => {
+            console.log(res);
+          });
         this.createTeacherForm.controls['organization'].setValue(
           data[0].organization
         );
@@ -118,26 +120,26 @@ export class TeacherFormComponent implements OnInit {
         this.createTeacherForm.controls['profile'].value
       );
     }
-    teacherFormData.append('organization', teacherDataControl['organization'].value);
+    teacherFormData.append(
+      'organization',
+      teacherDataControl['organization'].value
+    );
 
     if (this.teacherId != undefined) {
       console.log('student id is not unefined');
 
       this.baseUrl = 'http://localhost:3000/update-teacher/' + this.teacherId;
 
-      this.http
-        .post(this.baseUrl, teacherFormData)
-        .subscribe((data) => {console.log(data)
-          this.openSnackBar("Teacher updated successfully", "close");
-        });
+      this.http.post(this.baseUrl, teacherFormData).subscribe((data) => {
+        console.log(data);
+        this.openSnackBar('Teacher updated successfully', 'close');
+      });
     } else {
       this.baseUrl = 'http://localhost:3000/create-teacher/';
-      this.http
-        .post(this.baseUrl, teacherFormData)
-        .subscribe((data) => {
-          console.log(data)
-          this.openSnackBar("Teacher added successfully", "close");
-        });
+      this.http.post(this.baseUrl, teacherFormData).subscribe((data) => {
+        console.log(data);
+        this.openSnackBar('Teacher added successfully', 'close');
+      });
     }
   }
 
@@ -146,7 +148,7 @@ export class TeacherFormComponent implements OnInit {
     private route: ActivatedRoute,
     private teacherService: TeacherServicesService,
     private router: Router,
-    private organizationService:OrganizationService,
+    private organizationService: OrganizationService,
     private _snackBar: MatSnackBar
   ) {}
 }
