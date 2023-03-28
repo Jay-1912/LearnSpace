@@ -169,6 +169,7 @@ export class TeacherFormComponent implements OnInit {
     private teacherService: TeacherServicesService,
     private router: Router,
     private organizationService: OrganizationService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private authService: AuthenticationService
   ) {}
 }
