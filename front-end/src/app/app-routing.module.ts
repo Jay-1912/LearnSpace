@@ -38,6 +38,8 @@ import { ProfileStaticComponent } from './profile-static/profile-static.componen
 import { ManageNoticeComponent } from './organization/manage-notice/manage-notice.component';
 import { NoticeTableComponent } from './organization/manage-notice/notice-table/notice-table.component';
 import { NoticeFormComponent } from './organization/manage-notice/notice-form/notice-form.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 // import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
 // import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 // import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
@@ -49,6 +51,8 @@ const routes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'course/:id/:title', component: CourseDescriptionComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password/:id/:token', component: ResetPasswordComponent },
   {
     path: 'course/:id/:title/:section/:lesson',
     component: CourseContentComponent,

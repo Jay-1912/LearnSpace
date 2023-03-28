@@ -5,6 +5,22 @@ const app = express();
 const Student = require("./models");
 const Teacher = require("./modelTeacher");
 const Quiz = require("./Models/quiz");
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+var nodemailer = require('nodemailer');
+
+const JWT_SECRET = "axdfvcjedshntcj14363sddbcj";
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth:{
+    user: "learnspace.project@gmail.com",
+    pass: "xvopwhgjirydlozz"
+  }
+})
 
 app.post("/add_user", async (request, response) => {
   const user = new userModel(request.body);
@@ -285,6 +301,19 @@ app.post("/create-student", upload.single("profile"), async (req, res) => {
   try {
     console.log(student);
     await student.save();
+    var mailOptions = {
+      from: 'learnspace.project@gmail.com',
+      to: req.body.email,
+      subject: "Your Learnspace Account",
+      html:"<h1>Do not share this mail with anyone</h1><br><p>Email:"+req.body.email+"</p><p>Password:"+req.body.password+"</p>"
+    }
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
     res.send(student);
   } catch (error) {
     console.log(error);
@@ -430,6 +459,19 @@ app.post("/create-teacher", upload.single("profile"), async (req, res) => {
   });
   try {
     await teacher.save();
+    var mailOptions = {
+      from: 'learnspace.project@gmail.com',
+      to: req.body.email,
+      subject: "Your Learnspace Account",
+      html:"<h1>Do not share this mail with anyone</h1><br><p>Email:"+req.body.email+"</p><p>Password:"+req.body.password+"</p>"
+    }
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
     res.send(teacher);
     console.log("teacher saved");
   } catch (error) {
@@ -501,6 +543,19 @@ app.post("/add_organization", upload.single("file"), async (req, res) => {
 
   try {
     await organization.save();
+    var mailOptions = {
+      from: 'learnspace.project@gmail.com',
+      to: req.body.email,
+      subject: "Your Learnspace Account",
+      html:"<h1>Do not share this mail with anyone</h1><br><p>Email:"+req.body.email+"</p><p>Password:"+req.body.password+"</p>"
+    }
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
     res.send(organization);
   } catch (err) {
     res.send(err);
@@ -801,6 +856,19 @@ app.post("/add_super-admin", upload.single("file"), async(req, res)=>{
       profile: filename
     });
     await admin.save();
+    var mailOptions = {
+      from: 'learnspace.project@gmail.com',
+      to: req.body.email,
+      subject: "Your Learnspace Account",
+      html:"<h1>Do not share this mail with anyone</h1><br><p>Email:"+req.body.email+"</p><p>Password:"+req.body.password+"</p>"
+    }
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
     res.send({code: 200, message:"Super admin saved successfully!"});
   }catch(error){
     console.log(error);
@@ -939,5 +1007,185 @@ app.post("/login", upload.single(), async (req, res) => {
     res.status(400).json({ error });
   }
 });
+
+//Forgot password
+app.post("/forgot-password", upload.single(), async (req, res, next)=>{
+  const email = req.body.email;
+  var mailOptions;
+  try{
+    const student = await Student.find({email: email});
+    const teacher = await Teacher.find({email: email});
+    const organization = await Organization.find({email: email});
+    const admin = await Admin.find({email: email});
+    if(student.length>0){
+      const secret = JWT_SECRET + student._id;
+      const payload = {
+        email: student.email,
+        id: student._id
+      }
+      const token = jwt.sign(payload, secret, {expiresIn: '15m'});
+      const link = `http://localhost:4200/reset-password/${student._id}/${token}`;
+      console.log(student[0].email);
+      mailOptions = {
+        from: "learnspace.project@gmail.com",
+        to: student[0].email,
+        subject: "Password Reset - LearnSpace",
+        html:"<h1>Reset your password:</h1><br><p>"+link+"</p>"
+      }
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+      res.send({code:200, user:student, role: 3, token, message: "Password reset link has been sent to your email!"});
+    }else if(teacher.length>0){
+      const secret = JWT_SECRET + teacher._id;
+      const payload = {
+        email: teacher.email,
+        id: teacher._id
+      }
+      const token = jwt.sign(payload, secret, {expiresIn: '15m'});
+      const link = `http://localhost:4200/reset-password/${teacher._id}/${token}`;
+      mailOptions = {
+        from: 'learnspace.project@gmail.com',
+        to: student.email,
+        subject: "Password Reset - LearnSpace",
+        html:"<h1>Reset your password:</h1><br><p>"+link+"</p>"
+      }
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+      res.send({code:200, user:teacher, role: 2, token, message: "Password reset link has been sent to your email!"});
+    }else if(organization.length>0){
+      const secret = JWT_SECRET + organization._id;
+      const payload = {
+        email: organization.email,
+        id: organization._id
+      }
+      const token = jwt.sign(payload, secret, {expiresIn: '15m'});
+      const link = `http://localhost:4200/reset-password/${organization._id}/${token}`;
+      mailOptions = {
+        from: 'learnspace.project@gmail.com',
+        to: organization.email,
+        subject: "Password Reset - LearnSpace",
+        html:"<h1>Reset your password:</h1><br><p>"+link+"</p>"
+      }
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+      res.send({code:200, user:organization, role: 1, token, message: "Password reset link has been sent to your email!"});
+    }else if(admin.length>0){
+      const secret = JWT_SECRET + admin._id;
+      const payload = {
+        email: admin.email,
+        id: admin._id
+      }
+      const token = jwt.sign(payload, secret, {expiresIn: '15m'});
+      const link = `http://localhost:4200/reset-password/${admin._id}/${token}`;
+      mailOptions = {
+        from: 'learnspace.project@gmail.com',
+        to: admin.email,
+        subject: "Password Reset - LearnSpace",
+        html:"<h1>Reset your password:</h1><br><p>"+link+"</p>"
+      }
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+      res.send({code:200, user: admin, role: 0, token, message: "Password reset link has been sent to your email!"});
+    }else{
+      res.send({code:201, message:"User doesn't exist"});
+    }
+  }catch(error){
+    console.log(error);
+    res.send({code: 400, message: "something went wrong!"});
+  }
+
+})
+
+app.post("/verify-token", upload.single(), async(req, res)=>{
+  const id = req.body.id;
+  const role = parseInt(req.body.role);
+  const token = req.body.token;
+  let userExist = false;
+  let user;
+  try{
+    if(role==3){
+      user = await Student.find({_id: id});
+      if(user.length>0) userExist = true;
+    }else if(role==2){
+      user = await Teacher.find({_id: id});
+      if(user.length>0) userExist = true;
+      
+    }else if(role==1){
+      user = await Organization.find({_id: id});
+      if(user.length>0) userExist = true;
+      
+    }else if(role==0){
+      user = await Admin.find({_id: id});
+      if(user.length>0) userExist = true;
+
+    }
+
+    if(userExist==true){
+      const secret = JWT_SECRET + user._id;
+      const payload = jwt.verify(token, secret);
+      res.send({code:200, message:"Token verified successfully!"});
+    }else{
+      res.send({code: 400, message: "User doesn't exists!"})
+    }
+  }catch(error){
+    console.log(error);
+    res.send({code: 400, message: "something went wrong!"});
+  }
+})
+
+app.post("/reset-password", async (req, res)=>{
+    const id = req.body.id;
+    const role = parseInt(req.body.role);
+    const password = req.body.password;
+    try{
+      if(role == 3){
+        await Student.findByIdAndUpdate(
+          {_id: id},
+          {password: password}
+        )
+      }else if(role == 2){
+        console.log("here");
+        await Teacher.findByIdAndUpdate(
+          {_id: id},
+          {password: password}
+        )
+      }else if(role == 1){
+        await Organization.findByIdAndUpdate(
+          {_id: id},
+          {password: password}
+        )
+      }else if(role == 0){
+        await Admin.findByIdAndUpdate(
+          {_id: id},
+          {password: password}
+        )
+      }
+      res.send({code: 200, message: "Password reset successfully!"});
+    }catch(error){
+      console.log(error);
+      res.send({code: 400, message: "Something went wrong!"});
+    }
+})
 
 module.exports = app;

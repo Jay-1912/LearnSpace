@@ -32,6 +32,21 @@ export class AuthenticationService {
     return;
   }
 
+  forgotPassword(data:any): Observable<any>{
+    const url = this.url + "forgot-password";
+    return this.http.post<any>(url, data).pipe(catchError(this.handleError));
+  }
+
+  verifyToken(data:any): Observable<any>{
+    const url = this.url + "verify-token";
+    return this.http.post<any>(url, data).pipe(catchError(this.handleError));
+  }
+
+  resetPassword(data:any): Observable<any>{
+    const url = this.url + "reset-password";
+    return this.http.post<any>(url, data).pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     console.error('server error:', error);
     if (error.error instanceof Error) {

@@ -85,6 +85,8 @@ import { ProfileStaticComponent } from './profile-static/profile-static.componen
 import { ManageNoticeComponent } from './organization/manage-notice/manage-notice.component';
 import { NoticeFormComponent } from './organization/manage-notice/notice-form/notice-form.component';
 import { NoticeTableComponent } from './organization/manage-notice/notice-table/notice-table.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +142,9 @@ import { NoticeTableComponent } from './organization/manage-notice/notice-table/
     ProfileStaticComponent,
     ManageNoticeComponent,
     NoticeFormComponent,
-    NoticeTableComponent
+    NoticeTableComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
