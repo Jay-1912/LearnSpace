@@ -1,41 +1,48 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable , OnInit } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class StudentServicesService implements OnInit{
-
-  baseurl = "http://localhost:3000"
-
+export class StudentServicesService implements OnInit {
+  baseurl = 'http://localhost:3000';
 
   getStudents() {
     return this.http.get<any>(this.baseurl + `/get-students`);
   }
 
-  getStudentsByOrg(org : String) {
+  getStudentsByOrg(org: String) {
     return this.http.get<any>(this.baseurl + `/get-students/${org}`);
   }
-  
-  getStudentById(id : string) {
-    return this.http.get<any>(this.baseurl + `/get-student/${id}`)
+
+  getStudentById(id: string) {
+    return this.http.get<any>(this.baseurl + `/get-student/${id}`);
   }
 
-  updateProgress(studentId:string, courseId:string, section:number, lesson:number):Observable<any>{
+  updateStudentById(id: string, data: any) {
+    console.log('update student called here', data);
+
+    return this.http.post(this.baseurl + `/update-student/${id}`, data);
+  }
+
+  updateProgress(
+    studentId: string,
+    courseId: string,
+    section: number,
+    lesson: number
+  ): Observable<any> {
     let url = this.baseurl + '/update-student-progress';
-    return this.http.post<any>(url, {studentId, courseId, section, lesson});
+    return this.http.post<any>(url, { studentId, courseId, section, lesson });
   }
 
-  getStudentProgress(studentId:string, courseId:string){
-    let url = this.baseurl + "/get-student-progress/"+studentId+"/"+courseId;
+  getStudentProgress(studentId: string, courseId: string) {
+    let url =
+      this.baseurl + '/get-student-progress/' + studentId + '/' + courseId;
     return this.http.get<any>(url);
   }
 
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-      
-  }    
-
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) {}
 }
