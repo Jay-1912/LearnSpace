@@ -28,6 +28,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -87,6 +90,7 @@ import { NoticeFormComponent } from './organization/manage-notice/notice-form/no
 import { NoticeTableComponent } from './organization/manage-notice/notice-table/notice-table.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { OrgRegistrationFormComponent } from './org-registration-form/org-registration-form.component';
 
 @NgModule({
   declarations: [
@@ -144,7 +148,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     NoticeFormComponent,
     NoticeTableComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    OrgRegistrationFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -156,6 +161,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     MatListModule,
     MatCardModule,
     MatProgressBarModule,
+    MatStepperModule,
+    MatInputModule,
+    MatFormFieldModule,
     CoreModule,
     HttpClientModule,
     MatBadgeModule,
