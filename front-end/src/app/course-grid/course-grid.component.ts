@@ -28,6 +28,9 @@ export class CourseGridComponent implements OnInit {
       ((courses:any[]) => {
         this.studentService.getStudentById(this.loggedInUserId).subscribe( (student) =>{
           student = student[0];
+          courses = courses.filter((course:any)=>{
+            return course.organization === student.organization;
+          })
           if(student.enrolled_courses){
             this.enrolledCourses = Object.keys(student.enrolled_courses);
           }

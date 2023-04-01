@@ -97,7 +97,7 @@ export class QuizFormComponent implements OnInit {
     //   section = section_lesson[0];
     //   lesson = section_lesson[1];
     // }
-    formData.append("section", quiz.section || "" );
+    formData.append("section", quiz.section?.toString() || "" );
     // formData.append("lesson", lesson || "");
 
     this.quizService.updateQuiz(this.id, formData).subscribe( (res)=>{

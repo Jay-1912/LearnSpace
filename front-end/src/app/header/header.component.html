@@ -12,7 +12,8 @@
       </button>
       <ul class="profile-overlay">
         <li class="profile-overlay-item">
-          <a href="">Dashboard</a>
+          <a routerLink="dashboard" *ngIf="loggedInUserRole==3">Dashboard</a>
+        <a routerLink="admin/dashboard" *ngIf="loggedInUserRole!=3">Dashboard</a>
         </li>
         <li class="profile-overlay-item">
           <a href="">Profile Setting</a>
@@ -44,7 +45,7 @@
     <!-- <li class="nav-item">
       <a href="" class="nav-link">About</a>
     </li> -->
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="loggedInUserRole==3">
       <a routerLink="courses" class="nav-link">Courses</a>
     </li>
     <!-- <li class="nav-item">
@@ -61,7 +62,7 @@
       <!-- <li class="nav-item">
         <a href="" class="nav-link active">About</a>
       </li> -->
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="loggedInUserRole==3">
         <a routerLink="courses" class="nav-link">Courses</a>
       </li>
       <!-- <li class="nav-item">
@@ -78,7 +79,8 @@
     </button>
     <ul class="profile-overlay">
       <li class="profile-overlay-item">
-        <a routerLink="dashboard">Dashboard</a>
+        <a routerLink="dashboard" *ngIf="loggedInUserRole==3">Dashboard</a>
+        <a routerLink="admin/dashboard" *ngIf="loggedInUserRole!=3">Dashboard</a>
       </li>
       <li class="profile-overlay-item">
         <a routerLink="profile">Profile Setting</a>

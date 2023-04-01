@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { OrganizationService } from 'src/app/services/organization.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogBoxComponent } from 'src/app/dialog-box/dialog-box.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-students-table',
@@ -18,6 +19,7 @@ export class StudentsTableComponent implements OnInit {
   students$: any[] = [];
   organization: String = 'bvm';
   constructor(
+    private authService:AuthenticationService,
     public dialog: MatDialog,
     private studentService: StudentServicesService,
     private http: HttpClient,
@@ -26,8 +28,18 @@ export class StudentsTableComponent implements OnInit {
   ) {}
   displayTable: boolean = false;
   displayStudents: any[] = [];
+  loggedInUserId!:string;
+  loggedInUserRole!:number;
 
   ngOnInit(): void {
+    if(!this.authService.isLoggedIn()){
+      window.location.href = "http://localhost:4200";
+    }else{
+      this.loggedInUserId = this.authService.isLoggedIn();
+      if(localStorage.getItem("role")!==null){
+        this.loggedInUserRole = parseInt(localStorage.getItem("role") || '');
+      }
+    }
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -38,10 +50,14 @@ export class StudentsTableComponent implements OnInit {
     this.studentService
       .getStudents()
       .subscribe((data) => {
-        console.log(data);
-        console.log('here');
-        this.students$ = data;
-
+        if(this.loggedInUserRole==1){
+          this.students$ = data.filter((stu:any)=>{
+            return stu.organization === this.loggedInUserId;
+          })
+        }else{
+          this.students$ = data;
+        } 
+        
         for(let student of this.students$){
             this.organizationService.getOrganizationById(student.organization).subscribe( (res)=>{
               res = res[0];

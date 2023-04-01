@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if(this.authService.isLoggedIn()){
       this.loggedInUserId = this.authService.isLoggedIn();
-      this.loggedInUserRole = localStorage.getItem("role");
+      this.loggedInUserRole = parseInt(localStorage.getItem("role") || "");
       if(this.loggedInUserRole==1){
         this.organizationService.getOrganizationById(this.loggedInUserId).subscribe((res)=>{
           this.imgSrc = "http://localhost:3000/images/"+res[0].image;

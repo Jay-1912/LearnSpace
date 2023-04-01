@@ -104,6 +104,10 @@ export class CourseFormComponent implements OnInit {
     if(this.loggedInUserRole!=0){
       if(this.loggedInUserRole==1){
         this.courseForm.controls['organization'].setValue(this.loggedInUserId);
+        let selectedOrg = this.courseForm.controls["organization"].value;
+        this.teacherService.getTeachersByOrg(selectedOrg).subscribe((res)=>{
+          this.instructors = res;
+        })
       }else{
         this.courseForm.controls['instructor'].setValue(this.loggedInUserId);
         this.instructorService.getInstructorByID(this.loggedInUserId).subscribe((res)=>{

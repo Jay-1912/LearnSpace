@@ -131,9 +131,21 @@ app.post("/edit_course/:id", upload.single("thumbnail"), async (req, res) => {
 app.get("/delete_course/:id", async (req, res) => {
   let id = req.params.id;
   try {
+    let course = await courseModel.findById({_id: id});
+    let enrolledStudents = course.enrolled_students;
+    for(let studentId of enrolledStudents){
+        let student = await Student.findById({_id: studentId});
+        let enrolledCourses = student.enrolled_courses;
+        delete enrolledCourses[id];
+        await Student.findByIdAndUpdate(
+          {_id: studentId},
+          {enrolled_courses: enrolledCourses}
+        )
+    }
     const result = await courseModel.deleteOne({ _id: id });
     res.send(result);
   } catch (error) {
+    console.log(error);
     res.send(error);
   }
 });
@@ -396,7 +408,7 @@ app.get("/get-student-progress/:studentId/:courseId", async(req, res)=>{
         totalLesson++;
       }
     }
-    var progress = ((completedLesson/totalLesson)*100).toFixed(2);
+    var progress = Math.round((completedLesson/totalLesson)*100);
     res.send({progress});
   }
   catch(error){

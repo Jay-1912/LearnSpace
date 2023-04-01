@@ -23,6 +23,7 @@ export class CourseInstructorComponent implements OnInit, OnChanges{
         instructor = instructor[0];
         this.name = instructor.firstName + " " + instructor.lastName;
         this.src = "http://localhost:3000/images/"+instructor.profile;
+        this.about = instructor.about;
       });
     }
   }

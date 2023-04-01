@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -9,7 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   constructor(private authenticationService:AuthenticationService, private _snackBar: MatSnackBar) {}
 
@@ -43,6 +43,17 @@ export class LoginComponent {
         }
       }
     } )
+  }
+
+  ngOnInit(): void {
+    if(this.authenticationService.isLoggedIn()){
+      let role = parseInt(localStorage.getItem("role") || "");
+      if(role==3){
+        window.location.href = "http://localhost:4200/dashboard";
+      }else{
+        window.location.href = "http://localhost:4200/admin/dashboard";
+      }
+    }
   }
 
 }

@@ -4,7 +4,7 @@
         <mat-icon class="icon">account_balance</mat-icon>
         <div class="card-text">
             <p>Organizations</p>
-            <p>2</p>
+            <p>{{totalOrganizations}}</p>
         </div>
     </div></a>
     <a routerLink="/admin/manage-teacher" *ngIf="loggedInUserRole==0 || loggedInUserRole==1">
@@ -12,7 +12,7 @@
         <mat-icon class="icon">person</mat-icon>
         <div class="card-text">
             <p>Teachers</p>
-            <p>2</p>
+            <p>{{totalInstructors}}</p>
         </div>
     </div></a>
     <a routerLink="/admin/manage-student" *ngIf="loggedInUserRole==0 || loggedInUserRole==1">
@@ -20,7 +20,7 @@
         <mat-icon class="icon">wc</mat-icon>
         <div class="card-text">
             <p>Students</p>
-            <p>2</p>
+            <p>{{totalStudents}}</p>
         </div>
     </div></a>
     <a routerLink="/admin/manage-course" *ngIf="loggedInUserRole!=3">
@@ -28,7 +28,7 @@
         <mat-icon class="icon">ondemand_video</mat-icon>
         <div class="card-text">
             <p>Courses</p>
-            <p>2</p>
+            <p>{{totalCourses}}</p>
         </div>
     </div></a>
 </div>
