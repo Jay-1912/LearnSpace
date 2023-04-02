@@ -91,6 +91,8 @@ import { NoticeTableComponent } from './organization/manage-notice/notice-table/
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { OrgRegistrationFormComponent } from './org-registration-form/org-registration-form.component';
+import { PendingOrgRequestsFormComponent } from './pending-org-requests-form/pending-org-requests-form.component';
+import { ViewPendingOrganizationComponent } from './view-pending-organization/view-pending-organization.component';
 
 @NgModule({
   declarations: [
@@ -150,6 +152,8 @@ import { OrgRegistrationFormComponent } from './org-registration-form/org-regist
     ForgotPasswordComponent,
     ResetPasswordComponent,
     OrgRegistrationFormComponent,
+    PendingOrgRequestsFormComponent,
+    ViewPendingOrganizationComponent,
   ],
   imports: [
     BrowserModule,

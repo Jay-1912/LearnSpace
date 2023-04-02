@@ -130,3 +130,6 @@ button {
   justify-content: center;
   align-items: center;
 }
+.mat-step-icon.mat-step-icon-state-number {
+  background-color: white;
+}

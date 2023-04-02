@@ -35,6 +35,11 @@ export class OrganizationService {
       .pipe(catchError(this.handleError));
   }
 
+  deletePendingOrganization(id: string): Observable<any> {
+    const url = this.url + 'delete-pending-organization/' + id;
+    return this.http.get<any>(url).pipe(catchError(this.handleError));
+  }
+
   deleteOrganization(id: string): Observable<any> {
     const url = this.url + 'delete_organization/' + id;
     return this.http.get<any>(url).pipe(catchError(this.handleError));
@@ -45,6 +50,16 @@ export class OrganizationService {
 
     const url = this.url + 'post_org_for_registration';
     return this.http.post<any>(url, data).pipe(catchError(this.handleError));
+  }
+
+  getPendingOrganizations() {
+    const url = this.url + 'get-pending-orgs';
+    return this.http.get<any>(url).pipe(catchError(this.handleError));
+  }
+
+  getPendingOrganizationById(id: any) {
+    const url = this.url + `pending-orgs/${id}`;
+    return this.http.get<any>(url).pipe(catchError(this.handleError));
   }
 
   private handleError(error: any) {

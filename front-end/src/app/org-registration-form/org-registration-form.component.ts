@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class OrgRegistrationFormComponent {
   image!: string | ArrayBuffer | null;
+  profile!: File;
   constructor(
     private orgService: OrganizationService,
     private _snackBar: MatSnackBar
@@ -36,10 +37,15 @@ export class OrgRegistrationFormComponent {
     branchDocument: new FormControl(),
     branchRegistrationNumber: new FormControl('', Validators.required),
     branchRegistrationDate: new FormControl(),
+    branchLogo: new FormControl(),
   });
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
+  }
+
+  async uploadProfile(event: any) {
+    this.profile = event.target.files[0];
   }
 
   setPreview(event: Event) {
@@ -54,26 +60,93 @@ export class OrgRegistrationFormComponent {
   handleSubmitData(event: any) {
     console.log('handle submit called');
 
-    const orgData = {
-      applicantType: this.createOrgForm.controls['applicantType'].value,
-      name: this.createOrgForm.controls['name'].value,
-      uniqId: this.createOrgForm.controls['uniqId'].value,
-      branchName: this.createOrgForm.controls['branchName'].value,
-      branchAddress: this.createOrgForm.controls['branchAddress'].value,
-      branchCity: this.createOrgForm.controls['branchCity'].value,
-      branchState: this.createOrgForm.controls['branchState'].value,
-      branchTelephone: this.createOrgForm.controls['branchTelephone'].value,
-      branchEmail: this.createOrgForm.controls['branchEmail'].value,
-      branchOwnerName: this.createOrgForm.controls['branchOwnerName'].value,
-      branchOwnerTelephone:
-        this.createOrgForm.controls['branchOwnerTelephone'].value,
-      branchOwnerPan: this.createOrgForm.controls['branchOwnerPan'].value,
-      branchDocument: this.branchDocument.nativeElement.files[0],
-      branchRegistrationNumber:
-        this.createOrgForm.controls['branchRegistrationNumber'].value,
-      branchRegistrationDate:
-        this.createOrgForm.controls['branchRegistrationDate'].value,
-    };
+    // const orgData = {
+    //   applicantType: this.createOrgForm.controls['applicantType'].value,
+    //   name: this.createOrgForm.controls['name'].value,
+    //   uniqId: this.createOrgForm.controls['uniqId'].value,
+    //   branchName: this.createOrgForm.controls['branchName'].value,
+    //   branchAddress: this.createOrgForm.controls['branchAddress'].value,
+    //   branchCity: this.createOrgForm.controls['branchCity'].value,
+    //   branchState: this.createOrgForm.controls['branchState'].value,
+    //   branchTelephone: this.createOrgForm.controls['branchTelephone'].value,
+    //   branchEmail: this.createOrgForm.controls['branchEmail'].value,
+    //   branchOwnerName: this.createOrgForm.controls['branchOwnerName'].value,
+    //   branchOwnerTelephone:
+    //     this.createOrgForm.controls['branchOwnerTelephone'].value,
+    //   branchOwnerPan: this.createOrgForm.controls['branchOwnerPan'].value,
+    //   branchDocument: this.branchDocument.nativeElement.files[0],
+    //   branchRegistrationNumber:
+    //     this.createOrgForm.controls['branchRegistrationNumber'].value,
+    //   branchRegistrationDate:
+    //     this.createOrgForm.controls['branchRegistrationDate'].value,
+    //   // branchLogo: this.imageFile.nativeElement.files[0],
+    // };
+
+    const orgData = new FormData();
+    orgData.append(
+      'applicantType',
+      this.createOrgForm.controls['applicantType'].value
+    );
+
+    orgData.append(
+      'name',
+      this.createOrgForm.controls['name'].value!.toString()
+    );
+    orgData.append(
+      'uniqId',
+      this.createOrgForm.controls['uniqId'].value!.toString()
+    );
+    orgData.append(
+      'branchName',
+      this.createOrgForm.controls['branchName'].value!.toString()
+    );
+    orgData.append(
+      'branchAddress',
+      this.createOrgForm.controls['branchAddress'].value!.toString()
+    );
+    orgData.append(
+      'branchCity',
+      this.createOrgForm.controls['branchCity'].value!.toString()
+    );
+    orgData.append(
+      'branchState',
+      this.createOrgForm.controls['branchState'].value!.toString()
+    );
+    orgData.append(
+      'branchTelephone',
+      this.createOrgForm.controls['branchTelephone'].value!.toString()
+    );
+    orgData.append(
+      'branchEmail',
+      this.createOrgForm.controls['branchEmail'].value!.toString()
+    );
+    orgData.append(
+      'branchOwnerName',
+      this.createOrgForm.controls['branchOwnerName'].value!.toString()
+    );
+    orgData.append(
+      'branchOwnerTelephone',
+      this.createOrgForm.controls['branchOwnerTelephone'].value!.toString()
+    );
+    orgData.append(
+      'branchOwnerPan',
+      this.createOrgForm.controls['branchOwnerPan'].value!.toString()
+    );
+    orgData.append(
+      'branchDocument',
+      this.createOrgForm.controls['branchDocument'].value!.toString()
+    );
+    orgData.append(
+      'branchRegistrationNumber',
+      this.createOrgForm.controls['branchRegistrationNumber'].value!.toString()
+    );
+    orgData.append(
+      'branchRegistrationDate',
+      this.createOrgForm.controls['branchRegistrationDate'].value!.toString()
+    );
+    orgData.append('branchLogo', this.imageFile.nativeElement.files[0]);
+
+    console.log(orgData);
 
     this.orgService
       .postOrganizationForRegistration(orgData)
@@ -81,6 +154,6 @@ export class OrgRegistrationFormComponent {
         console.log(data);
       });
 
-    this.openSnackBar(`Your request for ${orgData.name} is stored`, 'close');
+    // this.openSnackBar(`Your request for ${orgData.name} is stored`, 'close');
   }
 }

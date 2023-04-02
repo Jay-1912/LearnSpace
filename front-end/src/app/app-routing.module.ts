@@ -41,6 +41,8 @@ import { NoticeFormComponent } from './organization/manage-notice/notice-form/no
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { OrgRegistrationFormComponent } from './org-registration-form/org-registration-form.component';
+import { PendingOrgRequestsFormComponent } from './pending-org-requests-form/pending-org-requests-form.component';
+import { ViewPendingOrganizationComponent } from './view-pending-organization/view-pending-organization.component';
 // import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
 // import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 // import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
@@ -54,10 +56,6 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password/:id/:token', component: ResetPasswordComponent },
-  {
-    path: 'org-registration',
-    component: OrgRegistrationFormComponent,
-  },
   {
     path: 'course/:id/:title/:section/:lesson',
     component: CourseContentComponent,
@@ -139,6 +137,15 @@ const routes: Routes = [
           { path: 'edit-notice/:id', component: NoticeFormComponent },
         ],
       },
+      {
+        path: 'org-registration',
+        component: OrgRegistrationFormComponent,
+      },
+      {
+        path: 'pending-org-requests',
+        component: PendingOrgRequestsFormComponent,
+      },
+      { path: 'pending-orgs/:id', component: ViewPendingOrganizationComponent },
     ],
   },
 ];

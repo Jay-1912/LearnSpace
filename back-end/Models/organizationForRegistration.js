@@ -61,6 +61,10 @@ const OrganizationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  branchLogo: {
+    type: String,
+    required: true,
+  },
 });
 
 const Organization = mongoose.model(

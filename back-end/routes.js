@@ -48,6 +48,7 @@ const Organization = require("./Models/organization");
 const Course = require("./Models/course");
 const Admin = require("./Models/admin");
 const Notice = require("./Models/notice");
+const { log } = require("console");
 
 var storage = multer.diskStorage({
   destination: "./public/images",
@@ -630,11 +631,11 @@ app.get("/delete_organization/:id", async (req, res) => {
 
 app.post(
   "/post_org_for_registration",
-  upload.single("file"),
+  upload.single("branchLogo"),
   async (req, res) => {
     console.log(req.body);
-    // const filename = req.file.filename;
-    // console.log(filename);
+    const filename = req.file.filename;
+    console.log(filename);
     const organization = new OrgForRegistration({
       applicantType: req.body.applicantType,
       name: req.body.name,
@@ -651,20 +652,17 @@ app.post(
       branchDocument: "harsh",
       branchRegistrationNumber: req.body.branchRegistrationNumber,
       branchRegistrationDate: req.body.branchRegistrationDate,
+      branchLogo: filename,
     });
+    console.log(organization);
 
     try {
       await organization.save();
       var mailOptions = {
         from: "learnspace.project@gmail.com",
-        to: req.body.email,
+        to: req.body.branchEmail,
         subject: "Your Learnspace Account",
-        html:
-          "<h1>Do not share this mail with anyone</h1><br><p>Email:" +
-          req.body.email +
-          "</p><p>Password:" +
-          req.body.password +
-          "</p>",
+        html: `<p>Your request to register ${req.body.name} is submitted to LearnSpace.</p>`,
       };
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
@@ -679,6 +677,38 @@ app.post(
     }
   }
 );
+
+app.get("/get-pending-orgs", async (req, res) => {
+  const orgs = await OrgForRegistration.find({});
+  try {
+    res.send(orgs);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+});
+
+app.get("/pending-orgs/:id", async (req, res) => {
+  const org = await OrgForRegistration.findOne({ _id: req.params.id });
+  try {
+    res.send(org);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+app.delete("/delete-pending-organization/:id", async (req, res) => {
+  const resForDelete = await OrgForRegistration.deleteOne({
+    _id: req.params.id,
+  });
+  try {
+    res.send(resForDelete);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+
+  // TODO:send email of acknowledgement of deletion / creatoin
+});
 
 // quiz endpoints
 //Quiz

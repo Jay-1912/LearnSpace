@@ -4,26 +4,35 @@
       <mat-list-item role="listitem">
         <a routerLink="dashboard">Dashboard</a>
       </mat-list-item>
-      <mat-list-item role="listitem" *ngIf="loggedInUserRole==0">
+      <mat-list-item role="listitem" *ngIf="loggedInUserRole == 0">
         <a routerLink="manage-super-admin">Manage Super Admin</a>
       </mat-list-item>
-      <mat-list-item role="listitem" *ngIf="loggedInUserRole==0">
+      <mat-list-item role="listitem" *ngIf="loggedInUserRole == 0">
         <a routerLink="manage-organization">Manage Organization</a>
       </mat-list-item>
-      <mat-list-item role="listitem" *ngIf="loggedInUserRole==0 || loggedInUserRole==1">
+      <mat-list-item
+        role="listitem"
+        *ngIf="loggedInUserRole == 0 || loggedInUserRole == 1"
+      >
         <a routerLink="manage-teacher">Manage Teacher</a>
       </mat-list-item>
-      <mat-list-item role="listitem" *ngIf="loggedInUserRole!=3">
+      <mat-list-item role="listitem" *ngIf="loggedInUserRole != 3">
         <a routerLink="manage-course">Manage Course</a>
       </mat-list-item>
-      <mat-list-item role="listitem" *ngIf="loggedInUserRole==0 || loggedInUserRole==1">
+      <mat-list-item
+        role="listitem"
+        *ngIf="loggedInUserRole == 0 || loggedInUserRole == 1"
+      >
         <a routerLink="manage-student">Manage Student</a>
       </mat-list-item>
-      <mat-list-item role="listitem" *ngIf="loggedInUserRole!=3">
+      <mat-list-item role="listitem" *ngIf="loggedInUserRole != 3">
         <a routerLink="manage-quiz">Manage Quiz</a>
       </mat-list-item>
-      <mat-list-item role="listitem" *ngIf="loggedInUserRole==1">
+      <mat-list-item role="listitem" *ngIf="loggedInUserRole == 1">
         <a routerLink="manage-notice">Manage Notice</a>
+      </mat-list-item>
+      <mat-list-item role="listitem" *ngIf="loggedInUserRole == 0">
+        <a routerLink="pending-org-requests">Organization Requests</a>
       </mat-list-item>
     </mat-list>
   </mat-drawer>
