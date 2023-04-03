@@ -1,0 +1,229 @@
+<div class="org-form-container">
+  <div #title class="title heading-1">
+    Request to Register Your Organization on LearnSpace
+  </div>
+  <form
+    class="course-form margin-top-22"
+    [formGroup]="createOrgForm"
+    (submit)="handleSubmitData($event)"
+  >
+    <mat-vertical-stepper #stepper="matHorizontalStepper">
+      <mat-step [stepControl]="createOrgForm">
+        <form [formGroup]="createOrgForm">
+          <ng-template matStepLabel>Baisc Details</ng-template>
+          <div class="fields-container">
+            <div class="input-field margin-top-22 w-350">
+              <label for="organization">Applicant Type*</label>
+              <select
+                name="Applicant Type"
+                id="applicantType"
+                formControlName="applicantType"
+              >
+                <option
+                  [ngValue]="applicantType"
+                  *ngFor="let applicantType of applicantTypes"
+                >
+                  {{ applicantType }}
+                </option>
+              </select>
+            </div>
+
+            <div class="input-field margin-top-22 w-350">
+              <label for="name">Organization Name*</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Organization Name"
+                formControlName="name"
+              />
+            </div>
+            <div class="input-field margin-top-22 w-350">
+              <label for="name">Organization Unique Id*</label>
+              <input
+                type="text"
+                name="uniqId"
+                id="uniqId"
+                placeholder="Organization Id"
+                formControlName="uniqId"
+              />
+            </div>
+          </div>
+          <div>
+            <button class="primary-button margin-top-22" matStepperNext>
+              Next
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="createOrgForm">
+        <form [formGroup]="createOrgForm">
+          <ng-template matStepLabel>Organization Branch Details</ng-template>
+          <div class="fields-container">
+            <div class="input-field margin-top-22 w-350">
+              <label for="name">Branch Name*</label>
+              <input
+                type="text"
+                name="branchName"
+                id="branchName"
+                placeholder="Branch Name"
+                formControlName="branchName"
+              />
+            </div>
+            <div class="input-field margin-top-22 w-350">
+              <label for="name">Branch Address*</label>
+              <!-- TODO: Fix textarea style -->
+              <textarea
+                name="branchAddress"
+                id="branchAddress"
+                placeholder="Branch Address"
+                formControlName="branchAddress"
+              ></textarea>
+            </div>
+            <div class="input-field margin-top-22 w-350">
+              <label for="name">Branch City*</label>
+              <input
+                type="text"
+                name="branchCity"
+                id="branchCity"
+                placeholder="Branch City"
+                formControlName="branchCity"
+              />
+            </div>
+            <div class="input-field margin-top-22 w-350">
+              <label for="name">Branch State*</label>
+              <input
+                type="text"
+                name="branchState"
+                id="branchState"
+                placeholder="Branch State"
+                formControlName="branchState"
+              />
+            </div>
+            <div class="input-field margin-top-22 w-350">
+              <label for="name">Branch Telephone*</label>
+              <input
+                type="text"
+                max="10"
+                min="10"
+                name="branchTelephone"
+                id="branchTelephone"
+                placeholder="Branch Telephone"
+                formControlName="branchTelephone"
+              />
+            </div>
+            <div class="input-field margin-top-22 w-350">
+              <label for="name">Branch Email*</label>
+              <input
+                type="email"
+                name="branchEmail"
+                id="branchEmail"
+                placeholder="Branch Email"
+                formControlName="branchEmail"
+              />
+            </div>
+
+            <div class="input-field margin margin-top-22">
+              <label for="image">Organization Image*</label>
+              <input
+                type="file"
+                #file
+                formControlName="branchLogo"
+                id="image"
+                (change)="setPreview($event)"
+              />
+              <img
+                style="height: 200px; width: 200px"
+                src="{{ image }}"
+                alt=""
+                class="img preview"
+                *ngIf="image"
+              />
+            </div>
+
+            <div class="input-field margin-top-22 w-350">
+              <label for="name">Branch Registered Document*</label>
+              <input
+                #branchDocument
+                type="file"
+                name="branchDocument"
+                id="branchDocument"
+                placeholder="Branch Document"
+                formControlName="branchDocument"
+                accept="application/pdf"
+              />
+            </div>
+          </div>
+          <div class="margin-top-22">
+            <button class="primary-button" matStepperPrevious>Back</button>
+            <button class="primary-button" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Branch Owner Details</ng-template>
+
+        <div class="fields-container">
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Owner Name*</label>
+            <input
+              type="text"
+              name="branchOwnerName"
+              id="branchOwnerName"
+              placeholder="Branch Owner Name"
+              formControlName="branchOwnerName"
+            />
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Owner Telephone*</label>
+            <input
+              type="text"
+              name="branchOwnerTelephone"
+              id="branchOwnerTelephone"
+              placeholder="Branch Owner Telephone"
+              formControlName="branchOwnerTelephone"
+            />
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <!-- TODO: pan security details -->
+            <label for="name">Branch Owner PAN Number*</label>
+            <input
+              type="text"
+              name="branchOwnerPan"
+              id="branchOwnerPan"
+              placeholder="Branch Owner PAN Number"
+              formControlName="branchOwnerPan"
+            />
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Registration Number*</label>
+            <input
+              type="text"
+              name="branchRegistrationNumber"
+              id="branchRegistrationNumber"
+              placeholder="Branch Owner Registration Number"
+              formControlName="branchRegistrationNumber"
+            />
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Registration Date*</label>
+            <input
+              type="date"
+              name="branchRegistrationDate"
+              id="branchRegistrationDate"
+              placeholder="Branch Registration Date"
+              formControlName="branchRegistrationDate"
+            />
+          </div>
+        </div>
+        <div class="margin-top-22">
+          <button class="primary-button" matStepperPrevious>Back</button>
+          <button class="primary-button" (click)="stepper.reset()">
+            Reset
+          </button>
+          <button type="submit" class="primary-button">submit</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </form>
+</div>

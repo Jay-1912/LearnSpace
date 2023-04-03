@@ -1,0 +1,92 @@
+.form-fields-wrapper {
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.input-field input,
+.input-field select,
+.input-field textarea {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #0c1f14;
+  font-family: "Quicksand";
+  font-size: 16px;
+  background: none;
+}
+
+.input-field input[type="file"] {
+  border: none;
+}
+
+.radio-field {
+  display: flex;
+  align-items: center;
+  font-family: "Quicksand";
+  font-size: 16px;
+}
+
+.radio-field input[type="radio"] {
+  border: 1px solid #0c1f14;
+  height: 16px;
+  width: 16px;
+  margin: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.radio-field .radio-text {
+  margin-right: 6px;
+}
+
+.section-input-field input {
+  width: 80%;
+}
+.profile-preview {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 1px solid gray;
+  background-position: center;
+  background-size: cover;
+}
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+}
+.fs_12 {
+  font-size: 12px;
+}
+.fc_green {
+  color: green;
+}
+.mt-18 {
+  margin-top: 18px;
+}
+.primary-button {
+  font-family: "Quicksand";
+  font-weight: 600;
+  background-color: #006d42;
+  border-radius: 30px;
+  padding: 10px 14px;
+  transition: 0.3s ease-in;
+  color: #ffffff;
+}
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.w-350 {
+  width: 350px;
+}
+.margin-top-22 {
+  margin-top: 22px;
+}

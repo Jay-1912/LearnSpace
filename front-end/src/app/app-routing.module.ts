@@ -40,6 +40,9 @@ import { NoticeTableComponent } from './organization/manage-notice/notice-table/
 import { NoticeFormComponent } from './organization/manage-notice/notice-form/notice-form.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { OrgRegistrationFormComponent } from './org-registration-form/org-registration-form.component';
+import { PendingOrgRequestsFormComponent } from './pending-org-requests-form/pending-org-requests-form.component';
+import { ViewPendingOrganizationComponent } from './view-pending-organization/view-pending-organization.component';
 // import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
 // import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 // import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
@@ -111,29 +114,38 @@ const routes: Routes = [
         component: ManageQuizComponent,
         children: [
           { path: '', component: QuizTableComponent },
-          { path: 'add-quiz', component:  QuizFormComponent},
-          { path: 'edit-quiz/:id', component: QuizFormComponent},
-          { path: ':id/upload-question', component: UploadQuesionComponent}
+          { path: 'add-quiz', component: QuizFormComponent },
+          { path: 'edit-quiz/:id', component: QuizFormComponent },
+          { path: ':id/upload-question', component: UploadQuesionComponent },
         ],
       },
       {
         path: 'manage-super-admin',
         component: SuperAdminComponent,
-        children:[
-          {path: '', component: SuperAdminTableComponent},
-          {path:'add-super-admin', component: SuperAdminFormComponent},
-          {path:'edit-super-admin/:id', component: SuperAdminFormComponent}
-        ]
+        children: [
+          { path: '', component: SuperAdminTableComponent },
+          { path: 'add-super-admin', component: SuperAdminFormComponent },
+          { path: 'edit-super-admin/:id', component: SuperAdminFormComponent },
+        ],
       },
       {
-        path:'manage-notice',
+        path: 'manage-notice',
         component: ManageNoticeComponent,
-        children:[
-          {path:'', component: NoticeTableComponent},
-          {path:'add-notice',component: NoticeFormComponent},
-          {path:'edit-notice/:id', component: NoticeFormComponent}
-        ]
-      }
+        children: [
+          { path: '', component: NoticeTableComponent },
+          { path: 'add-notice', component: NoticeFormComponent },
+          { path: 'edit-notice/:id', component: NoticeFormComponent },
+        ],
+      },
+      {
+        path: 'org-registration',
+        component: OrgRegistrationFormComponent,
+      },
+      {
+        path: 'pending-org-requests',
+        component: PendingOrgRequestsFormComponent,
+      },
+      { path: 'pending-orgs/:id', component: ViewPendingOrganizationComponent },
     ],
   },
 ];

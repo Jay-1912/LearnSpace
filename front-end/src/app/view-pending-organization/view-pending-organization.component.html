@@ -1,0 +1,113 @@
+<div class="title heading-1">Profile</div>
+<div class="profile-fields-wrapper margin-top16">
+  <div class="org-form-container">
+    <mat-vertical-stepper #stepper="matHorizontalStepper">
+      <mat-step>
+        <ng-template matStepLabel>Baisc Details</ng-template>
+        <div class="fields-container">
+          <div class="input-field margin-top-22 w-350">
+            <label for="organization">Applicant Type*</label>
+
+            <p class="fs-18">{{ orgData.applicantType }}</p>
+          </div>
+
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Organization Name*</label>
+            <p class="fs-18">{{ orgData.name }}</p>
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Organization Unique Id*</label>
+            <p class="fs-18">{{ orgData.uniqId }}</p>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Organization Branch Details</ng-template>
+        <div class="fields-container">
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Name*</label>
+            <p class="fs-18">{{ orgData.branchName }}</p>
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Address*</label>
+            <!-- TODO: Fix textarea style -->
+            <p class="fs-18">{{ orgData.branchAddress }}</p>
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch City*</label>
+            <p class="fs-18">{{ orgData.branchCity }}</p>
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch State*</label>
+            <p class="fs-18">{{ orgData.branchState }}</p>
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Telephone*</label>
+            <p class="fs-18">{{ orgData.branchTelephone }}</p>
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Email*</label>
+            <p class="fs-18">{{ orgData.branchEmail }}</p>
+          </div>
+
+          <div class="input-field margin margin-top-22">
+            <label for="image">Organization Image*</label>
+            <br />
+            <img
+              style="height: 200px; width: 200px"
+              src="http://localhost:3000/images/{{ orgData.branchLogo }}"
+              alt=""
+              class="img preview"
+            />
+          </div>
+
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Registered Document*</label>
+            <p class="fs-18">branch document</p>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Branch Owner Details</ng-template>
+        <div class="fields-container">
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Owner Name*</label>
+            <p class="fs-18">{{ orgData.branchOwnerName }}</p>
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Owner Telephone*</label>
+            <p class="fs-18">{{ orgData.branchOwnerTelephone }}</p>
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <!-- TODO: pan security details -->
+            <label for="name">Branch Owner PAN Number*</label>
+            <p class="fs-18">{{ orgData.branchOwnerPan }}</p>
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Registration Number*</label>
+            <p class="fs-18">{{ orgData.branchRegistrationNumber }}</p>
+          </div>
+          <div class="input-field margin-top-22 w-350">
+            <label for="name">Branch Registration Date*</label>
+            <p class="fs-18">{{ orgData.branchRegistrationDate }}</p>
+          </div>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+
+    <div class="action-btns">
+      <button
+        (click)="registerOrgConfirmBtnClick($event)"
+        class="primary-button"
+      >
+        Approve
+      </button>
+      <button
+        (click)="registerOrgCancelBtnClick($event)"
+        class="primary-button"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
