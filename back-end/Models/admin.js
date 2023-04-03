@@ -24,6 +24,14 @@ const adminSchema = new mongoose.Schema({
     profile:{
         type: String,
         required: true
+    },
+    viewed_notification:{
+        type: Array,
+        required: false
+    },
+    unseen_notification:{
+        type: Array, 
+        required: false
     }
 });
 

@@ -46,14 +46,14 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if(this.authenticationService.isLoggedIn()){
-      let role = parseInt(localStorage.getItem("role") || "");
-      if(role==3){
-        window.location.href = "http://localhost:4200/dashboard";
-      }else{
-        window.location.href = "http://localhost:4200/admin/dashboard";
-      }
-    }
+    // if(this.authenticationService.isLoggedIn()){
+    //   let role = parseInt(localStorage.getItem("role") || "");
+    //   if(role==3){
+    //     window.location.href = "http://localhost:4200/dashboard";
+    //   }else{
+    //     window.location.href = "http://localhost:4200/admin/dashboard";
+    //   }
+    // }
   }
 
 }

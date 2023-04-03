@@ -34,6 +34,14 @@ const TeacherSchema = new mongoose.Schema({
     required: true,
     default: "org",
   },
+  viewed_notification:{
+    type: Array,
+    required: false
+  },
+  unseen_notification:{
+      type: Array, 
+      required: false
+  }
 });
 
 const Teacher = mongoose.model("Teacher", TeacherSchema, "teachers");

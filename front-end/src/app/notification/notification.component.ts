@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 import { INotification } from '../shared/interface';
 
@@ -9,17 +9,11 @@ import { INotification } from '../shared/interface';
 })
 export class NotificationComponent implements OnInit {
 
-  notifications!:INotification[];
+  @Input() notifications:any[] = [];
 
   constructor(private notificationService:NotificationService){}
 
   ngOnInit(): void{
-    this.notificationService.getNotifications().subscribe(
-      ((notifications:INotification[]) =>{
-        this.notifications = notifications;
-        console.log(notifications);
-      })
-    )
   }
 
 }

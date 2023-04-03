@@ -12,14 +12,17 @@ import { INotification } from '../shared/interface';
 export class NotificationService {
 
   baseUrl: string = 'assets/temporary-data/';
-
+  readonly url:string = "http://localhost:3000/";
   constructor(private http:HttpClient) { }
 
-  getNotifications():Observable<INotification[]>{
-    return this.http.get<INotification[]>(this.baseUrl + 'notifications.json')
-    .pipe(
-      catchError(this.handleError)
-    );
+  getNotificationById(id:string):Observable<any>{
+    const url = this.url + "get_notification/"+id;
+    return this.http.get(url).pipe(catchError(this.handleError));
+  }
+
+  seenNotifications(data:any):Observable<any>{
+    const url = this.url + "seen_notifications";
+    return this.http.post(url, data).pipe(catchError(this.handleError));
   }
 
   private handleError(error: any) {

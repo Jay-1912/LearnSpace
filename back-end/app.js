@@ -1,8 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Router = require("./routes");
-
+const http = require("http");
 const app = express();
+const {socketConnection} = require("./utils");
+
 
 const cors = require("cors");
 const corsOptions = {
@@ -53,6 +55,17 @@ mongoose
 
 app.use(Router);
 
-app.listen(3000, (req, res) => {
+const server = http.createServer(app);
+// const {Server} = require("socket.io");
+// const io = new Server(server,{
+//   cors: corsOptions
+// }); 
+
+// io.on("connection", (socket)=>{
+//   console.log("socket connected", socket.id);
+// })
+socketConnection(server);
+
+server.listen(3000, (req, res) => {
   console.log("Express API is running at port 3000");
 });

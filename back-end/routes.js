@@ -8,6 +8,7 @@ const Quiz = require("./Models/quiz");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 var nodemailer = require('nodemailer');
+const socketUtil = require("./utils");
 
 const JWT_SECRET = "axdfvcjedshntcj14363sddbcj";
 
@@ -20,7 +21,24 @@ var transporter = nodemailer.createTransport({
     user: "learnspace.project@gmail.com",
     pass: "xvopwhgjirydlozz"
   }
-})
+});
+
+const addNotification = async (type, organization, data) => {
+  let notification = new Notification({
+    type: type,
+    organization: organization,
+    dataId: data._id
+  });
+
+  try{
+    let savedNotification = await notification.save();
+    await Student.updateMany({organization: savedNotification.organization},{$push: {unseen_notification: savedNotification._id}},{multi:true,upsert: true,new: true});
+    await Organization.findByIdAndUpdate({_id: savedNotification.organization},{$push: {unseen_notification: savedNotification._id}});
+    socketUtil.newNotification(data, "add_course");
+  }catch(error){
+    console.log(error);
+  }
+}
 
 app.post("/add_user", async (request, response) => {
   const user = new userModel(request.body);
@@ -48,6 +66,7 @@ const Organization = require("./Models/organization");
 const Course = require("./Models/course");
 const Admin = require("./Models/admin");
 const Notice = require("./Models/notice");
+const Notification = require("./Models/notification");
 
 var storage = multer.diskStorage({
   destination: "./public/images",
@@ -86,6 +105,7 @@ app.get("/courses/:org", async (req, res) => {
 });
 
 app.post("/add_course", upload.single("thumbnail"), async (req, res) => {
+  console.log(req.body);
   const filename = req.file.filename;
   const course = new courseModel({
     title: req.body.title,
@@ -96,9 +116,14 @@ app.post("/add_course", upload.single("thumbnail"), async (req, res) => {
     instructor: req.body.instructor,
   });
   try {
-    await course.save();
+    // await course.save(function(err,c){
+    //   addNotification("add_course", req.body.organization, c.id);
+    // });
+    let savedCourse = await course.save();
+    addNotification("add_course", req.body.organization, savedCourse);
     res.send(course);
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
@@ -1198,6 +1223,48 @@ app.post("/reset-password", async (req, res)=>{
       console.log(error);
       res.send({code: 400, message: "Something went wrong!"});
     }
+})
+
+//notification
+app.get("/get_notification/:id", async(req, res)=>{
+  const id = req.params.id;
+  try{
+    const notification = await Notification.findById({_id: id});
+    res.send(notification);
+  }catch(error){
+    console.log(error);
+  }
+})
+
+app.post("/seen_notifications", upload.single(), async(req, res)=>{
+  const id = req.body.id;
+  const role = parseInt(req.body.role);
+  try{
+    if(role===0){
+      await Student.findByIdAndUpdate(
+        {_id:id},
+        {unseen_notification: []}
+      )
+    }else if(role===1){
+      await Student.findByIdAndUpdate(
+        {_id:id},
+        {unseen_notification: []}
+      )
+    }else if(role===2){
+      await Student.findByIdAndUpdate(
+        {_id:id},
+        {unseen_notification: []}
+      )
+    }else{
+      await Student.findByIdAndUpdate(
+        {_id:id},
+        {unseen_notification: []}
+      )
+    }
+  }catch(error){
+    console.log(error);
+  }
+  
 })
 
 module.exports = app;

@@ -45,6 +45,14 @@ const StudentSchema = new mongoose.Schema({
   enrolled_courses:{
     type:Object,
     required: false
+  },
+  viewed_notification:{
+    type: Array,
+    required: false
+  },
+  unseen_notification:{
+    type: Array, 
+    required: false
   }
 });
 

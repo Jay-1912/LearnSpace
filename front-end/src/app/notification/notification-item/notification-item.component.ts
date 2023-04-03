@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CourseService } from 'src/app/services/course.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { INotification } from 'src/app/shared/interface';
 
 @Component({
@@ -7,17 +9,26 @@ import { INotification } from 'src/app/shared/interface';
   styleUrls: ['./notification-item.component.css']
 })
 export class NotificationItemComponent implements OnInit {
+  
+  constructor(private notificationService:NotificationService, private courseService:CourseService){}
 
-  @Input() notification!:Object;
+  @Input() notification!:string;
 
   title:string ="";
   time:string="";
 
   ngOnInit(): void{
-    if(this.notification){
-      this.title = Object(this.notification)["title"];
-      this.time = Object(this.notification)["time"];
-    }
+    this.notificationService.getNotificationById(this.notification).subscribe((res)=>{
+      if(res){
+        if(res.type==="add_course"){
+          this.courseService.getCourseByID(res.dataId).subscribe((course)=>{
+            console.log(course[0]);
+            this.title = "New course is added in your organization: '"+course[0].title+"'";
+            this.time = res.date.substring(0,10);
+          })
+        }
+      }
+    })
   }
 
 }
