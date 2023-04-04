@@ -61,9 +61,18 @@ const routes: Routes = [
     component: CourseContentComponent,
   },
   {
+    path: 'org-registration',
+    component: OrgRegistrationFormComponent,
+  },
+  {
     path: 'admin',
     component: OrganizationComponent,
     children: [
+      {
+        path: 'pending-org-requests',
+        component: PendingOrgRequestsFormComponent,
+      },
+      { path: 'pending-orgs/:id', component: ViewPendingOrganizationComponent },
       { path: 'dashboard', component: OrgDashboardComponent },
       { path: 'profile/:id', component: ProfileStaticComponent },
       {
@@ -137,15 +146,6 @@ const routes: Routes = [
           { path: 'edit-notice/:id', component: NoticeFormComponent },
         ],
       },
-      {
-        path: 'org-registration',
-        component: OrgRegistrationFormComponent,
-      },
-      {
-        path: 'pending-org-requests',
-        component: PendingOrgRequestsFormComponent,
-      },
-      { path: 'pending-orgs/:id', component: ViewPendingOrganizationComponent },
     ],
   },
 ];

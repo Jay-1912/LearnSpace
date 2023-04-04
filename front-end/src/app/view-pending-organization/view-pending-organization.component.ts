@@ -52,33 +52,35 @@ export class ViewPendingOrganizationComponent implements OnInit {
 
     // TODO:what to send in image because required type is file and we have string only
 
-    // const createdOrgData = {
-    //   name: this.orgData.name,
-    //   branchName: this.orgData.branchName,
-    //   email: this.orgData.branchEmail,
-    //   password: this.orgData.name + '111LearnSpace',
-    //   phone: this.orgData.branchTelephone,
-    //   image: this.orgData.branchLogo,
-    // };
+    const createdOrgData = {
+      name: this.orgData.name,
+      branchName: this.orgData.branchName,
+      email: this.orgData.branchEmail,
+      password:
+        this.orgData.name + Math.random().toString(36).slice(-8) + 'LearnSpace',
+      phone: this.orgData.branchTelephone,
+      image: this.orgData.branchLogo,
+    };
 
-    // this.orgService.postOrganization(createdOrgData).subscribe((data) => {
-    //   console.log(data);
-    // });
-    // this.orgService
-    //   .deletePendingOrganization(this.orgData._id)
-    //   .subscribe((data) => {
-    //     console.log(data);
-    //   });
+    this.orgService
+      .postPendingOrganizationToRegistered(createdOrgData)
+      .subscribe((data) => {
+        console.log(data);
+      });
+    this.orgService
+      .deletePendingOrganization(this.orgData._id)
+      .subscribe((data) => {
+        console.log(data);
+      });
 
     // send email to organization containing username and pass
   }
   registerOrgCancelBtnClick(event: any) {
     event.preventDefault();
-    // remove for pending list and send email to soruce email of failure
-    // this.orgService
-    //   .deletePendingOrganization(this.orgData._id)
-    //   .subscribe((data) => {
-    //     console.log(data);
-    //   });
+    this.orgService
+      .deletePendingOrganization(this.orgData._id)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 }
