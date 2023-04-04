@@ -20,6 +20,7 @@ export class OrgRegistrationFormComponent {
   orgTypes = ['NGO', 'University'];
   @ViewChild('branchDocument') branchDocument!: ElementRef;
   @ViewChild('file') imageFile!: ElementRef;
+  @ViewChild('resetBtn') resetBtn!: ElementRef;
 
   createOrgForm = new FormGroup({
     applicantType: new FormControl(),
@@ -59,28 +60,6 @@ export class OrgRegistrationFormComponent {
   }
   handleSubmitData(event: any) {
     console.log('handle submit called');
-
-    // const orgData = {
-    //   applicantType: this.createOrgForm.controls['applicantType'].value,
-    //   name: this.createOrgForm.controls['name'].value,
-    //   uniqId: this.createOrgForm.controls['uniqId'].value,
-    //   branchName: this.createOrgForm.controls['branchName'].value,
-    //   branchAddress: this.createOrgForm.controls['branchAddress'].value,
-    //   branchCity: this.createOrgForm.controls['branchCity'].value,
-    //   branchState: this.createOrgForm.controls['branchState'].value,
-    //   branchTelephone: this.createOrgForm.controls['branchTelephone'].value,
-    //   branchEmail: this.createOrgForm.controls['branchEmail'].value,
-    //   branchOwnerName: this.createOrgForm.controls['branchOwnerName'].value,
-    //   branchOwnerTelephone:
-    //     this.createOrgForm.controls['branchOwnerTelephone'].value,
-    //   branchOwnerPan: this.createOrgForm.controls['branchOwnerPan'].value,
-    //   branchDocument: this.branchDocument.nativeElement.files[0],
-    //   branchRegistrationNumber:
-    //     this.createOrgForm.controls['branchRegistrationNumber'].value,
-    //   branchRegistrationDate:
-    //     this.createOrgForm.controls['branchRegistrationDate'].value,
-    //   // branchLogo: this.imageFile.nativeElement.files[0],
-    // };
 
     const orgData = new FormData();
     orgData.append(
@@ -152,8 +131,12 @@ export class OrgRegistrationFormComponent {
       .postOrganizationForRegistration(orgData)
       .subscribe((data) => {
         console.log(data);
+        this.openSnackBar(
+          `Your request for ${orgData.get('name')} is stored`,
+          'close'
+        );
       });
 
-    // this.openSnackBar(`Your request for ${orgData.name} is stored`, 'close');
+    this.resetBtn.nativeElement.click();
   }
 }

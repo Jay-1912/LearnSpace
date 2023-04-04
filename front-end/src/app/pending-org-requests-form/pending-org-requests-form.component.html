@@ -27,15 +27,9 @@
             <td>{{ organization.branchCity }}</td>
             <td>{{ organization.branchOwnerName }}</td>
             <td>
-              <a routerLink="{{ organization._id }}">
+              <a routerLink="/admin/pending-orgs/{{ organization._id }}">
                 <button mat-icon-button class="icon">
                   <mat-icon>remove_red_eye</mat-icon>
-                </button>
-              </a>
-
-              <a (click)="this.openDialog('0ms', '0ms', organization._id)">
-                <button mat-icon-button class="icon">
-                  <mat-icon>delete</mat-icon>
                 </button>
               </a>
             </td>

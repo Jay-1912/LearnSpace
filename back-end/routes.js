@@ -612,6 +612,41 @@ app.post("/add_organization", upload.single("file"), async (req, res) => {
   }
 });
 
+app.post("/add-org-pending-to-registered", async (req, res) => {
+  const organization = new Organization({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    phone: req.body.phone,
+    image: req.body.image,
+  });
+
+  try {
+    await organization.save();
+    var mailOptions = {
+      from: "learnspace.project@gmail.com",
+      to: req.body.email,
+      subject: "Your Learnspace Account",
+      html:
+        "<h1>Do not share this mail with anyone</h1><br><p>Email:" +
+        req.body.email +
+        "</p><p>Password:" +
+        req.body.password +
+        "</p>",
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+    res.send(organization);
+  } catch (err) {
+    res.send(err);
+  }
+});
+
 app.post("/edit_organization/:id", upload.single("file"), async (req, res) => {
   let filename;
   if (req.file) {
