@@ -19,7 +19,7 @@ var transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: "learnspace.project@gmail.com",
-    pass: "xvopwhgjirydlozz",
+    pass: "qfieuqbklyrphpbg",
   },
 });
 
@@ -1380,17 +1380,17 @@ app.post("/seen_notifications", upload.single(), async(req, res)=>{
   const role = parseInt(req.body.role);
   try{
     if(role===0){
-      await Student.findByIdAndUpdate(
+      await Admin.findByIdAndUpdate(
         {_id:id},
         {unseen_notification: []}
       )
     }else if(role===1){
-      await Student.findByIdAndUpdate(
+      await Organization.findByIdAndUpdate(
         {_id:id},
         {unseen_notification: []}
       )
     }else if(role===2){
-      await Student.findByIdAndUpdate(
+      await Teacher.findByIdAndUpdate(
         {_id:id},
         {unseen_notification: []}
       )
