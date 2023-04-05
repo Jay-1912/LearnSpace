@@ -15,6 +15,6 @@ exports.socketConnection = (server) => {
     });
 }
 
-exports.newNotification = (data, type) => {
-    io.emit("new_notification", {data, type});
+exports.newNotification = (data, type, targetId) => {
+    io.emit("new_notification", {data, type, targetId});
 }

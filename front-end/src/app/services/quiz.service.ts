@@ -58,6 +58,16 @@ export class QuizService {
     return this.http.post<any>(url, studentRes).pipe(catchError(this.handleError));
   }
 
+  assignMarks(quizId:string, studentId:string, marks:any): Observable<any>{
+    const url = this.url+"assign_marks/"+quizId+"/"+studentId;
+    return this.http.post<any>(url, marks).pipe(catchError(this.handleError));
+  }
+
+  giveFeedback(quizId:string, studentId:string, feedback:any): Observable<any>{
+    const url = this.url+"give_feedback/"+quizId+"/"+studentId;
+    return this.http.post<any>(url, feedback).pipe(catchError(this.handleError));
+  }
+
 
   private handleError(error: any) {
     console.error('server error:', error);

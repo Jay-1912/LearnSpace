@@ -26,10 +26,16 @@ export class AppComponent implements OnInit {
 
   connectSocket(){
     this.socketService.listen("new_notification").subscribe((res:any)=>{
-      // {data, type}
-      if(this.loggedInUserRole!=0){
-        if(res.data.organization === this.user._id || res.data.organization === this.user.organization){
-          if(res.type === "add_course"){
+      if(res.type=="assign_marks"){
+        if(res.targetId==this.loggedInUserId){
+          this.openSnackBar("Quiz Returned:" + res.data.title, "close");
+        }
+      }
+
+      if(res.type=="add_course"){
+        console.log(res);
+        if(this.loggedInUserRole!=0){
+          if(res.targetId === this.user._id || res.targetId === this.user.organization){
             this.openSnackBar("New course is added in your organization: "+res.data.title, "close");
           }
         }

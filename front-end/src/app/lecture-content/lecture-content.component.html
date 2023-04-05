@@ -12,9 +12,14 @@
         </p>
     </object>
 
-    <form *ngIf="type=='quiz' && quizForm && attendedQuiz==false" [formGroup]="quizForm" (submit)="handleQuiz($event)">
+    <form *ngIf="type=='quiz' && quizForm && attendedQuiz==false && quizType=='mcqs'" [formGroup]="quizForm" (submit)="handleQuiz($event)">
         <div class="input-field" *ngFor="let question of questions; let i=index">
-            <label for="{{i}}">{{i+1}}. {{question.question}}</label>
+            <label for="{{i}}" class="question">
+                <div>{{i+1}}. {{question.question}}</div>
+                <div class="marks-assign">
+                    Marks: {{marks[i] ? marks[i] : 0}} / {{question.marks}}
+                </div>
+            </label>
             <div class="radio-field" *ngFor="let option of question.options; let j=index">
                 <input type="radio" formControlName="{{i}}" [value]="j"> <span class="radio-text">{{option.option_text}}</span> 
             </div>
@@ -22,9 +27,26 @@
         <button type="submit" class="primary-button margin-top-10">Submit</button>
     </form>
 
-    <div class="quiz-wrapper" *ngIf="attendedQuiz==true">
+    <form *ngIf="type=='quiz' && quizForm && attendedQuiz==false && quizType=='descriptive'" [formGroup]="quizForm" (submit)="handleQuiz($event)">
+        <div class="input-field" *ngFor="let question of questions; let i=index">
+            <label for="{{i}}" class="question">
+                <div>{{i+1}}. {{question.question}}</div>
+                <div class="marks-assign">
+                    Marks: {{marks[i] ? marks[i] : 0}} / {{question.marks}}
+                </div>
+            </label>
+            <textarea id="answer" formControlName="{{i}}" rows="1"></textarea>
+        </div>
+        <button type="submit" class="primary-button margin-top-10">Submit</button>
+    </form>
+
+    <div class="quiz-wrapper" *ngIf="attendedQuiz==true && quizType=='mcqs'">
         <div class="question-item margin-top-16" *ngFor="let question of questions;let i=index;">
-            <p class="question">{{i+1}}. {{question.question}}</p>
+            <div class="question"><div>{{i+1}}. {{question.question}}</div>
+                <div class="marks-assign">
+                    Marks: {{marks[i]}} / {{question.marks}}
+                </div>
+            </div>
             <div class="option-wrapper">
                 <p class="option" *ngFor="let option of question.options">{{option.option_text}}</p>
             </div>
@@ -33,5 +55,22 @@
             <p class="answer-label">Your Answer:</p>
             <p class="answer">{{question.options[selected_options[i]].option_text}}</p>
         </div>
+    </div>
+
+    <div class="quiz-wrapper" *ngIf="attendedQuiz==true && quizType=='descriptive'">
+        <div class="question-item margin-top-16" *ngFor="let question of questions;let i=index;">
+            <div class="question"><div>{{i+1}}. {{question.question}}</div>
+                <div class="marks-assign">
+                    Marks: {{marks[i]}} / {{question.marks}}
+                </div>
+            </div>
+            <p class="answer-label">Your Answer:</p>
+            <p class="answer">{{selected_options[i]}}</p>
+        </div>
+    </div>
+
+    <div class="feedback-wrapper margin-top-16">
+        <div class="title heading-1">Feedback:</div>
+        <p class="margin-top-10">{{feedback}}</p>
     </div>
 </div>

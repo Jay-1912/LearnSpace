@@ -31,7 +31,8 @@ export class QuizFormComponent implements OnInit {
     title: new FormControl('', Validators.required),
     organization: new FormControl('', Validators.required),
     course: new FormControl('', Validators.required),
-    section: new FormControl('',Validators.required)
+    section: new FormControl('',Validators.required),
+    type: new FormControl("", Validators.required)
   })
 
   openSnackBar(message: string, action: string) {
@@ -60,6 +61,7 @@ export class QuizFormComponent implements OnInit {
     formData.append("title", quiz.title || "");
     formData.append("organization", quiz.organization || "");
     formData.append("course", quiz.course || "");
+    formData.append("type", quiz.type || "");
     // let section_lesson = quiz.section;
     // let section, lesson;
     // if(section_lesson){
@@ -91,6 +93,7 @@ export class QuizFormComponent implements OnInit {
     formData.append("title", quiz.title || "");
     formData.append("organization", quiz.organization || "");
     formData.append("course", quiz.course || "");
+    formData.append("type", quiz.type || "");
     // let section_lesson = quiz.section;
     // let section, lesson;
     // if(section_lesson){
@@ -164,6 +167,7 @@ export class QuizFormComponent implements OnInit {
         } )
         this.quizForm.controls["title"].setValue(quiz.title);
         this.quizForm.controls["section"].setValue(quiz.section);
+        this.quizForm.controls["type"].setValue(quiz.type);
       })
     }
   }

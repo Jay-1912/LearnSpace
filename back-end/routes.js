@@ -23,18 +23,22 @@ var transporter = nodemailer.createTransport({
   },
 });
 
-const addNotification = async (type, organization, data) => {
+const addNotification = async (type, targetId, data) => {
   let notification = new Notification({
     type: type,
-    organization: organization,
+    targetId: targetId,
     dataId: data._id
   });
 
   try{
     let savedNotification = await notification.save();
-    await Student.updateMany({organization: savedNotification.organization},{$push: {unseen_notification: savedNotification._id}},{multi:true,upsert: true,new: true});
-    await Organization.findByIdAndUpdate({_id: savedNotification.organization},{$push: {unseen_notification: savedNotification._id}});
-    socketUtil.newNotification(data, "add_course");
+    if(type=="assign_marks"){
+      await Student.findByIdAndUpdate({_id: targetId}, {$push: {unseen_notification: savedNotification._id}});
+    }else if(type=="add_course"){
+      await Student.updateMany({organization: savedNotification.targetId},{$push: {unseen_notification: savedNotification._id}},{multi:true,upsert: true,new: true});
+      await Organization.findByIdAndUpdate({_id: savedNotification.targetId},{$push: {unseen_notification: savedNotification._id}});
+    }
+    socketUtil.newNotification(data, type, targetId);
   }catch(error){
     console.log(error);
   }
@@ -68,6 +72,7 @@ const Admin = require("./Models/admin");
 const Notice = require("./Models/notice");
 const Notification = require("./Models/notification");
 const { log } = require("console");
+const { parse } = require("path");
 
 var storage = multer.diskStorage({
   destination: "./public/images",
@@ -801,6 +806,7 @@ app.post("/add_quiz", upload.single(), async (req, res) => {
     course: req.body.course,
     instructor: course.instructor,
     section: parseInt(req.body.section),
+    type: req.body.type
   });
 
   let section = parseInt(req.body.section);
@@ -839,6 +845,7 @@ app.post("/edit_quiz/:id", upload.single(), async (req, res) => {
         course: req.body.course,
         instructor: course.instructor,
         section: parseInt(req.body.section),
+        type: req.body.type
       },
       { new: true }
     );
@@ -875,8 +882,21 @@ app.post(
       students = quiz.students;
     }
     students[studentId] = req.body;
+    let marks = {};
+    if(quiz.marks){
+      marks = quiz.marks;
+    }
+    marks[studentId] = new Array(quiz.questions.length).fill(0);
+    if(quiz.type == "mcqs"){
+      for(let i=0;i<quiz.questions.length;i++){
+        if(quiz.questions[i]["correct_option"] == students[studentId][i.toString()]){
+          marks[studentId][i] = quiz.questions[i].marks;
+        }
+      }
+    }
+
     try {
-      await Quiz.findByIdAndUpdate({ _id: quizId }, { students: students });
+      await Quiz.findByIdAndUpdate({ _id: quizId }, { students: students, marks: marks });
       res.send({ code: 200, message: "Quiz saved successfully!" });
     } catch (error) {
       console.log(error);
@@ -887,11 +907,22 @@ app.post(
 
 app.post("/add_question/:id", upload.single(), async (req, res) => {
   const id = req.params.id;
-  let question = {
-    question: req.body.question,
-    options: JSON.parse(req.body.options),
-    correct_option: parseInt(req.body.correct_option),
-  };
+  const type = req.body.type;
+  let question;
+  if(type=="mcqs"){
+    question = {
+      question: req.body.question,
+      options: JSON.parse(req.body.options),
+      correct_option: parseInt(req.body.correct_option),
+      marks: parseInt(req.body.marks)
+    };
+  }else{
+    question = {
+      question: req.body.question,
+      marks: parseInt(req.body.marks)
+    }
+  }
+  
   const quiz = await Quiz.findById({ _id: id });
   let questions = quiz.questions;
   questions.push(question);
@@ -913,12 +944,23 @@ app.post("/add_question/:id", upload.single(), async (req, res) => {
 
 app.post("/edit_question/:id", upload.single(), async (req, res) => {
   const id = req.params.id;
+  const type = req.body.type;
   const questionIndex = parseInt(req.body.index);
-  let question = {
-    question: req.body.question,
-    options: JSON.parse(req.body.options),
-    correct_option: parseInt(req.body.correct_option),
-  };
+  let question;
+  if(type=="mcqs"){
+    question = {
+      question: req.body.question,
+      options: JSON.parse(req.body.options),
+      correct_option: parseInt(req.body.correct_option),
+      marks: parseInt(req.body.marks)
+    };
+  }else{
+    question = {
+      question: req.body.question,
+      marks: parseInt(req.body.marks)
+    }
+  }
+  
   const quiz = await Quiz.findById({ _id: id });
   let questions = quiz.questions;
   questions[questionIndex] = question;
@@ -962,6 +1004,42 @@ app.get("/delete_question/:id/:index", async (req, res) => {
     res.send({ code: 400, message: "Something went wrong!" });
   }
 });
+
+app.post("/assign_marks/:quizId/:studentId", upload.single(), async(req, res)=>{
+  const quizId = req.params.quizId;
+  const studentId = req.params.studentId;
+  const quiz = await Quiz.findById({ _id: quizId });
+  let marks = quiz.marks;
+  for(let i=0;i<marks[studentId].length;i++){
+    marks[studentId][i] = req.body[i.toString()];
+  }
+  try {
+    const savedQuiz = await Quiz.findByIdAndUpdate({ _id: quizId }, { marks: marks });
+    addNotification("assign_marks", req.params.studentId, savedQuiz);
+    res.send({ code: 200, message: "Marks updated successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.send({ code: 400, message: "Something went wrong!" });
+  }
+})
+
+app.post("/give_feedback/:quizId/:studentId", upload.single(), async(req, res)=>{
+  const quizId = req.params.quizId;
+  const studentId = req.params.studentId;
+  const quiz = await Quiz.findById({_id: quizId});
+  let feedback = {};
+  if(quiz.feedback){
+    feedback = quiz.feedback;
+  }
+  feedback[studentId] = req.body.feedback;
+  try {
+    await Quiz.findByIdAndUpdate({ _id: quizId }, { feedback: feedback });
+    res.send({ code: 200, message: "Feedback is sent successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.send({ code: 400, message: "Something went wrong!" });
+  }
+})
 
 // app.get("/view-quiz/:id", async (req, res) => {
 //   const quizId = req.params.id;
@@ -1019,6 +1097,7 @@ app.get("/super-admin/:id", async (req, res) => {
     const adminData = await Admin.findById({ _id: id });
     res.send({ code: 200, admin: adminData });
   } catch (error) {
+    console.log(error);
     res.end({ code: 400, message: "something went wrong!" });
   }
 });

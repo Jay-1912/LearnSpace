@@ -1,0 +1,47 @@
+<div *ngIf="type=='mcqs'">
+    <div class="question-item margin-top-16" *ngFor="let question of questions;let i=index;">
+        <p class="question">
+            <span>{{i+1}}. {{question.question}}</span>
+            <span>Marks: {{marks[i]}} / {{question.marks}}</span>
+        </p>
+        <div class="option-wrapper">
+            <p class="option" *ngFor="let option of question.options">{{option.option_text}}</p>
+        </div>
+        <p class="answer-label">Correct Answer:</p>
+        <p class="answer">{{question.options[question.correct_option].option_text}}</p>
+        <p class="answer-label">Student's Answer:</p>
+        <p class="answer">{{question.options[answers[i]].option_text}}</p>
+    </div>
+</div>
+
+<div *ngIf="type=='descriptive'">
+    <form [formGroup]="marksForm" (submit)="handleMarks($event)">
+        <div class="question-item margin-top-16" *ngFor="let question of questions;let i=index;" >
+            <div class="question">
+                <div>{{i+1}}. {{question.question}}</div>
+                <div class="marks-assign">
+                    Marks:
+                    <div>
+                        <div class="input-field">
+                            <input type="number" formControlName="{{i}}" min="0" max="{{question.marks}}">
+                        </div>
+                    </div>
+                    <div>
+                        / {{question.marks}}
+                    </div>
+                </div>
+            </div>
+            <p class="answer-label">Student's Answer:</p>
+            <p class="answer">{{answers[i]}}</p>
+        </div>
+    <button type="submit" class="primary-button margin-top-16">Revert to Student</button>
+    </form>
+</div>
+
+<form class="margin-top-16" [formGroup]="feedbackForm" (submit)="handleFeedback($event)">
+    <div class="input-field">
+        <label for="feedback">Feedback:</label>
+        <textarea rows="1" formControlName="feedback"></textarea>
+    </div>
+    <button type="submit" class="primary-button margin-top-16">Give Feedback</button>
+</form>
