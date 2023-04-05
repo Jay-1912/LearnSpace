@@ -14,6 +14,7 @@ export class ViewPendingOrganizationComponent implements OnInit {
   loggedInUserId: any;
   loggedInUserRole!: number;
   orgId: any;
+  doc!: string;
   constructor(
     private orgService: OrganizationService,
     private authService: AuthenticationService,
@@ -43,6 +44,7 @@ export class ViewPendingOrganizationComponent implements OnInit {
 
     this.orgService.getPendingOrganizationById(this.orgId).subscribe((data) => {
       this.orgData = data;
+      this.doc = `http://localhost:3000/images/${this.orgData.branchDocument}`;
     });
   }
 

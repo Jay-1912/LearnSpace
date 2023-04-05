@@ -49,7 +49,7 @@ export class OrganizationService {
     console.log(data, this.url);
 
     const url = this.url + 'post_org_for_registration';
-    return this.http.post<any>(url, data).pipe(catchError(this.handleError));
+    return this.http.post<any>(url, data);
   }
 
   getPendingOrganizations() {

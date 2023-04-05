@@ -18,7 +18,7 @@ export class OrgRegistrationFormComponent {
 
   applicantTypes = ['individual', 'organization'];
   orgTypes = ['NGO', 'University'];
-  @ViewChild('branchDocument') branchDocument!: ElementRef;
+  @ViewChild('branchDocument') branchDoc!: ElementRef;
   @ViewChild('file') imageFile!: ElementRef;
   @ViewChild('resetBtn') resetBtn!: ElementRef;
 
@@ -112,10 +112,6 @@ export class OrgRegistrationFormComponent {
       this.createOrgForm.controls['branchOwnerPan'].value!.toString()
     );
     orgData.append(
-      'branchDocument',
-      this.createOrgForm.controls['branchDocument'].value!.toString()
-    );
-    orgData.append(
       'branchRegistrationNumber',
       this.createOrgForm.controls['branchRegistrationNumber'].value!.toString()
     );
@@ -125,7 +121,14 @@ export class OrgRegistrationFormComponent {
     );
     orgData.append('branchLogo', this.imageFile.nativeElement.files[0]);
 
-    console.log(orgData);
+    try {
+      orgData.append('branchDocument', this.branchDoc.nativeElement.files[0]);
+      console.log(this.branchDoc.nativeElement.files[0]);
+    } catch (error) {
+      console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhere');
+
+      console.log(error);
+    }
 
     this.orgService
       .postOrganizationForRegistration(orgData)
