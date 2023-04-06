@@ -63,7 +63,15 @@
 
           <div class="input-field margin-top-22 w-350">
             <label for="name">Branch Registered Document*</label>
-            <p class="fs-18">branch document</p>
+            <!-- below object not working when passing url but working with static  -->
+            <!-- <p>{{doc}}</p> -->
+            <object
+              data="http://localhost:3000/images/1680718407385-Class diagram Major.pdf"
+              type="application/pdf"
+              width="auto"
+              height="400px"
+            ></object>
+            <!-- <object data="{{ doc }}" type=""></object> -->
           </div>
         </div>
       </mat-step>

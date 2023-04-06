@@ -8,7 +8,8 @@ const Quiz = require("./Models/quiz");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 var nodemailer = require("nodemailer");
-const OrgForRegistration = require("./Models/organizationForRegistration");const socketUtil = require("./utils");
+const OrgForRegistration = require("./Models/organizationForRegistration");
+const socketUtil = require("./utils");
 
 const JWT_SECRET = "axdfvcjedshntcj14363sddbcj";
 
@@ -19,7 +20,7 @@ var transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: "learnspace.project@gmail.com",
-    pass: "qfieuqbklyrphpbg",
+    pass: "xvopwhgjirydlozz",
   },
 });
 
@@ -30,7 +31,7 @@ const addNotification = async (type, targetId, data) => {
     dataId: data._id
   });
 
-  try{
+  try {
     let savedNotification = await notification.save();
     if(type=="assign_marks"){
       await Student.findByIdAndUpdate({_id: targetId}, {$push: {unseen_notification: savedNotification._id}});
@@ -653,8 +654,10 @@ app.post("/add-org-pending-to-registered", async (req, res) => {
 });
 
 app.post("/edit_organization/:id", upload.single("file"), async (req, res) => {
+  console.log(req.body);
   let filename;
-  if (req.file) {
+  console.log(req);
+  if (req.file != undefined) {
     filename = req.file.filename;
   } else {
     filename = req.body.file;
@@ -696,11 +699,10 @@ app.get("/delete_organization/:id", async (req, res) => {
 
 app.post(
   "/post_org_for_registration",
-  upload.single("branchLogo"),
+  upload.fields([{ name: "branchLogo" }, { name: "branchDocument" }]),
   async (req, res) => {
-    console.log(req.body);
-    const filename = req.file.filename;
-    console.log(filename);
+    console.log(req.files.branchDocument[0].filename);
+    // const filename = req.file.filename;
     const organization = new OrgForRegistration({
       applicantType: req.body.applicantType,
       name: req.body.name,
@@ -714,10 +716,10 @@ app.post(
       branchOwnerName: req.body.branchOwnerName,
       branchOwnerTelephone: req.body.branchOwnerTelephone,
       branchOwnerPan: req.body.branchOwnerPan,
-      branchDocument: "harsh",
+      branchDocument: req.files.branchDocument[0].filename,
       branchRegistrationNumber: req.body.branchRegistrationNumber,
       branchRegistrationDate: req.body.branchRegistrationDate,
-      branchLogo: filename,
+      branchLogo: req.files.branchLogo[0].filename,
     });
     console.log(organization);
 
@@ -1444,80 +1446,55 @@ app.post("/verify-token", upload.single(), async (req, res) => {
   }
 });
 
-app.post("/reset-password", async (req, res)=>{
-    const id = req.body.id;
-    const role = parseInt(req.body.role);
-    const password = req.body.password;
-    try{
-      if(role == 3){
-        await Student.findByIdAndUpdate(
-          {_id: id},
-          {password: password}
-        )
-      }else if(role == 2){
-        console.log("here");
-        await Teacher.findByIdAndUpdate(
-          {_id: id},
-          {password: password}
-        )
-      }else if(role == 1){
-        await Organization.findByIdAndUpdate(
-          {_id: id},
-          {password: password}
-        )
-      }else if(role == 0){
-        await Admin.findByIdAndUpdate(
-          {_id: id},
-          {password: password}
-        )
-      }
-      res.send({code: 200, message: "Password reset successfully!"});
-    }catch(error){
-      console.log(error);
-      res.send({code: 400, message: "Something went wrong!"});
-    }
-})
-
-//notification
-app.get("/get_notification/:id", async(req, res)=>{
-  const id = req.params.id;
-  try{
-    const notification = await Notification.findById({_id: id});
-    res.send(notification);
-  }catch(error){
-    console.log(error);
-  }
-})
-
-app.post("/seen_notifications", upload.single(), async(req, res)=>{
+app.post("/reset-password", async (req, res) => {
   const id = req.body.id;
   const role = parseInt(req.body.role);
-  try{
-    if(role===0){
-      await Admin.findByIdAndUpdate(
-        {_id:id},
-        {unseen_notification: []}
-      )
-    }else if(role===1){
-      await Organization.findByIdAndUpdate(
-        {_id:id},
-        {unseen_notification: []}
-      )
-    }else if(role===2){
-      await Teacher.findByIdAndUpdate(
-        {_id:id},
-        {unseen_notification: []}
-      )
-    }else{
-      await Student.findByIdAndUpdate(
-        {_id:id},
-        {unseen_notification: []}
-      )
+  const password = req.body.password;
+  try {
+    if (role == 3) {
+      await Student.findByIdAndUpdate({ _id: id }, { password: password });
+    } else if (role == 2) {
+      console.log("here");
+      await Teacher.findByIdAndUpdate({ _id: id }, { password: password });
+    } else if (role == 1) {
+      await Organization.findByIdAndUpdate({ _id: id }, { password: password });
+    } else if (role == 0) {
+      await Admin.findByIdAndUpdate({ _id: id }, { password: password });
     }
-  }catch(error){
+    res.send({ code: 200, message: "Password reset successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.send({ code: 400, message: "Something went wrong!" });
+  }
+});
+
+//notification
+app.get("/get_notification/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const notification = await Notification.findById({ _id: id });
+    res.send(notification);
+  } catch (error) {
     console.log(error);
   }
-  
-})
+});
+
+app.post("/seen_notifications", upload.single(), async (req, res) => {
+  const id = req.body.id;
+  const role = parseInt(req.body.role);
+  try {
+    if (role === 0) {
+      await Student.findByIdAndUpdate({ _id: id }, { unseen_notification: [] });
+    } else if (role === 1) {
+      await Student.findByIdAndUpdate({ _id: id }, { unseen_notification: [] });
+    } else if (role === 2) {
+      await Student.findByIdAndUpdate({ _id: id }, { unseen_notification: [] });
+    } else {
+      await Student.findByIdAndUpdate({ _id: id }, { unseen_notification: [] });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = app;
