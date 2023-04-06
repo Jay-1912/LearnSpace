@@ -25,6 +25,9 @@ export class LectureContentComponent implements OnChanges {
   questions:any[] = [];
   attendedQuiz:boolean = false;
   selected_options:any[] = [];
+  quizType!:string;
+  marks:any[] = [];
+  feedback:string = "";
 
   updateProgress(){
     this.studentService.updateProgress(this.loggedInUserId, this.courseId, this.section, this.lesson).subscribe( (res)=>{
@@ -60,12 +63,16 @@ export class LectureContentComponent implements OnChanges {
           if(students.includes(this.loggedInUserId)){
             this.attendedQuiz = true;
             this.selected_options = res.quiz.students[this.loggedInUserId];
-            console.log(this.selected_options);
+            this.marks = res.quiz.marks[this.loggedInUserId];
+            if(res.quiz.feedback){
+              this.feedback = res.quiz.feedback[this.loggedInUserId];
+            }
           }else{
             this.attendedQuiz = false;
           }
         }
         this.questions = res.quiz.questions
+        this.quizType = res.quiz.type;
         for(let i=0;i<this.questions.length; i++){
           form[i] = new FormControl('');
         }

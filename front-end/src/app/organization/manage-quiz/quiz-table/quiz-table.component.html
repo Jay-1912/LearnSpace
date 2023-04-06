@@ -21,6 +21,9 @@
                     <td>{{quiz.course}}</td>
                     <td>{{quiz.questions}}</td>
                     <td>
+                        <a href="/admin/manage-quiz/student-response/{{quiz._id}}">
+                            <mat-icon>library_books</mat-icon>
+                        </a>
                         <a routerLink="/admin/manage-quiz/edit-quiz/{{quiz._id}}"><button mat-icon-button class="icon">
                             <mat-icon>edit</mat-icon>
                         </button></a>

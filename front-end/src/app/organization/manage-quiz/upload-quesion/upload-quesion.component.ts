@@ -17,6 +17,7 @@ export class UploadQuesionComponent implements OnInit{
   questions:any[] = [];
   isEdit:boolean = false;
   editIndex!:number;
+  type:string = "MCQs";
      
   constructor(private _snackBar: MatSnackBar,private route:ActivatedRoute,private fb:FormBuilder, private quizService:QuizService) {  
      
@@ -24,6 +25,7 @@ export class UploadQuesionComponent implements OnInit{
       question: '',  
       correct_option: -1,
       options: this.fb.array([]) ,  
+      marks: 0
     });  
   }  
 
@@ -61,17 +63,21 @@ export class UploadQuesionComponent implements OnInit{
     this.isEdit = true;
     let question = this.questions[index];
     this.quizForm.controls["question"].setValue(question.question);
-    while(this.options().length !== 0){
-      this.options().removeAt(0);
+    if(question.options){
+      while(this.options().length !== 0){
+        this.options().removeAt(0);
+      }
+      for(let option of question.options){
+        this.options().push(this.fb.group({  
+          option_text: ""
+        }))
+      }
+      this.quizForm.controls["options"].setValue(question.options);
+      this.selectorArrForCorrectOptions = this.options().value;
+      this.quizForm.controls["correct_option"].setValue(question.correct_option);
     }
-    for(let option of question.options){
-      this.options().push(this.fb.group({  
-        option_text: ""
-      }))
-    }
-    this.quizForm.controls["options"].setValue(question.options);
-    this.selectorArrForCorrectOptions = this.options().value;
-    this.quizForm.controls["correct_option"].setValue(question.correct_option);
+    
+    this.quizForm.controls["marks"].setValue(question.marks)
   }
 
   updateQuestion(event: Event){
@@ -79,8 +85,12 @@ export class UploadQuesionComponent implements OnInit{
     let formData = new FormData();
     formData.append("index",  this.editIndex.toString());
     formData.append("question", this.quizForm.value.question);
-    formData.append("options", JSON.stringify(this.quizForm.value.options));
-    formData.append("correct_option", this.quizForm.value.correct_option);
+    formData.append("type", this.type);
+    if(this.type!="descriptive"){
+      formData.append("options", JSON.stringify(this.quizForm.value.options));
+      formData.append("correct_option", this.quizForm.value.correct_option);
+    }
+    formData.append("marks", this.quizForm.value.marks.toString());
     this.quizService.updateQuestion(this.quizId, formData).subscribe((res)=>{
       if(res.quiz){
         this.questions = res.quiz.questions;
@@ -112,8 +122,12 @@ export class UploadQuesionComponent implements OnInit{
     event.preventDefault();
     let formData = new FormData();
     formData.append("question", this.quizForm.value.question);
-    formData.append("options", JSON.stringify(this.quizForm.value.options));
-    formData.append("correct_option", this.quizForm.value.correct_option);
+    formData.append("type", this.type);
+    if(this.type!="descriptive"){
+      formData.append("options", JSON.stringify(this.quizForm.value.options));
+      formData.append("correct_option", this.quizForm.value.correct_option);
+    }
+    formData.append("marks", this.quizForm.value.marks.toString());
     this.quizService.postQuestion(this.quizId, formData).subscribe((res)=>{
       if(res.quiz){
         this.questions = res.quiz.questions;
@@ -132,6 +146,7 @@ export class UploadQuesionComponent implements OnInit{
     this.quizService.getQuizById(this.quizId).subscribe((res)=>{
       console.log(res);
       this.questions = res.quiz.questions;
+      this.type = res.quiz.type;
     })
   }
 }

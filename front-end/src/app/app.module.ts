@@ -93,6 +93,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { OrgRegistrationFormComponent } from './org-registration-form/org-registration-form.component';
 import { PendingOrgRequestsFormComponent } from './pending-org-requests-form/pending-org-requests-form.component';
 import { ViewPendingOrganizationComponent } from './view-pending-organization/view-pending-organization.component';
+import { StudentResponseComponent } from './organization/manage-quiz/student-response/student-response.component';
+import { SingleResponseComponent } from './organization/manage-quiz/single-response/single-response.component';
 
 @NgModule({
   declarations: [
@@ -154,6 +156,8 @@ import { ViewPendingOrganizationComponent } from './view-pending-organization/vi
     OrgRegistrationFormComponent,
     PendingOrgRequestsFormComponent,
     ViewPendingOrganizationComponent,
+    StudentResponseComponent,
+    SingleResponseComponent
   ],
   imports: [
     BrowserModule,

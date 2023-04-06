@@ -24,9 +24,10 @@ app.use(express.static("public"));
 app.use("/images", express.static("images"));
 
 // "mongodb+srv://jayvadhavana23:SaiKWADtyfKL7p0j@cluster0.ffgkkwd.mongodb.net/?retryWrites=true&w=majority",
+// "mongodb+srv://jayvadhavana23:SaiKWADtyfKL7p0j@cluster0.ffgkkwd.mongodb.net/?retryWrites=true&w=majority"
 mongoose
   .connect(
-    "mongodb+srv://jayvadhavana23:SaiKWADtyfKL7p0j@cluster0.ffgkkwd.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb://0.0.0.0:27017",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

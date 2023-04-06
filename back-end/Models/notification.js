@@ -5,7 +5,7 @@ const NotificationSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    organization:{
+    targetId:{
         type: String,
         required: false,
     },

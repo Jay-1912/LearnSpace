@@ -20,7 +20,7 @@ object{
     margin-top:16px;
 }
 
-.input-field input, .input-field select{
+.input-field input, .input-field select, textarea{
     border: none;
     outline: none;
     border-bottom: 1px solid #0c1f14;
@@ -61,4 +61,9 @@ object{
 .question, .answer-label{
     font-weight: 600;
     font-size: 18px;
+}
+
+.question{
+    display: flex;
+    justify-content: space-between;
 }

@@ -80,6 +80,7 @@ export class HeaderComponent implements OnInit {
         });
       }else{
         this.superAdminService.getSuperAdminById(this.loggedInUserId).subscribe((res)=>{
+          console.log(res);
           this.imgSrc = "http://localhost:3000/images/"+res.admin.profile;
           this.notifications = res.admin.profile.unseen_notification.length;
         })

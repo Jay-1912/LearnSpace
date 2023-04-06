@@ -1,8 +1,17 @@
-.form-fields-wrapper{
-    display: grid;
-    grid-gap: 16px;
-    grid-template-columns: repeat(2, 1fr);
+.question, .answer-label{
+    font-weight: 600;
+    font-size: 18px;
 }
+.question{
+    display: flex;
+    justify-content: space-between;
+}
+.marks-assign{
+    display: flex;
+    justify-content: end;
+}
+
+
 
 .input-field{
     display: flex;
@@ -11,7 +20,11 @@
     font-weight: 600;
 }
 
-.input-field input, .input-field select{
+input[type="number"]{
+    float: right;
+}
+
+.input-field input, .input-field select, textarea{
     border: none;
     outline: none;
     border-bottom: 1px solid #0c1f14;
@@ -22,6 +35,11 @@
 
 .input-field input[type="file"]{
     border: none;
+}
+
+.input-field label{
+    font-weight: 600;
+    font-size: 18px;
 }
 
 .radio-field{
@@ -42,27 +60,4 @@
 
 .radio-field .radio-text{
     margin-right: 6px;
-}
-
-/* .icon{
-    background-color: none;
-    color: #FFFFFF;
-} */
-
-.example-action-buttons {
-    padding-bottom: 20px;
-}
-
-.example-headers-align .mat-expansion-panel-header-description {
-justify-content: space-between;
-align-items: center;
-}
-
-.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
-margin-left: 8px;
-}
-
-.question{
-    display: flex;
-    align-items: center;
 }

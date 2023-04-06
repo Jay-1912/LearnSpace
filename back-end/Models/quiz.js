@@ -28,6 +28,18 @@ const QuizSchema = new mongoose.Schema({
   students:{
     type: Object,
     required: false
+  },
+  type:{
+    type: String,
+    required: false
+  },
+  marks: {
+    type: Object,
+    required: false
+  },
+  feedback: {
+    type: Object,
+    required: false
   }
 });
 

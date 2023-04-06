@@ -43,6 +43,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { OrgRegistrationFormComponent } from './org-registration-form/org-registration-form.component';
 import { PendingOrgRequestsFormComponent } from './pending-org-requests-form/pending-org-requests-form.component';
 import { ViewPendingOrganizationComponent } from './view-pending-organization/view-pending-organization.component';
+import { StudentResponseComponent } from './organization/manage-quiz/student-response/student-response.component';
+import { SingleResponseComponent } from './organization/manage-quiz/single-response/single-response.component';
 // import { CreateQuizFormComponent } from './quiz/create-quiz-form/create-quiz-form.component';
 // import { ViewQuizComponent } from './quiz/view-quiz/view-quiz.component';
 // import { ManageQuizComponent } from './quiz/manage-quiz/manage-quiz.component';
@@ -56,10 +58,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password/:id/:token', component: ResetPasswordComponent },
-  {
-    path: 'course/:id/:title/:section/:lesson',
-    component: CourseContentComponent,
-  },
+  { path: 'course/:id/:title/:section/:lesson', component: CourseContentComponent },
   {
     path: 'org-registration',
     component: OrgRegistrationFormComponent,
@@ -126,6 +125,8 @@ const routes: Routes = [
           { path: 'add-quiz', component: QuizFormComponent },
           { path: 'edit-quiz/:id', component: QuizFormComponent },
           { path: ':id/upload-question', component: UploadQuesionComponent },
+          { path: 'student-response/:id', component: StudentResponseComponent },
+          { path: 'student-response/:quizId/:studentId', component: SingleResponseComponent }
         ],
       },
       {
