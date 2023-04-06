@@ -64,7 +64,9 @@ export class LectureContentComponent implements OnChanges {
             this.attendedQuiz = true;
             this.selected_options = res.quiz.students[this.loggedInUserId];
             this.marks = res.quiz.marks[this.loggedInUserId];
-            this.feedback = res.quiz.feedback[this.loggedInUserId];
+            if(res.quiz.feedback){
+              this.feedback = res.quiz.feedback[this.loggedInUserId];
+            }
           }else{
             this.attendedQuiz = false;
           }
