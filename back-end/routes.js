@@ -20,7 +20,7 @@ var transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: "learnspace.project@gmail.com",
-    pass: "xvopwhgjirydlozz",
+    pass: "qfieuqbklyrphpbg",
   },
 });
 

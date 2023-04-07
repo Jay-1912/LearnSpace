@@ -62,8 +62,12 @@ export class LectureContentComponent implements OnChanges {
           let students:any = Object.keys(res.quiz.students);
           if(students.includes(this.loggedInUserId)){
             this.attendedQuiz = true;
-            this.selected_options = res.quiz.students[this.loggedInUserId];
-            this.marks = res.quiz.marks[this.loggedInUserId];
+            if(res.quiz.students){
+              this.selected_options = res.quiz.students[this.loggedInUserId];
+            }
+            if(res.quiz.marks){
+              this.marks = res.quiz.marks[this.loggedInUserId];
+            }
             if(res.quiz.feedback){
               this.feedback = res.quiz.feedback[this.loggedInUserId];
             }
